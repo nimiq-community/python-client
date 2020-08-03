@@ -9,7 +9,7 @@ setup(
     description='A python client for the Nimiq JSON-RPC API',
     long_description=long_description,
     long_description_content_type='text/markdown',
-    url='http://github.com/rraallvv/NimiqClientPython',
+    url='https://github.com/nimiq-community/python-client',
     author='Nimiq Community',
     author_email='info@nimiq.com',
     license='MIT',
