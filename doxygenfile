@@ -1,0 +1,6 @@
+OUTPUT_DIRECTORY       = docs
+PROJECT_NAME           = "Nimiq Client"
+RECURSIVE              = YES
+FILE_PATTERNS          = *.py
+INPUT                  = README.md nimiqclient
+USE_MDFILE_AS_MAINPAGE = README.md

@@ -1,0 +1,82 @@
+\begin{quote}
+Python implementation of the Nimiq R\+PC client specs. \end{quote}
+\hypertarget{index_autotoc_md0}{}\doxysection{Usage}\label{index_autotoc_md0}
+Send requests to a Nimiq node with {\ttfamily Nimiq\+Client} object.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{import nimiqclient}
+\DoxyCodeLine{}
+\DoxyCodeLine{client = NimiqClient(}
+\DoxyCodeLine{    scheme = "http",}
+\DoxyCodeLine{    user = "luna",}
+\DoxyCodeLine{    password = "moon",}
+\DoxyCodeLine{    host = "127.0.0.1",}
+\DoxyCodeLine{    port = 8648}
+\DoxyCodeLine{)}
+\end{DoxyCode}
+
+
+Once the client have been set up, we can call the methods with the appropiate arguments to make requests to the Nimiq node.
+
+When no {\ttfamily config} object is passed in the initialization it will use the default values in the Nimiq node.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{client = NimiqClient()}
+\DoxyCodeLine{}
+\DoxyCodeLine{\# make rpc call to get the block number}
+\DoxyCodeLine{blockNumber = client.blockNumber()}
+\DoxyCodeLine{}
+\DoxyCodeLine{print(blockNumber) \# displays the block number, for example 748883}
+\end{DoxyCode}
+\hypertarget{index_autotoc_md1}{}\doxysection{A\+PI}\label{index_autotoc_md1}
+The complete \mbox{[}A\+PI documentation\mbox{]}(docs) is available in the {\ttfamily /docs} folder.
+
+Check out the \href{https://github.com/nimiq/core-js/wiki/JSON-RPC-API}{\texttt{ Nimiq R\+PC specs}} for behind the scene R\+PC calls.\hypertarget{index_autotoc_md2}{}\doxysection{Installation}\label{index_autotoc_md2}
+\hypertarget{index_autotoc_md3}{}\doxysubsection{From Git\+Hub repository}\label{index_autotoc_md3}
+Clone the repository then intall the package.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\$ git clone https://github.com/nimiq-\/community/python-\/client}
+\DoxyCodeLine{\$ cd python-\/client}
+\DoxyCodeLine{\$ python setup.py install}
+\end{DoxyCode}
+\hypertarget{index_autotoc_md4}{}\doxysubsection{From Python Package Index (\+Py\+P\+I)}\label{index_autotoc_md4}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\$pip install nimiqclient}
+\end{DoxyCode}
+\hypertarget{index_autotoc_md5}{}\doxysection{Contributions}\label{index_autotoc_md5}
+This implementation was originally contributed by \href{https://github.com/rraallvv/}{\texttt{ rraallvv}}.
+
+Please send your contributions as pull requests.
+
+Refer to the \href{https://github.com/nimiq-community/python-client/issues}{\texttt{ issue tracker}} for ideas.\hypertarget{index_autotoc_md6}{}\doxysubsection{Develop}\label{index_autotoc_md6}
+After cloning the repository intall the package.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\$ git clone https://github.com/nimiq-\/community/python-\/client}
+\DoxyCodeLine{\$ cd python-\/client}
+\DoxyCodeLine{\$ python setup.py install}
+\end{DoxyCode}
+
+
+All done, happy coding!\hypertarget{index_autotoc_md7}{}\doxysubsection{Testing}\label{index_autotoc_md7}
+Tests are stored in the {\ttfamily /tests} folder and can be run from the command line like this\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\$ python -\/m unittest discover -\/v}
+\end{DoxyCode}
+\hypertarget{index_autotoc_md8}{}\doxysubsection{Documentation}\label{index_autotoc_md8}
+The documentation is generated automatically running \href{https://www.doxygen.nl/download.html\#srcbin}{\texttt{ Doxygen}} from the repository root directory.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{doxygen doxygenfile}
+\end{DoxyCode}
+\hypertarget{index_autotoc_md9}{}\doxysection{License}\label{index_autotoc_md9}
+Apache 2.0 
