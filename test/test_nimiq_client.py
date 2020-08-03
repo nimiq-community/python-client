@@ -32,7 +32,7 @@ class TestNimiqClientMethods(unittest.TestCase):
 
         self.assertEqual("syncing", SessionStub.latestRequestMethod)
 
-        self.assertTrue(type(result) is not bool)
+        self.assertFalse(isinstance(result, bool))
         self.assertEqual(578430, result.startingBlock)
         self.assertEqual(586493, result.currentBlock)
         self.assertEqual(586493, result.highestBlock)
@@ -44,7 +44,7 @@ class TestNimiqClientMethods(unittest.TestCase):
 
         self.assertEqual("syncing", SessionStub.latestRequestMethod)
 
-        self.assertTrue(type(result) is bool)
+        self.assertTrue(isinstance(result, bool))
         self.assertEqual(False, result)
 
     def test_consensusState(self):
@@ -146,60 +146,56 @@ class TestNimiqClientMethods(unittest.TestCase):
     def test_createRawTransaction(self):
         SessionStub.testData = Fixtures.createRawTransactionBasic()
 
-        transaction = {
-            "from": "NQ39 NY67 X0F0 UTQE 0YER 4JEU B67L UPP8 G0FM",
-            "fromType": AccountType.BASIC,
-            "to": "NQ16 61ET MB3M 2JG6 TBLK BR0D B6EA X6XQ L91U",
-            "toType": AccountType.BASIC,
-            "value": 100000,
-            "fee": 1,
-            "data": None
-        }
+        transaction = OutgoingTransaction(
+            from_ = "NQ39 NY67 X0F0 UTQE 0YER 4JEU B67L UPP8 G0FM",
+            fromType = AccountType.BASIC,
+            to = "NQ16 61ET MB3M 2JG6 TBLK BR0D B6EA X6XQ L91U",
+            toType = AccountType.BASIC,
+            value = 100000,
+            fee =  1,
+            data = None
+        )
 
         result = self.client.createRawTransaction(transaction)
 
         self.assertEqual("createRawTransaction", SessionStub.latestRequestMethod)
 
         param = SessionStub.latestRequestParams[0]
-        self.assertEqual(param, {
-            "from": "NQ39 NY67 X0F0 UTQE 0YER 4JEU B67L UPP8 G0FM",
-            "fromType": 0,
-            "to": "NQ16 61ET MB3M 2JG6 TBLK BR0D B6EA X6XQ L91U",
-            "toType": 0,
-            "value": 100000,
-            "fee": 1,
-            "data": None
-        })
+        self.assertEqual(param.from_, "NQ39 NY67 X0F0 UTQE 0YER 4JEU B67L UPP8 G0FM")
+        self.assertEqual(param.fromType, AccountType.BASIC)
+        self.assertEqual(param.to, "NQ16 61ET MB3M 2JG6 TBLK BR0D B6EA X6XQ L91U")
+        self.assertEqual(param.toType, AccountType.BASIC)
+        self.assertEqual(param.value, 100000)
+        self.assertEqual(param.fee, 1)
+        self.assertEqual(param.data, None)
 
         self.assertEqual("00c3c0d1af80b84c3b3de4e3d79d5c8cc950e044098c969953d68bf9cee68d7b53305dbaac7514a06dae935e40d599caf1bd8a243c00000000000186a00000000000000001000af84c01239b16cee089836c2af5c7b1dbb22cdc0b4864349f7f3805909aa8cf24e4c1ff0461832e86f3624778a867d5f2ba318f92918ada7ae28d70d40c4ef1d6413802", result)
 
     def test_sendTransaction(self):
         SessionStub.testData = Fixtures.sendTransaction()
 
-        transaction = {
-            "from": "NQ39 NY67 X0F0 UTQE 0YER 4JEU B67L UPP8 G0FM",
-            "fromType": AccountType.BASIC,
-            "to": "NQ16 61ET MB3M 2JG6 TBLK BR0D B6EA X6XQ L91U",
-            "toType": AccountType.BASIC,
-            "value": 1,
-            "fee": 1,
-            "data": None
-        }
+        transaction = OutgoingTransaction(
+            from_ = "NQ39 NY67 X0F0 UTQE 0YER 4JEU B67L UPP8 G0FM",
+            fromType = AccountType.BASIC,
+            to = "NQ16 61ET MB3M 2JG6 TBLK BR0D B6EA X6XQ L91U",
+            toType = AccountType.BASIC,
+            value = 1,
+            fee = 1,
+            data = None
+        )
 
         result = self.client.sendTransaction(transaction)
 
         self.assertEqual("sendTransaction", SessionStub.latestRequestMethod)
 
         param = SessionStub.latestRequestParams[0]
-        self.assertEqual(param, {
-            "from": "NQ39 NY67 X0F0 UTQE 0YER 4JEU B67L UPP8 G0FM",
-            "fromType": 0,
-            "to": "NQ16 61ET MB3M 2JG6 TBLK BR0D B6EA X6XQ L91U",
-            "toType": 0,
-            "value": 1,
-            "fee": 1,
-            "data": None
-        })
+        self.assertEqual(param.from_, "NQ39 NY67 X0F0 UTQE 0YER 4JEU B67L UPP8 G0FM")
+        self.assertEqual(param.fromType, AccountType.BASIC)
+        self.assertEqual(param.to, "NQ16 61ET MB3M 2JG6 TBLK BR0D B6EA X6XQ L91U")
+        self.assertEqual(param.toType, AccountType.BASIC)
+        self.assertEqual(param.value, 1)
+        self.assertEqual(param.fee, 1)
+        self.assertEqual(param.data, None)
 
         self.assertEqual("81cf3f07b6b0646bb16833d57cda801ad5957e264b64705edeef6191fea0ad63", result)
 
@@ -825,8 +821,8 @@ class TestNimiqClientMethods(unittest.TestCase):
         self.assertEqual(739501, result.confirmations)
 
         self.assertEqual(2, len(result.transactions))
-        self.assertTrue(type(result.transactions[0]) is NimiqDict)
-        self.assertTrue(type(result.transactions[1]) is NimiqDict)
+        self.assertTrue(isinstance(result.transactions[0], Transaction))
+        self.assertTrue(isinstance(result.transactions[1], Transaction))
 
     def test_getBlockByHashNotFound(self):
         SessionStub.testData = Fixtures.getBlockNotFound()
@@ -872,8 +868,8 @@ class TestNimiqClientMethods(unittest.TestCase):
         self.assertEqual(739501, result.confirmations)
 
         self.assertEqual(2, len(result.transactions))
-        self.assertTrue(type(result.transactions[0]) is NimiqDict)
-        self.assertTrue(type(result.transactions[1]) is NimiqDict)
+        self.assertTrue(isinstance(result.transactions[0], Transaction))
+        self.assertTrue(isinstance(result.transactions[1], Transaction))
 
     def test_getBlockByNumberNotFound(self):
         SessionStub.testData = Fixtures.getBlockNotFound()
