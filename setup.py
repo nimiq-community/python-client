@@ -12,7 +12,7 @@ setup(
     url='https://github.com/nimiq-community/python-client',
     author='Nimiq Community',
     author_email='info@nimiq.com',
-    license='MIT',
+    license='Apache 2.0',
     packages=['nimiqclient'],
     zip_safe=True,
     install_requires=[
