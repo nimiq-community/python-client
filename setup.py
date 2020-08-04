@@ -10,7 +10,7 @@ setup(
     long_description=long_description,
     long_description_content_type='text/markdown',
     url='https://github.com/nimiq-community/python-client',
-    author='Nimiq Community',
+    author='The Nimiq Foundation',
     author_email='info@nimiq.com',
     license='Apache 2.0',
     packages=['nimiqclient'],
