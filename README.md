@@ -86,10 +86,18 @@ $ python -m unittest discover -v
 
 ### Documentation
 
-The documentation is generated automatically running [Doxygen](https://www.doxygen.nl/download.html#srcbin) from the repository root directory.
+The documentation is generated automatically with [Sphinx](https://www.sphinx-doc.org/en/master/).
+
+From the root directory install the development requeriments:
 
 ```sh
-doxygen doxygenfile
+$ pip install -r requirements-dev.txt
+```
+
+Run Sphinx from the `/docs` folder:
+
+```sh
+$ make html
 ```
 
 ## License
