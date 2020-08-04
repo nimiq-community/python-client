@@ -2,7 +2,6 @@ __all__ = [
     "NimiqClient",
     "InternalErrorException",
     "RemoteErrorException",
-    "ConnectionErrorException",
     "ConsensusState",
     "AccountType",
     "LogLevel",
@@ -171,6 +170,9 @@ class ConsensusState(str, Enum):
     ESTABLISHED = "established"
     """Consensus established."""
 
+    def __str__(self):
+        return self.value
+
 class Wallet():
     """
     Nimiq wallet returned by the server.
@@ -218,15 +220,17 @@ class OutgoingTransaction():
         self.fee = fee
         self.data = data
 
-    def __getattribute__(self, attr):
-        if attr.endswith("_"):
-            attr = attr[:-1]
-        return self.__dict__[attr]
-
-    def __setattribute__(self, key, value):
-        if key.endswith("_"):
-            key = key[:-1]
-        self.__dict__[key] = value
+    def __getattr__(self, attr):
+        if attr == "from_":
+            return self.__dict__.__getitem__("from")
+        else:
+            return self.__dict__.__getitem__(attr)
+    
+    def __setattr__(self, attr, value):
+        if attr == "from_":
+            self.__dict__.__setitem__("from", value)
+        else:
+            self.__dict__.__setitem__(attr, value)
 
 class Transaction():
     """
@@ -283,15 +287,17 @@ class Transaction():
         self.valid = valid
         self.inMempool = inMempool
 
-    def __getattribute__(self, attr):
-        if attr.endswith("_"):
-            attr = attr[:-1]
-        return self.__dict__[attr]
-
-    def __setattribute__(self, key, value):
-        if key.endswith("_"):
-            key = key[:-1]
-        self.__dict__[key] = value
+    def __getattr__(self, attr):
+        if attr == "from_":
+            return self.__dict__.__getitem__("from")
+        else:
+            return self.__dict__.__getitem__(attr)
+    
+    def __setattr__(self, attr, value):
+        if attr == "from_":
+            self.__dict__.__setitem__("from", value)
+        else:
+            self.__dict__.__setitem__(attr, value)
 
     @staticmethod
     def fromDict(transaction):
@@ -496,6 +502,9 @@ class LogLevel(str, Enum):
     ASSERT = "assert"
     """Assertions level log."""
 
+    def __str__(self):
+        return self.value
+
 class MempoolInfo():
     """
     Mempool information returned by the server.
@@ -594,6 +603,9 @@ class PeerStateCommand(str, Enum):
     UNBAN = "unban"
     """Unban."""
 
+    def __str__(self):
+        return self.value
+
 class PoolConnectionState(int, Enum):
     """
     Pool connection state information returned by the server.
@@ -633,12 +645,6 @@ class RemoteErrorException(Exception):
     """
     def __init__(self, message, code):
         super(RemoteErrorException, self).__init__("{0} ({1})".format(message, code))
-
-class ConnectionErrorException(Exception):
-    """
-    Error with connection.
-    """
-    pass
 
 class NimiqClient:
     """
@@ -689,6 +695,7 @@ class NimiqClient:
         logger.info("Request: {0}".format(call_object))
 
         # make request
+        requestError = None
         try:
             resp_object = self.session.post(
                 self.url,
@@ -698,12 +705,12 @@ class NimiqClient:
 
             logger.info("Response: {0}".format(resp_object))
 
-        # raise if there are any errors
-        except Exception as error:
-            if error is requests.exceptions.RequestException:
-                raise ConnectionErrorException(error)
-            else:
-                raise InternalErrorException(error)
+        except Exception as e:
+            requestError = e
+
+        # raise if there was any error
+        if requestError is not None:
+            raise InternalErrorException(requestError)
 
         error = resp_object.get("error")
         if error is not None:

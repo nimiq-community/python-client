@@ -152,7 +152,7 @@ class TestNimiqClientMethods(unittest.TestCase):
             to = "NQ16 61ET MB3M 2JG6 TBLK BR0D B6EA X6XQ L91U",
             toType = AccountType.BASIC,
             value = 100000,
-            fee =  1,
+            fee = 1,
             data = None
         )
 
@@ -161,13 +161,15 @@ class TestNimiqClientMethods(unittest.TestCase):
         self.assertEqual("createRawTransaction", SessionStub.latestRequestMethod)
 
         param = SessionStub.latestRequestParams[0]
-        self.assertEqual(param.from_, "NQ39 NY67 X0F0 UTQE 0YER 4JEU B67L UPP8 G0FM")
-        self.assertEqual(param.fromType, AccountType.BASIC)
-        self.assertEqual(param.to, "NQ16 61ET MB3M 2JG6 TBLK BR0D B6EA X6XQ L91U")
-        self.assertEqual(param.toType, AccountType.BASIC)
-        self.assertEqual(param.value, 100000)
-        self.assertEqual(param.fee, 1)
-        self.assertEqual(param.data, None)
+        self.assertEqual(param.__dict__, {
+            "from": "NQ39 NY67 X0F0 UTQE 0YER 4JEU B67L UPP8 G0FM",
+            "fromType": AccountType.BASIC,
+            "to": "NQ16 61ET MB3M 2JG6 TBLK BR0D B6EA X6XQ L91U",
+            "toType": AccountType.BASIC,
+            "value": 100000,
+            "fee": 1,
+            "data": None
+        })
 
         self.assertEqual("00c3c0d1af80b84c3b3de4e3d79d5c8cc950e044098c969953d68bf9cee68d7b53305dbaac7514a06dae935e40d599caf1bd8a243c00000000000186a00000000000000001000af84c01239b16cee089836c2af5c7b1dbb22cdc0b4864349f7f3805909aa8cf24e4c1ff0461832e86f3624778a867d5f2ba318f92918ada7ae28d70d40c4ef1d6413802", result)
 
@@ -179,7 +181,7 @@ class TestNimiqClientMethods(unittest.TestCase):
             fromType = AccountType.BASIC,
             to = "NQ16 61ET MB3M 2JG6 TBLK BR0D B6EA X6XQ L91U",
             toType = AccountType.BASIC,
-            value = 1,
+            value = 100000,
             fee = 1,
             data = None
         )
@@ -189,13 +191,15 @@ class TestNimiqClientMethods(unittest.TestCase):
         self.assertEqual("sendTransaction", SessionStub.latestRequestMethod)
 
         param = SessionStub.latestRequestParams[0]
-        self.assertEqual(param.from_, "NQ39 NY67 X0F0 UTQE 0YER 4JEU B67L UPP8 G0FM")
-        self.assertEqual(param.fromType, AccountType.BASIC)
-        self.assertEqual(param.to, "NQ16 61ET MB3M 2JG6 TBLK BR0D B6EA X6XQ L91U")
-        self.assertEqual(param.toType, AccountType.BASIC)
-        self.assertEqual(param.value, 1)
-        self.assertEqual(param.fee, 1)
-        self.assertEqual(param.data, None)
+        self.assertEqual(param.__dict__, {
+            "from": "NQ39 NY67 X0F0 UTQE 0YER 4JEU B67L UPP8 G0FM",
+            "fromType": AccountType.BASIC,
+            "to": "NQ16 61ET MB3M 2JG6 TBLK BR0D B6EA X6XQ L91U",
+            "toType": AccountType.BASIC,
+            "value": 100000,
+            "fee": 1,
+            "data": None
+        })
 
         self.assertEqual("81cf3f07b6b0646bb16833d57cda801ad5957e264b64705edeef6191fea0ad63", result)
 
