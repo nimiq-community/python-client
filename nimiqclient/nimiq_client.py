@@ -26,6 +26,8 @@ __all__ = [
     "SyncStatus"
 ]
 
+__metaclass__ = type
+
 import requests
 from requests.auth import HTTPBasicAuth
 from enum import Enum
@@ -64,7 +66,7 @@ class Account():
         self.balance = balance
         self.type = type
 
-class VestingContract():
+class VestingContract(Account):
     """
     Vesting contract object returned by the server.
 
@@ -90,10 +92,7 @@ class VestingContract():
     :type vestingTotalAmount: int
     """
     def __init__(self, id, address, balance, type, owner, ownerAddress, vestingStart, vestingStepBlocks, vestingStepAmount, vestingTotalAmount):
-        self.id = id
-        self.address = address
-        self.balance = balance
-        self.type = type
+        super(VestingContract, self).__init__(id, address, balance, type)
         self.owner = owner
         self.ownerAddress = ownerAddress
         self.vestingStart = vestingStart
@@ -101,7 +100,7 @@ class VestingContract():
         self.vestingStepAmount = vestingStepAmount
         self.vestingTotalAmount = vestingTotalAmount
 
-class HTLC():
+class HTLC(Account):
     """
     Hashed Timelock Contract object returned by the server.
 
@@ -133,10 +132,7 @@ class HTLC():
     :type totalAmount: int
     """
     def __init__(self, id, address, balance, type, sender, senderAddress, recipient, recipientAddress, hashRoot, hashAlgorithm, hashCount, timeout, totalAmount):
-        self.id = id
-        self.address = address
-        self.balance = balance
-        self.type = type
+        super(HTLC, self).__init__(id, address, balance, type)        
         self.sender = sender
         self.senderAddress = senderAddress
         self.recipient = recipient
