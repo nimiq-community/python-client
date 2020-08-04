@@ -1186,8 +1186,8 @@ class NimiqClient:
         """
         Creates new message call transaction or a contract creation, if the data field contains code.
 
-        :param transaction: The OutgoingTransaction object
-        :type transaction: Transaction
+        :param transaction: The transaction object.
+        :type transaction: OutgoingTransaction
         :return: The Hex-encoded transaction hash.
         :rtype: str
         """
