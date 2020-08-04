@@ -29,6 +29,7 @@ __all__ = [
 import requests
 from requests.auth import HTTPBasicAuth
 from enum import Enum
+import json
 import logging
 
 logger = logging.getLogger(__name__)
@@ -178,7 +179,7 @@ class Wallet():
     Nimiq wallet returned by the server.
 
     :param id: Hex-encoded 20 byte address.
-    :type id: str 
+    :type id: str
     :param address: User friendly address (NQ-address).
     :type address: str
     :param publicKey: Hex-encoded 32 byte Ed25519 public key.
@@ -225,12 +226,15 @@ class OutgoingTransaction():
             return self.__dict__.__getitem__("from")
         else:
             return self.__dict__.__getitem__(attr)
-    
+
     def __setattr__(self, attr, value):
         if attr == "from_":
             self.__dict__.__setitem__("from", value)
         else:
             self.__dict__.__setitem__(attr, value)
+
+    def __repr__(self):
+        return json.dumps(self.__dict__)
 
 class Transaction():
     """
@@ -292,12 +296,15 @@ class Transaction():
             return self.__dict__.__getitem__("from")
         else:
             return self.__dict__.__getitem__(attr)
-    
+
     def __setattr__(self, attr, value):
         if attr == "from_":
             self.__dict__.__setitem__("from", value)
         else:
             self.__dict__.__setitem__(attr, value)
+
+    def __repr__(self):
+        return json.dumps(self.__dict__)
 
     @staticmethod
     def fromDict(transaction):
