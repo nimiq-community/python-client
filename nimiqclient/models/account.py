@@ -1,9 +1,9 @@
 __all__ = [
-	"AccountType",
-	"Account",
+    "AccountType",
+    "Account",
     "VestingContract",
     "HTLC",
-	"Wallet"
+    "Wallet"
 ]
 
 __metaclass__ = type

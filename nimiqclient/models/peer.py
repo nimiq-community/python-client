@@ -1,8 +1,8 @@
 __all__ = [
-	"PeerAddressState",
-	"PeerConnectionState",
-	"PeerStateCommand",
-	"Peer"
+    "PeerAddressState",
+    "PeerConnectionState",
+    "PeerStateCommand",
+    "Peer"
 ]
 
 from enum import Enum

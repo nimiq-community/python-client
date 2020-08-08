@@ -1,6 +1,6 @@
 __all__ = [
-	"ConsensusState",
-	"SyncStatus"
+    "ConsensusState",
+    "SyncStatus"
 ]
 
 from enum import Enum
