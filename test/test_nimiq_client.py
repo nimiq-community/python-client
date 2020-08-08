@@ -391,7 +391,7 @@ class TestNimiqClientMethods(unittest.TestCase):
         result = self.client.mempoolContent()
 
         self.assertEqual("mempoolContent", SessionStub.latestRequestMethod)
-        self.assertEqual(False, SessionStub.latestRequestParams[0])
+        self.assertEqual(0, len(SessionStub.latestRequestParams))
 
         self.assertEqual(3, len(result))
         self.assertTrue(result[0] is not None)
@@ -799,7 +799,7 @@ class TestNimiqClientMethods(unittest.TestCase):
 
         self.assertEqual("getBlockByHash", SessionStub.latestRequestMethod)
         self.assertEqual("bc3945d22c9f6441409a6e539728534a4fc97859bda87333071fad9dad942786", SessionStub.latestRequestParams[0])
-        self.assertEqual(False, SessionStub.latestRequestParams[1])
+        self.assertEqual(1, len(SessionStub.latestRequestParams))
 
         self.assertTrue(result is not None)
         self.assertEqual(11608, result.number)
@@ -835,7 +835,7 @@ class TestNimiqClientMethods(unittest.TestCase):
 
         self.assertEqual("getBlockByHash", SessionStub.latestRequestMethod)
         self.assertEqual("bc3945d22c9f6441409a6e539728534a4fc97859bda87333071fad9dad942786", SessionStub.latestRequestParams[0])
-        self.assertEqual(False, SessionStub.latestRequestParams[1])
+        self.assertEqual(1, len(SessionStub.latestRequestParams))
 
         self.assertTrue(result is None)
 
@@ -846,7 +846,7 @@ class TestNimiqClientMethods(unittest.TestCase):
 
         self.assertEqual("getBlockByNumber", SessionStub.latestRequestMethod)
         self.assertEqual(11608, SessionStub.latestRequestParams[0])
-        self.assertEqual(False, SessionStub.latestRequestParams[1])
+        self.assertEqual(1, len(SessionStub.latestRequestParams))
 
         self.assertTrue(result is not None)
         self.assertEqual(11608, result.number)
@@ -882,7 +882,7 @@ class TestNimiqClientMethods(unittest.TestCase):
 
         self.assertEqual("getBlockByNumber", SessionStub.latestRequestMethod)
         self.assertEqual(11608, SessionStub.latestRequestParams[0])
-        self.assertEqual(False, SessionStub.latestRequestParams[1])
+        self.assertEqual(1, len(SessionStub.latestRequestParams))
 
         self.assertTrue(result is None)
 
