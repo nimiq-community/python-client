@@ -5,13 +5,13 @@ __all__ = [
     "LogLevel"
 ]
 
-from models.account import *
-from models.block import *
-from models.mempool import *
-from models.miner import *
-from models.node import *
-from models.peer import *
-from models.transaction import *
+from .models.account import *
+from .models.block import *
+from .models.mempool import *
+from .models.miner import *
+from .models.node import *
+from .models.peer import *
+from .models.transaction import *
 
 import requests
 from requests.auth import HTTPBasicAuth
