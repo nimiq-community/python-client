@@ -687,6 +687,9 @@ class NimiqClient:
         :rtype: dict
         """
 
+        # increase the JSONRPC client request id
+        self.id += 1
+
         # make JSON object to send to the server
         call_object = {
             "jsonrpc": "2.0",
@@ -718,9 +721,6 @@ class NimiqClient:
         error = resp_object.get("error")
         if error is not None:
             raise RemoteErrorException(error.get("message"), error.get("code"))
-
-        # increase the JSONRPC client request id for the next request
-        self.id += 1
 
         return resp_object.get("result")
 

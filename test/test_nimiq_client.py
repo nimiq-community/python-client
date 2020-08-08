@@ -156,8 +156,6 @@ class TestNimiqClientMethods(unittest.TestCase):
             data = None
         )
 
-        print("!!!", transaction.__repr__())
-
         result = self.client.createRawTransaction(transaction)
 
         self.assertEqual("createRawTransaction", SessionStub.latestRequestMethod)

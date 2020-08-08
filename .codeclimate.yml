@@ -1,0 +1,19 @@
+version: "2"
+checks:
+  argument-count:
+    config:
+      threshold: 6
+  file-lines:
+    config:
+      threshold: 500
+  method-count:
+    config:
+      threshold: 50
+  method-lines:
+    config:
+      threshold: 50
+exclude_patterns:
+- test/
+- docs/
+- build/
+- dist/
