@@ -1,0 +1,7 @@
+renderer:
+  type: mkdocs
+  pages:
+  - title: Home
+    contents:
+    - 'nimiqclient.*'
+  output_directory: docs

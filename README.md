@@ -86,18 +86,18 @@ $ python -m unittest discover -v
 
 ### Documentation
 
-The documentation is generated automatically with [Sphinx](https://www.sphinx-doc.org/en/master/).
+The documentation is generated automatically with [pydoc-markdown](https://pydoc-markdown.readthedocs.io).
 
-From the root directory install the development requeriments:
+First install the development requeriments:
 
 ```sh
 $ pip install -r requirements-dev.txt
 ```
 
-Run Sphinx from the `/docs` folder:
+Then run the command `pydoc-markdown` from the repository's root folder:
 
 ```sh
-$ make html
+$ pydoc-markdown
 ```
 
 ## License

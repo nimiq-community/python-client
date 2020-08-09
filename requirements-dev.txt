@@ -1,1 +1,2 @@
-sphinx
+pydoc-markdown
+mkdocs
