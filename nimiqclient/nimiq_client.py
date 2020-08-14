@@ -20,19 +20,6 @@ import logging
 
 logger = logging.getLogger(__name__)
 
-class RawAccount():
-    """
-    Nimiq account returned by the server. The especific type is in the associated value.
-    """
-    def __init__(self, **kwargs):
-        type = kwargs.get("type")
-        if type == AccountType.BASIC:
-            self.value = Account(**kwargs)
-        elif type == AccountType.VESTING:
-            self.value = VestingContract(**kwargs)
-        elif type == AccountType.HTLC:
-            self.value = HTLC(**kwargs)
-
 class LogLevel(str, Enum):
     """
     Used to set the log level in the JSONRPC server.
@@ -143,6 +130,25 @@ class NimiqClient:
 
         return resp_object.get("result")
 
+    def __get_account(self, data):
+        """
+        Get the specific account type from the dictionary data.
+
+        :param data: The dictionary containing the data.
+        :type data: dict
+        :return: Account object.
+        :rtype: Account or VestingContract or HTLC
+        """
+        type = data.get("type")
+        if type == AccountType.BASIC:
+            return Account(**data)
+        elif type == AccountType.VESTING:
+            return VestingContract(**data)
+        elif type == AccountType.HTLC:
+            return HTLC(**data)
+        else:
+            return None
+
     def accounts(self):
         """
         Returns a list of addresses owned by client.
@@ -150,7 +156,7 @@ class NimiqClient:
         :return: List of Accounts owned by the client.
         :rtype: list of (Account or VestingContract or HTLC)
         """
-        return [RawAccount(**account).value for account in self.__call("accounts")]
+        return [self.__get_account(account) for account in self.__call("accounts")]
 
     def blockNumber(self):
         """
@@ -217,7 +223,7 @@ class NimiqClient:
         :return: Details about the account. Returns the default empty basic account for non-existing accounts.
         :rtype: Account or VestingContract or HTLC
         """
-        return RawAccount(**self.__call("getAccount", address)).value
+        return self.__get_account(self.__call("getAccount", address))
 
     def getBalance(self, address):
         """
