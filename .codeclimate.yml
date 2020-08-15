@@ -2,10 +2,10 @@ version: "2"
 checks:
   argument-count:
     config:
-      threshold: 6
+      threshold: 16
   file-lines:
     config:
-      threshold: 500
+      threshold: 600
   method-count:
     config:
       threshold: 50
