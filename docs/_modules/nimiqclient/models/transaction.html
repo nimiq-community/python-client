@@ -1,0 +1,358 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>nimiqclient.models.transaction &mdash; Nimiq Python Client 1.0 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+
+  
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+        <script src="../../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home" alt="Documentation Home"> Nimiq Python Client
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">API Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../_autosummary/nimiqclient.html">nimiqclient</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">Nimiq Python Client</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+        
+      <li>nimiqclient.models.transaction</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for nimiqclient.models.transaction</h1><div class="highlight"><pre>
+<span></span><span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s2">&quot;OutgoingTransaction&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Transaction&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;TransactionReceipt&quot;</span>
+<span class="p">]</span>
+
+<span class="kn">from</span> <span class="nn">.account</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">import</span> <span class="nn">json</span>
+
+<div class="viewcode-block" id="OutgoingTransaction"><a class="viewcode-back" href="../../../_autosummary/nimiqclient.models.transaction.OutgoingTransaction.html#nimiqclient.models.transaction.OutgoingTransaction">[docs]</a><span class="k">class</span> <span class="nc">OutgoingTransaction</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Used to pass the data to send transaccions.</span>
+
+<span class="sd">    :param from_: The address the transaction is send from.</span>
+<span class="sd">    :type from_: str</span>
+<span class="sd">    :param fromType: The account type at the given address.</span>
+<span class="sd">    :type fromType: AccountType, optional</span>
+<span class="sd">    :param to: The address the transaction is directed to.</span>
+<span class="sd">    :type to: str</span>
+<span class="sd">    :param toType: The account type at the given address.</span>
+<span class="sd">    :type toType: AccountType, optional</span>
+<span class="sd">    :param value: Integer of the value (in smallest unit) sent with this transaction.</span>
+<span class="sd">    :type value: int</span>
+<span class="sd">    :param fee: Integer of the fee (in smallest unit) for this transaction.</span>
+<span class="sd">    :type fee: int</span>
+<span class="sd">    :param data: Hex-encoded contract parameters or a message.</span>
+<span class="sd">    :type data: str, optional</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">from_</span><span class="p">,</span> <span class="n">to</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">fee</span><span class="p">,</span> <span class="n">fromType</span> <span class="o">=</span> <span class="n">AccountType</span><span class="o">.</span><span class="n">BASIC</span><span class="p">,</span> <span class="n">toType</span> <span class="o">=</span> <span class="n">AccountType</span><span class="o">.</span><span class="n">BASIC</span><span class="p">,</span> <span class="n">data</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">from_</span> <span class="o">=</span> <span class="n">from_</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fromType</span> <span class="o">=</span> <span class="n">fromType</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">to</span> <span class="o">=</span> <span class="n">to</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">toType</span> <span class="o">=</span> <span class="n">toType</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="n">value</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fee</span> <span class="o">=</span> <span class="n">fee</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">data</span>
+
+    <span class="k">def</span> <span class="fm">__getattr__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">attr</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">attr</span> <span class="o">==</span> <span class="s2">&quot;from_&quot;</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span><span class="o">.</span><span class="fm">__getitem__</span><span class="p">(</span><span class="s2">&quot;from&quot;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span><span class="o">.</span><span class="fm">__getitem__</span><span class="p">(</span><span class="n">attr</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__setattr__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">attr</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">attr</span> <span class="o">==</span> <span class="s2">&quot;from_&quot;</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span><span class="o">.</span><span class="fm">__setitem__</span><span class="p">(</span><span class="s2">&quot;from&quot;</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span><span class="o">.</span><span class="fm">__setitem__</span><span class="p">(</span><span class="n">attr</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Transaction"><a class="viewcode-back" href="../../../_autosummary/nimiqclient.models.transaction.Transaction.html#nimiqclient.models.transaction.Transaction">[docs]</a><span class="k">class</span> <span class="nc">Transaction</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Transaction returned by the server.</span>
+
+<span class="sd">    :param hash: Hex-encoded hash of the transaction.</span>
+<span class="sd">    :type hash: str</span>
+<span class="sd">    :param blockHash: Hex-encoded hash of the block containing the transaction.</span>
+<span class="sd">    :type blockHash: str, optional</span>
+<span class="sd">    :param blockNumber: Height of the block containing the transaction.</span>
+<span class="sd">    :type blockNumber: int, optional</span>
+<span class="sd">    :param timestamp: UNIX timestamp of the block containing the transaction.</span>
+<span class="sd">    :type timestamp: int, optional</span>
+<span class="sd">    :param confirmations: Number of confirmations of the block containing the transaction.</span>
+<span class="sd">    :type confirmations: int, optional</span>
+<span class="sd">    :param transactionIndex: Index of the transaction in the block.</span>
+<span class="sd">    :type transactionIndex: int, optional</span>
+<span class="sd">    :param from_: Hex-encoded address of the sending account.</span>
+<span class="sd">    :type from_: str</span>
+<span class="sd">    :param fromAddress: Nimiq user friendly address (NQ-address) of the sending account.</span>
+<span class="sd">    :type fromAddress: str</span>
+<span class="sd">    :param to: Hex-encoded address of the recipient account.</span>
+<span class="sd">    :type to: str</span>
+<span class="sd">    :param toAddress: Nimiq user friendly address (NQ-address) of the recipient account.</span>
+<span class="sd">    :type toAddress: str</span>
+<span class="sd">    :param value: Integer of the value (in smallest unit) sent with this transaction.</span>
+<span class="sd">    :type value: int</span>
+<span class="sd">    :param fee: Integer of the fee (in smallest unit) for this transaction.</span>
+<span class="sd">    :type fee: int</span>
+<span class="sd">    :param data: Hex-encoded contract parameters or a message.</span>
+<span class="sd">    :type data: str, optional</span>
+<span class="sd">    :param flags: Bit-encoded transaction flags.</span>
+<span class="sd">    :type flags: int</span>
+<span class="sd">    :param valid: Is valid transaction.</span>
+<span class="sd">    :type valid: bool, optional</span>
+<span class="sd">    :param inMempool: Transaction is in mempool.</span>
+<span class="sd">    :type inMempool: bool, optional</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">hash</span><span class="p">,</span> <span class="n">from_</span><span class="p">,</span> <span class="n">fromAddress</span><span class="p">,</span> <span class="n">to</span><span class="p">,</span> <span class="n">toAddress</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">fee</span><span class="p">,</span> <span class="n">flags</span><span class="p">,</span> <span class="n">blockHash</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">blockNumber</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">timestamp</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">confirmations</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">transactionIndex</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">data</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">valid</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">inMempool</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">hash</span> <span class="o">=</span> <span class="nb">hash</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">blockHash</span> <span class="o">=</span> <span class="n">blockHash</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">blockNumber</span> <span class="o">=</span> <span class="n">blockNumber</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">timestamp</span> <span class="o">=</span> <span class="n">timestamp</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">confirmations</span> <span class="o">=</span> <span class="n">confirmations</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">transactionIndex</span> <span class="o">=</span> <span class="n">transactionIndex</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">from_</span> <span class="o">=</span> <span class="n">from_</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fromAddress</span> <span class="o">=</span> <span class="n">fromAddress</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">to</span> <span class="o">=</span> <span class="n">to</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">toAddress</span> <span class="o">=</span> <span class="n">toAddress</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="n">value</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fee</span> <span class="o">=</span> <span class="n">fee</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">data</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">flags</span> <span class="o">=</span> <span class="n">flags</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">valid</span> <span class="o">=</span> <span class="n">valid</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">inMempool</span> <span class="o">=</span> <span class="n">inMempool</span>
+
+    <span class="k">def</span> <span class="fm">__getattr__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">attr</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">attr</span> <span class="o">==</span> <span class="s2">&quot;from_&quot;</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span><span class="o">.</span><span class="fm">__getitem__</span><span class="p">(</span><span class="s2">&quot;from&quot;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span><span class="o">.</span><span class="fm">__getitem__</span><span class="p">(</span><span class="n">attr</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__setattr__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">attr</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">attr</span> <span class="o">==</span> <span class="s2">&quot;from_&quot;</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span><span class="o">.</span><span class="fm">__setitem__</span><span class="p">(</span><span class="s2">&quot;from&quot;</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span><span class="o">.</span><span class="fm">__setitem__</span><span class="p">(</span><span class="n">attr</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span><span class="p">)</span>
+
+<div class="viewcode-block" id="Transaction.fromDict"><a class="viewcode-back" href="../../../_autosummary/nimiqclient.models.transaction.Transaction.html#nimiqclient.models.transaction.Transaction.fromDict">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">fromDict</span><span class="p">(</span><span class="n">transaction</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Create Transaction object from dict</span>
+
+<span class="sd">        :param transaction: dict with transaction data.</span>
+<span class="sd">        :type: dict</span>
+<span class="sd">        :return: Transaction object.</span>
+<span class="sd">        :rtype: Transaction</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="s2">&quot;from&quot;</span> <span class="ow">in</span> <span class="n">transaction</span><span class="p">:</span>
+            <span class="n">transaction</span><span class="p">[</span><span class="s2">&quot;from_&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">transaction</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;from&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">Transaction</span><span class="p">(</span><span class="o">**</span><span class="n">transaction</span><span class="p">)</span></div></div>
+
+<div class="viewcode-block" id="TransactionReceipt"><a class="viewcode-back" href="../../../_autosummary/nimiqclient.models.transaction.TransactionReceipt.html#nimiqclient.models.transaction.TransactionReceipt">[docs]</a><span class="k">class</span> <span class="nc">TransactionReceipt</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Transaction receipt returned by the server.</span>
+
+<span class="sd">    :param transactionHash: Hex-encoded hash of the transaction.</span>
+<span class="sd">    :type transactionHash: str</span>
+<span class="sd">    :param transactionIndex: Integer of the transactions index position in the block.</span>
+<span class="sd">    :type transactionIndex: int</span>
+<span class="sd">    :param blockHash: Hex-encoded hash of the block where this transaction was in.</span>
+<span class="sd">    :type blockHash: str</span>
+<span class="sd">    :param blockNumber: Block number where this transaction was in.</span>
+<span class="sd">    :type blockNumber: int</span>
+<span class="sd">    :param confirmations: Number of confirmations for this transaction (number of blocks on top of the block where this transaction was in).</span>
+<span class="sd">    :type confirmations: int</span>
+<span class="sd">    :param timestamp: Timestamp of the block where this transaction was in.</span>
+<span class="sd">    :type timestamp: int</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">transactionHash</span><span class="p">,</span> <span class="n">transactionIndex</span><span class="p">,</span> <span class="n">blockHash</span><span class="p">,</span> <span class="n">blockNumber</span><span class="p">,</span> <span class="n">confirmations</span><span class="p">,</span> <span class="n">timestamp</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">transactionHash</span> <span class="o">=</span> <span class="n">transactionHash</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">transactionIndex</span> <span class="o">=</span> <span class="n">transactionIndex</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">blockHash</span> <span class="o">=</span> <span class="n">blockHash</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">blockNumber</span> <span class="o">=</span> <span class="n">blockNumber</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">confirmations</span> <span class="o">=</span> <span class="n">confirmations</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">timestamp</span> <span class="o">=</span> <span class="n">timestamp</span></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        
+        &copy; Copyright 
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

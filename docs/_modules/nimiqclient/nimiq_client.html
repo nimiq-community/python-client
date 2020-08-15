@@ -1,0 +1,856 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>nimiqclient.nimiq_client &mdash; Nimiq Python Client 1.0 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+
+  
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../index.html" class="icon icon-home" alt="Documentation Home"> Nimiq Python Client
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">API Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../_autosummary/nimiqclient.html">nimiqclient</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">Nimiq Python Client</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../index.html">Module code</a> &raquo;</li>
+        
+      <li>nimiqclient.nimiq_client</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for nimiqclient.nimiq_client</h1><div class="highlight"><pre>
+<span></span><span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s2">&quot;NimiqClient&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;InternalErrorException&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;RemoteErrorException&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;LogLevel&quot;</span>
+<span class="p">]</span>
+
+<span class="kn">from</span> <span class="nn">.models.account</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">.models.block</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">.models.mempool</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">.models.miner</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">.models.node</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">.models.peer</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">.models.transaction</span> <span class="kn">import</span> <span class="o">*</span>
+
+<span class="kn">import</span> <span class="nn">requests</span>
+<span class="kn">from</span> <span class="nn">requests.auth</span> <span class="kn">import</span> <span class="n">HTTPBasicAuth</span>
+<span class="kn">from</span> <span class="nn">enum</span> <span class="kn">import</span> <span class="n">Enum</span>
+<span class="kn">import</span> <span class="nn">logging</span>
+
+<span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
+
+<div class="viewcode-block" id="LogLevel"><a class="viewcode-back" href="../../_autosummary/nimiqclient.nimiq_client.LogLevel.html#nimiqclient.nimiq_client.LogLevel">[docs]</a><span class="k">class</span> <span class="nc">LogLevel</span><span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="n">Enum</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Used to set the log level in the JSONRPC server.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">TRACE</span> <span class="o">=</span> <span class="s2">&quot;trace&quot;</span>
+    <span class="sd">&quot;&quot;&quot;Trace level log.&quot;&quot;&quot;</span>
+    <span class="n">VERBOSE</span> <span class="o">=</span> <span class="s2">&quot;verbose&quot;</span>
+    <span class="sd">&quot;&quot;&quot;Verbose level log.&quot;&quot;&quot;</span>
+    <span class="n">DEBUG</span> <span class="o">=</span> <span class="s2">&quot;debug&quot;</span>
+    <span class="sd">&quot;&quot;&quot;Debugging level log.&quot;&quot;&quot;</span>
+    <span class="n">INFO</span> <span class="o">=</span> <span class="s2">&quot;info&quot;</span>
+    <span class="sd">&quot;&quot;&quot;Info level log.&quot;&quot;&quot;</span>
+    <span class="n">WARN</span> <span class="o">=</span> <span class="s2">&quot;warn&quot;</span>
+    <span class="sd">&quot;&quot;&quot;Warning level log.&quot;&quot;&quot;</span>
+    <span class="n">ERROR</span> <span class="o">=</span> <span class="s2">&quot;error&quot;</span>
+    <span class="sd">&quot;&quot;&quot;Error level log.&quot;&quot;&quot;</span>
+    <span class="n">ASSERT</span> <span class="o">=</span> <span class="s2">&quot;assert&quot;</span>
+    <span class="sd">&quot;&quot;&quot;Assertions level log.&quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">value</span></div>
+
+<div class="viewcode-block" id="InternalErrorException"><a class="viewcode-back" href="../../_autosummary/nimiqclient.nimiq_client.InternalErrorException.html#nimiqclient.nimiq_client.InternalErrorException">[docs]</a><span class="k">class</span> <span class="nc">InternalErrorException</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Internal error during a JSON RPC request.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">pass</span></div>
+
+<div class="viewcode-block" id="RemoteErrorException"><a class="viewcode-back" href="../../_autosummary/nimiqclient.nimiq_client.RemoteErrorException.html#nimiqclient.nimiq_client.RemoteErrorException">[docs]</a><span class="k">class</span> <span class="nc">RemoteErrorException</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Exception on the remote server.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">message</span><span class="p">,</span> <span class="n">code</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">RemoteErrorException</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{0}</span><span class="s2"> (</span><span class="si">{1}</span><span class="s2">)&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">message</span><span class="p">,</span> <span class="n">code</span><span class="p">))</span></div>
+
+<div class="viewcode-block" id="NimiqClient"><a class="viewcode-back" href="../../_autosummary/nimiqclient.nimiq_client.NimiqClient.html#nimiqclient.nimiq_client.NimiqClient">[docs]</a><span class="k">class</span> <span class="nc">NimiqClient</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    API client for the Nimiq JSON RPC server.</span>
+
+<span class="sd">    :param scheme: Protocol squeme, &quot;http&quot; or &quot;https&quot;.</span>
+<span class="sd">    :type scheme: str, optional</span>
+<span class="sd">    :param user: Authorized user.</span>
+<span class="sd">    :type user: str, optional</span>
+<span class="sd">    :param password: Password for the authorized user.</span>
+<span class="sd">    :type password: str, optional</span>
+<span class="sd">    :param host: Host IP address.</span>
+<span class="sd">    :type host: str, optional</span>
+<span class="sd">    :param port: Host port.</span>
+<span class="sd">    :type port: int, optional</span>
+<span class="sd">    :param session: Used to make all requests. If ommited requests.Session() is used.</span>
+<span class="sd">    :type session: Session, optional</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">scheme</span><span class="o">=</span><span class="s2">&quot;http&quot;</span><span class="p">,</span> <span class="n">user</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">password</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">host</span><span class="o">=</span><span class="s2">&quot;127.0.0.1&quot;</span><span class="p">,</span> <span class="n">port</span><span class="o">=</span><span class="mi">8648</span><span class="p">,</span> <span class="n">session</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">id</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">url</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">{0}</span><span class="s2">://</span><span class="si">{1}</span><span class="s2">:</span><span class="si">{2}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">scheme</span><span class="p">,</span> <span class="n">host</span><span class="p">,</span> <span class="n">port</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">auth</span> <span class="o">=</span> <span class="n">HTTPBasicAuth</span><span class="p">(</span><span class="n">user</span><span class="p">,</span> <span class="n">password</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">session</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">session</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">Session</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">session</span> <span class="o">=</span> <span class="n">session</span>
+
+    <span class="k">def</span> <span class="nf">__call</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">method</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Used in all JSONRPC requests to fetch the data.</span>
+
+<span class="sd">        :param method: JSONRPC method.</span>
+<span class="sd">        :type method: str</span>
+<span class="sd">        :param params: Parameters used by the request.</span>
+<span class="sd">        :type params: list</span>
+<span class="sd">        :return: If succesfull, returns the model reperestation of the result, None otherwise.</span>
+<span class="sd">        :rtype: dict</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="c1"># increase the JSONRPC client request id</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">id</span> <span class="o">+=</span> <span class="mi">1</span>
+
+        <span class="c1"># make JSON object to send to the server</span>
+        <span class="n">call_object</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">&quot;jsonrpc&quot;</span><span class="p">:</span> <span class="s2">&quot;2.0&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;method&quot;</span><span class="p">:</span> <span class="n">method</span><span class="p">,</span>
+            <span class="s2">&quot;params&quot;</span><span class="p">:</span> <span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">args</span><span class="p">),),</span>
+            <span class="s2">&quot;id&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">id</span>
+        <span class="p">}</span>
+
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Request: </span><span class="si">{0}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">call_object</span><span class="p">))</span>
+
+        <span class="c1"># make request</span>
+        <span class="n">requestError</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">resp_object</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">post</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">url</span><span class="p">,</span>
+                <span class="n">json</span> <span class="o">=</span> <span class="n">call_object</span><span class="p">,</span>
+                <span class="n">auth</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">auth</span>
+            <span class="p">)</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
+
+            <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Response: </span><span class="si">{0}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">resp_object</span><span class="p">))</span>
+
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="n">requestError</span> <span class="o">=</span> <span class="n">e</span>
+
+        <span class="c1"># raise if there was any error</span>
+        <span class="k">if</span> <span class="n">requestError</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">InternalErrorException</span><span class="p">(</span><span class="n">requestError</span><span class="p">)</span>
+
+        <span class="n">error</span> <span class="o">=</span> <span class="n">resp_object</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;error&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">error</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">RemoteErrorException</span><span class="p">(</span><span class="n">error</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;message&quot;</span><span class="p">),</span> <span class="n">error</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;code&quot;</span><span class="p">))</span>
+
+        <span class="k">return</span> <span class="n">resp_object</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;result&quot;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">__get_account</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Get the specific account type from the dictionary data.</span>
+
+<span class="sd">        :param data: The dictionary containing the data.</span>
+<span class="sd">        :type data: dict</span>
+<span class="sd">        :return: Account object.</span>
+<span class="sd">        :rtype: Account or VestingContract or HTLC</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="nb">type</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;type&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">type</span> <span class="o">==</span> <span class="n">AccountType</span><span class="o">.</span><span class="n">BASIC</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">Account</span><span class="p">(</span><span class="o">**</span><span class="n">data</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="nb">type</span> <span class="o">==</span> <span class="n">AccountType</span><span class="o">.</span><span class="n">VESTING</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">VestingContract</span><span class="p">(</span><span class="o">**</span><span class="n">data</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="nb">type</span> <span class="o">==</span> <span class="n">AccountType</span><span class="o">.</span><span class="n">HTLC</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">HTLC</span><span class="p">(</span><span class="o">**</span><span class="n">data</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">None</span>
+
+<div class="viewcode-block" id="NimiqClient.accounts"><a class="viewcode-back" href="../../_autosummary/nimiqclient.nimiq_client.NimiqClient.html#nimiqclient.nimiq_client.NimiqClient.accounts">[docs]</a>    <span class="k">def</span> <span class="nf">accounts</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns a list of addresses owned by client.</span>
+
+<span class="sd">        :return: List of Accounts owned by the client.</span>
+<span class="sd">        :rtype: list of (Account or VestingContract or HTLC)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">__get_account</span><span class="p">(</span><span class="n">account</span><span class="p">)</span> <span class="k">for</span> <span class="n">account</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">__call</span><span class="p">(</span><span class="s2">&quot;accounts&quot;</span><span class="p">)]</span></div>
+
+<div class="viewcode-block" id="NimiqClient.blockNumber"><a class="viewcode-back" href="../../_autosummary/nimiqclient.nimiq_client.NimiqClient.html#nimiqclient.nimiq_client.NimiqClient.blockNumber">[docs]</a>    <span class="k">def</span> <span class="nf">blockNumber</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns the height of most recent block.</span>
+
+<span class="sd">        :return: The current block height the client is on.</span>
+<span class="sd">        :rtype: int</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__call</span><span class="p">(</span><span class="s2">&quot;blockNumber&quot;</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="NimiqClient.consensus"><a class="viewcode-back" href="../../_autosummary/nimiqclient.nimiq_client.NimiqClient.html#nimiqclient.nimiq_client.NimiqClient.consensus">[docs]</a>    <span class="k">def</span> <span class="nf">consensus</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns information on the current consensus state.</span>
+
+<span class="sd">        :return: Consensus state. &quot;established&quot; is the value for a good state, other values indicate bad.</span>
+<span class="sd">        :rtype: ConsensusState</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">ConsensusState</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__call</span><span class="p">(</span><span class="s2">&quot;consensus&quot;</span><span class="p">))</span></div>
+
+<div class="viewcode-block" id="NimiqClient.constant"><a class="viewcode-back" href="../../_autosummary/nimiqclient.nimiq_client.NimiqClient.html#nimiqclient.nimiq_client.NimiqClient.constant">[docs]</a>    <span class="k">def</span> <span class="nf">constant</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">constant</span><span class="p">,</span> <span class="n">value</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns or overrides a constant value.</span>
+<span class="sd">        When no parameter is given, it returns the value of the constant. When giving a value as parameter,</span>
+<span class="sd">        it sets the constant to the given value. To reset the constant use resetConstant() instead.</span>
+
+<span class="sd">        :param constant: The class and name of the constant (format should be &quot;Class.CONSTANT&quot;).</span>
+<span class="sd">        :type constant: str</span>
+<span class="sd">        :param value: The new value of the constant.</span>
+<span class="sd">        :type value: int, optional</span>
+<span class="sd">        :return: The value of the constant.</span>
+<span class="sd">        :rtype: int</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">value</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__call</span><span class="p">(</span><span class="s2">&quot;constant&quot;</span><span class="p">,</span> <span class="n">constant</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__call</span><span class="p">(</span><span class="s2">&quot;constant&quot;</span><span class="p">,</span> <span class="n">constant</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="NimiqClient.createAccount"><a class="viewcode-back" href="../../_autosummary/nimiqclient.nimiq_client.NimiqClient.html#nimiqclient.nimiq_client.NimiqClient.createAccount">[docs]</a>    <span class="k">def</span> <span class="nf">createAccount</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Creates a new account and stores its private key in the client store.</span>
+
+<span class="sd">        :return: Information on the wallet that was created using the command.</span>
+<span class="sd">        :rtype: Wallet</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">Wallet</span><span class="p">(</span><span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">__call</span><span class="p">(</span><span class="s2">&quot;createAccount&quot;</span><span class="p">))</span></div>
+
+<div class="viewcode-block" id="NimiqClient.createRawTransaction"><a class="viewcode-back" href="../../_autosummary/nimiqclient.nimiq_client.NimiqClient.html#nimiqclient.nimiq_client.NimiqClient.createRawTransaction">[docs]</a>    <span class="k">def</span> <span class="nf">createRawTransaction</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">transaction</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Creates and signs a transaction without sending it. The transaction can then be send via sendRawTransaction() without accidentally replaying it.</span>
+
+<span class="sd">        :param transaction: The transaction object.</span>
+<span class="sd">        :type transaction: OutgoingTransaction</span>
+<span class="sd">        :return: Hex-encoded transaction.</span>
+<span class="sd">        :rtype: str</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__call</span><span class="p">(</span><span class="s2">&quot;createRawTransaction&quot;</span><span class="p">,</span> <span class="n">transaction</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="NimiqClient.getAccount"><a class="viewcode-back" href="../../_autosummary/nimiqclient.nimiq_client.NimiqClient.html#nimiqclient.nimiq_client.NimiqClient.getAccount">[docs]</a>    <span class="k">def</span> <span class="nf">getAccount</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">address</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns details for the account of given address.</span>
+
+<span class="sd">        :param address: Address to get account details.</span>
+<span class="sd">        :type address: str</span>
+<span class="sd">        :return: Details about the account. Returns the default empty basic account for non-existing accounts.</span>
+<span class="sd">        :rtype: Account or VestingContract or HTLC</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__get_account</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__call</span><span class="p">(</span><span class="s2">&quot;getAccount&quot;</span><span class="p">,</span> <span class="n">address</span><span class="p">))</span></div>
+
+<div class="viewcode-block" id="NimiqClient.getBalance"><a class="viewcode-back" href="../../_autosummary/nimiqclient.nimiq_client.NimiqClient.html#nimiqclient.nimiq_client.NimiqClient.getBalance">[docs]</a>    <span class="k">def</span> <span class="nf">getBalance</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">address</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns the balance of the account of given address.</span>
+
+<span class="sd">        :param address: Address to check for balance.</span>
+<span class="sd">        :type address: str</span>
+<span class="sd">        :return: The current balance at the specified address (in smalest unit).</span>
+<span class="sd">        :rtype: int</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__call</span><span class="p">(</span><span class="s2">&quot;getBalance&quot;</span><span class="p">,</span> <span class="n">address</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="NimiqClient.getBlockByHash"><a class="viewcode-back" href="../../_autosummary/nimiqclient.nimiq_client.NimiqClient.html#nimiqclient.nimiq_client.NimiqClient.getBlockByHash">[docs]</a>    <span class="k">def</span> <span class="nf">getBlockByHash</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">hash</span><span class="p">,</span> <span class="n">fullTransactions</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns information about a block by hash.</span>
+
+<span class="sd">        :param hash: Hash of the block to gather information on.</span>
+<span class="sd">        :type hash: str</span>
+<span class="sd">        :param fullTransactions: If True it returns the full transaction objects, if False only the hashes of the transactions.</span>
+<span class="sd">        :type fullTransactions: bool, optional</span>
+<span class="sd">        :return: A block object or None when no block was found.</span>
+<span class="sd">        :rtype: Block or None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">if</span> <span class="n">fullTransactions</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__call</span><span class="p">(</span><span class="s2">&quot;getBlockByHash&quot;</span><span class="p">,</span> <span class="nb">hash</span><span class="p">,</span> <span class="n">fullTransactions</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__call</span><span class="p">(</span><span class="s2">&quot;getBlockByHash&quot;</span><span class="p">,</span> <span class="nb">hash</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">Block</span><span class="p">(</span><span class="o">**</span><span class="n">result</span><span class="p">)</span> <span class="k">if</span> <span class="n">result</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="kc">None</span></div>
+
+<div class="viewcode-block" id="NimiqClient.getBlockByNumber"><a class="viewcode-back" href="../../_autosummary/nimiqclient.nimiq_client.NimiqClient.html#nimiqclient.nimiq_client.NimiqClient.getBlockByNumber">[docs]</a>    <span class="k">def</span> <span class="nf">getBlockByNumber</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">height</span><span class="p">,</span> <span class="n">fullTransactions</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns information about a block by block number.</span>
+
+<span class="sd">        :param height: The height of the block to gather information on.</span>
+<span class="sd">        :type height: int</span>
+<span class="sd">        :param fullTransactions: If True it returns the full transaction objects, if False only the hashes of the transactions.</span>
+<span class="sd">        :type fullTransactions: bool, optional</span>
+<span class="sd">        :return: A block object or None when no block was found.</span>
+<span class="sd">        :rtype: Block or None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">if</span> <span class="n">fullTransactions</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__call</span><span class="p">(</span><span class="s2">&quot;getBlockByNumber&quot;</span><span class="p">,</span> <span class="n">height</span><span class="p">,</span> <span class="n">fullTransactions</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__call</span><span class="p">(</span><span class="s2">&quot;getBlockByNumber&quot;</span><span class="p">,</span> <span class="n">height</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">Block</span><span class="p">(</span><span class="o">**</span><span class="n">result</span><span class="p">)</span> <span class="k">if</span> <span class="n">result</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="kc">None</span></div>
+
+<div class="viewcode-block" id="NimiqClient.getBlockTemplate"><a class="viewcode-back" href="../../_autosummary/nimiqclient.nimiq_client.NimiqClient.html#nimiqclient.nimiq_client.NimiqClient.getBlockTemplate">[docs]</a>    <span class="k">def</span> <span class="nf">getBlockTemplate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">address</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">extraData</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns a template to build the next block for mining. This will consider pool instructions when connected to a pool.</span>
+<span class="sd">        If address and extraData are provided the values are overriden.</span>
+
+<span class="sd">        :param address: The address to use as a miner for this block. This overrides the address provided during startup or from the pool.</span>
+<span class="sd">        :type address: str</span>
+<span class="sd">        :param extraData: Hex-encoded value for the extra data field. This overrides the extra data provided during startup or from the pool.</span>
+<span class="sd">        :type extraData: str</span>
+<span class="sd">        :return: A block template object.</span>
+<span class="sd">        :rtype: BlockTemplate</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">if</span> <span class="n">address</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__call</span><span class="p">(</span><span class="s2">&quot;getBlockTemplate&quot;</span><span class="p">,</span> <span class="n">address</span><span class="p">,</span> <span class="n">extraData</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__call</span><span class="p">(</span><span class="s2">&quot;getBlockTemplate&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">BlockTemplate</span><span class="p">(</span><span class="n">BlockTemplateHeader</span><span class="p">(</span><span class="o">**</span><span class="n">result</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;header&quot;</span><span class="p">)),</span> <span class="n">result</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;interlink&quot;</span><span class="p">),</span> <span class="n">BlockTemplateBody</span><span class="p">(</span><span class="o">**</span><span class="n">result</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;body&quot;</span><span class="p">)),</span> <span class="n">result</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;target&quot;</span><span class="p">))</span></div>
+
+<div class="viewcode-block" id="NimiqClient.getBlockTransactionCountByHash"><a class="viewcode-back" href="../../_autosummary/nimiqclient.nimiq_client.NimiqClient.html#nimiqclient.nimiq_client.NimiqClient.getBlockTransactionCountByHash">[docs]</a>    <span class="k">def</span> <span class="nf">getBlockTransactionCountByHash</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">hash</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns the number of transactions in a block from a block matching the given block hash.</span>
+
+<span class="sd">        :param hash: Hash of the block.</span>
+<span class="sd">        :type hash: str</span>
+<span class="sd">        :return: Number of transactions in the block found, or None, when no block was found.</span>
+<span class="sd">        :rtype: int or None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__call</span><span class="p">(</span><span class="s2">&quot;getBlockTransactionCountByHash&quot;</span><span class="p">,</span> <span class="nb">hash</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="NimiqClient.getBlockTransactionCountByNumber"><a class="viewcode-back" href="../../_autosummary/nimiqclient.nimiq_client.NimiqClient.html#nimiqclient.nimiq_client.NimiqClient.getBlockTransactionCountByNumber">[docs]</a>    <span class="k">def</span> <span class="nf">getBlockTransactionCountByNumber</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">height</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns the number of transactions in a block matching the given block number.</span>
+
+<span class="sd">        :param height: Height of the block.</span>
+<span class="sd">        :type height: int</span>
+<span class="sd">        :return: Number of transactions in the block found, or None, when no block was found.</span>
+<span class="sd">        :rtype: int or None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__call</span><span class="p">(</span><span class="s2">&quot;getBlockTransactionCountByNumber&quot;</span><span class="p">,</span> <span class="n">height</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="NimiqClient.getTransactionByBlockHashAndIndex"><a class="viewcode-back" href="../../_autosummary/nimiqclient.nimiq_client.NimiqClient.html#nimiqclient.nimiq_client.NimiqClient.getTransactionByBlockHashAndIndex">[docs]</a>    <span class="k">def</span> <span class="nf">getTransactionByBlockHashAndIndex</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">hash</span><span class="p">,</span> <span class="n">index</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns information about a transaction by block hash and transaction index position.</span>
+
+<span class="sd">        :param hash: Hash of the block containing the transaction.</span>
+<span class="sd">        :type hash: str</span>
+<span class="sd">        :param index: Index of the transaction in the block.</span>
+<span class="sd">        :type index: int</span>
+<span class="sd">        :return: A transaction object or None when no transaction was found.</span>
+<span class="sd">        :rtype: Transaction or None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__call</span><span class="p">(</span><span class="s2">&quot;getTransactionByBlockHashAndIndex&quot;</span><span class="p">,</span> <span class="nb">hash</span><span class="p">,</span> <span class="n">index</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">result</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">Transaction</span><span class="o">.</span><span class="n">fromDict</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">None</span></div>
+
+<div class="viewcode-block" id="NimiqClient.getTransactionByBlockNumberAndIndex"><a class="viewcode-back" href="../../_autosummary/nimiqclient.nimiq_client.NimiqClient.html#nimiqclient.nimiq_client.NimiqClient.getTransactionByBlockNumberAndIndex">[docs]</a>    <span class="k">def</span> <span class="nf">getTransactionByBlockNumberAndIndex</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">height</span><span class="p">,</span> <span class="n">index</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns information about a transaction by block number and transaction index position.</span>
+
+<span class="sd">        :param height: Height of the block containing the transaction.</span>
+<span class="sd">        :type height: int</span>
+<span class="sd">        :param index: Index of the transaction in the block.</span>
+<span class="sd">        :type index: int</span>
+<span class="sd">        :return: A transaction object or None when no transaction was found.</span>
+<span class="sd">        :rtype: Transaction or None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__call</span><span class="p">(</span><span class="s2">&quot;getTransactionByBlockNumberAndIndex&quot;</span><span class="p">,</span> <span class="n">height</span><span class="p">,</span> <span class="n">index</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">result</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">Transaction</span><span class="o">.</span><span class="n">fromDict</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">None</span></div>
+
+<div class="viewcode-block" id="NimiqClient.getTransactionByHash"><a class="viewcode-back" href="../../_autosummary/nimiqclient.nimiq_client.NimiqClient.html#nimiqclient.nimiq_client.NimiqClient.getTransactionByHash">[docs]</a>    <span class="k">def</span> <span class="nf">getTransactionByHash</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">hash</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns the information about a transaction requested by transaction hash.</span>
+
+<span class="sd">        :param hash: Hash of a transaction.</span>
+<span class="sd">        :type hash: str</span>
+<span class="sd">        :return: A transaction object or None when no transaction was found.</span>
+<span class="sd">        :rtype: Transaction or None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__call</span><span class="p">(</span><span class="s2">&quot;getTransactionByHash&quot;</span><span class="p">,</span> <span class="nb">hash</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">result</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">Transaction</span><span class="o">.</span><span class="n">fromDict</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">None</span></div>
+
+<div class="viewcode-block" id="NimiqClient.getTransactionReceipt"><a class="viewcode-back" href="../../_autosummary/nimiqclient.nimiq_client.NimiqClient.html#nimiqclient.nimiq_client.NimiqClient.getTransactionReceipt">[docs]</a>    <span class="k">def</span> <span class="nf">getTransactionReceipt</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">hash</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns the receipt of a transaction by transaction hash.</span>
+
+<span class="sd">        :param hash: Hash of a transaction.</span>
+<span class="sd">        :type hash: str</span>
+<span class="sd">        :return: A transaction receipt object, or None when no receipt was found.</span>
+<span class="sd">        :rtype: TransactionReceipt or None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__call</span><span class="p">(</span><span class="s2">&quot;getTransactionReceipt&quot;</span><span class="p">,</span> <span class="nb">hash</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">result</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">TransactionReceipt</span><span class="p">(</span><span class="o">**</span><span class="n">result</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">None</span></div>
+
+<div class="viewcode-block" id="NimiqClient.getTransactionsByAddress"><a class="viewcode-back" href="../../_autosummary/nimiqclient.nimiq_client.NimiqClient.html#nimiqclient.nimiq_client.NimiqClient.getTransactionsByAddress">[docs]</a>    <span class="k">def</span> <span class="nf">getTransactionsByAddress</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">address</span><span class="p">,</span> <span class="n">numberOfTransactions</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns the latest transactions successfully performed by or for an address.</span>
+<span class="sd">        Note that this information might change when blocks are rewinded on the local state due to forks.</span>
+
+<span class="sd">        :param address: Address of which transactions should be gathered.</span>
+<span class="sd">        :type address: str</span>
+<span class="sd">        :param numberOfTransactions: Number of transactions that shall be returned.</span>
+<span class="sd">        :type numberOfTransactions: int, optional</span>
+<span class="sd">        :return: List of transactions linked to the requested address.</span>
+<span class="sd">        :rtype: list of (Transaction)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">if</span> <span class="n">numberOfTransactions</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__call</span><span class="p">(</span><span class="s2">&quot;getTransactionsByAddress&quot;</span><span class="p">,</span> <span class="n">address</span><span class="p">,</span> <span class="n">numberOfTransactions</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__call</span><span class="p">(</span><span class="s2">&quot;getTransactionsByAddress&quot;</span><span class="p">,</span> <span class="n">address</span><span class="p">)</span>
+        <span class="k">return</span> <span class="p">[</span><span class="n">Transaction</span><span class="o">.</span><span class="n">fromDict</span><span class="p">(</span><span class="n">tx</span><span class="p">)</span> <span class="k">for</span> <span class="n">tx</span> <span class="ow">in</span> <span class="n">result</span><span class="p">]</span></div>
+
+<div class="viewcode-block" id="NimiqClient.getWork"><a class="viewcode-back" href="../../_autosummary/nimiqclient.nimiq_client.NimiqClient.html#nimiqclient.nimiq_client.NimiqClient.getWork">[docs]</a>    <span class="k">def</span> <span class="nf">getWork</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">address</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">extraData</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns instructions to mine the next block. This will consider pool instructions when connected to a pool.</span>
+
+<span class="sd">        :param address: The address to use as a miner for this block. This overrides the address provided during startup or from the pool.</span>
+<span class="sd">        :type address: str</span>
+<span class="sd">        :param extraData: Hex-encoded value for the extra data field. This overrides the extra data provided during startup or from the pool.</span>
+<span class="sd">        :type extraData: str</span>
+<span class="sd">        :return: Mining work instructions.</span>
+<span class="sd">        :rtype: WorkInstructions</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">if</span> <span class="n">address</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__call</span><span class="p">(</span><span class="s2">&quot;getWork&quot;</span><span class="p">,</span> <span class="n">address</span><span class="p">,</span> <span class="n">extraData</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__call</span><span class="p">(</span><span class="s2">&quot;getWork&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">WorkInstructions</span><span class="p">(</span><span class="o">**</span><span class="n">result</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="NimiqClient.hashrate"><a class="viewcode-back" href="../../_autosummary/nimiqclient.nimiq_client.NimiqClient.html#nimiqclient.nimiq_client.NimiqClient.hashrate">[docs]</a>    <span class="k">def</span> <span class="nf">hashrate</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns the number of hashes per second that the node is mining with.</span>
+
+<span class="sd">        :return: Number of hashes per second.</span>
+<span class="sd">        :rtype: float</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__call</span><span class="p">(</span><span class="s2">&quot;hashrate&quot;</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="NimiqClient.log"><a class="viewcode-back" href="../../_autosummary/nimiqclient.nimiq_client.NimiqClient.html#nimiqclient.nimiq_client.NimiqClient.log">[docs]</a>    <span class="k">def</span> <span class="nf">log</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tag</span><span class="p">,</span> <span class="n">level</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Sets the log level of the node.</span>
+
+<span class="sd">        :param tag: Tag: If &quot;*&quot; the log level is set globally, otherwise the log level is applied only on this tag.</span>
+<span class="sd">        :type tag: str</span>
+<span class="sd">        :param level: Minimum log level to display.</span>
+<span class="sd">        :type level: LogLevel</span>
+<span class="sd">        :return: True if the log level was changed, False otherwise.</span>
+<span class="sd">        :rtype: bool</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__call</span><span class="p">(</span><span class="s2">&quot;log&quot;</span><span class="p">,</span> <span class="n">tag</span><span class="p">,</span> <span class="n">level</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="NimiqClient.mempool"><a class="viewcode-back" href="../../_autosummary/nimiqclient.nimiq_client.NimiqClient.html#nimiqclient.nimiq_client.NimiqClient.mempool">[docs]</a>    <span class="k">def</span> <span class="nf">mempool</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns information on the current mempool situation. This will provide an overview of the number of transactions sorted into buckets based on their fee per byte (in smallest unit).</span>
+
+<span class="sd">        :return: Mempool information.</span>
+<span class="sd">        :rtype: MempoolInfo</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__call</span><span class="p">(</span><span class="s2">&quot;mempool&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">MempoolInfo</span><span class="p">(</span><span class="o">**</span><span class="n">result</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="NimiqClient.mempoolContent"><a class="viewcode-back" href="../../_autosummary/nimiqclient.nimiq_client.NimiqClient.html#nimiqclient.nimiq_client.NimiqClient.mempoolContent">[docs]</a>    <span class="k">def</span> <span class="nf">mempoolContent</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">fullTransactions</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns transactions that are currently in the mempool.</span>
+
+<span class="sd">        :param fullTransactions: If True includes full transactions, if False includes only transaction hashes.</span>
+<span class="sd">        :type fullTransactions: bool, optional</span>
+<span class="sd">        :return: List of transactions (either represented by the transaction hash or a transaction object).</span>
+<span class="sd">        :rtype: list of (Transaction or str)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">if</span> <span class="n">fullTransactions</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__call</span><span class="p">(</span><span class="s2">&quot;mempoolContent&quot;</span><span class="p">,</span> <span class="n">fullTransactions</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__call</span><span class="p">(</span><span class="s2">&quot;mempoolContent&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="p">[</span><span class="n">tx</span> <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">tx</span><span class="p">)</span> <span class="ow">is</span> <span class="nb">str</span> <span class="k">else</span> <span class="n">Transaction</span><span class="o">.</span><span class="n">fromDict</span><span class="p">(</span><span class="n">tx</span><span class="p">)</span> <span class="k">for</span> <span class="n">tx</span> <span class="ow">in</span> <span class="n">result</span><span class="p">]</span></div>
+
+<div class="viewcode-block" id="NimiqClient.minerAddress"><a class="viewcode-back" href="../../_autosummary/nimiqclient.nimiq_client.NimiqClient.html#nimiqclient.nimiq_client.NimiqClient.minerAddress">[docs]</a>    <span class="k">def</span> <span class="nf">minerAddress</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns the miner address.</span>
+
+<span class="sd">        :return: The miner address configured on the node.</span>
+<span class="sd">        :rtype: str</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__call</span><span class="p">(</span><span class="s2">&quot;minerAddress&quot;</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="NimiqClient.minerThreads"><a class="viewcode-back" href="../../_autosummary/nimiqclient.nimiq_client.NimiqClient.html#nimiqclient.nimiq_client.NimiqClient.minerThreads">[docs]</a>    <span class="k">def</span> <span class="nf">minerThreads</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">threads</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns or sets the number of CPU threads for the miner.</span>
+<span class="sd">        When no parameter is given, it returns the current number of miner threads.</span>
+<span class="sd">        When a value is given as parameter, it sets the number of miner threads to that value.</span>
+
+<span class="sd">        :param threads: The number of threads to allocate for mining.</span>
+<span class="sd">        :type threads: int, optional</span>
+<span class="sd">        :return: The number of threads allocated for mining.</span>
+<span class="sd">        :rtype: int</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">threads</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__call</span><span class="p">(</span><span class="s2">&quot;minerThreads&quot;</span><span class="p">,</span> <span class="n">threads</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__call</span><span class="p">(</span><span class="s2">&quot;minerThreads&quot;</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="NimiqClient.minFeePerByte"><a class="viewcode-back" href="../../_autosummary/nimiqclient.nimiq_client.NimiqClient.html#nimiqclient.nimiq_client.NimiqClient.minFeePerByte">[docs]</a>    <span class="k">def</span> <span class="nf">minFeePerByte</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">fee</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns or sets the minimum fee per byte.</span>
+<span class="sd">        When no parameter is given, it returns the current minimum fee per byte.</span>
+<span class="sd">        When a value is given as parameter, it sets the minimum fee per byte to that value.</span>
+
+<span class="sd">        :param fee: The new minimum fee per byte.</span>
+<span class="sd">        :type fee: int, optional</span>
+<span class="sd">        :return: The new minimum fee per byte.</span>
+<span class="sd">        :rtype: int</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">fee</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__call</span><span class="p">(</span><span class="s2">&quot;minFeePerByte&quot;</span><span class="p">,</span> <span class="n">fee</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__call</span><span class="p">(</span><span class="s2">&quot;minFeePerByte&quot;</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="NimiqClient.mining"><a class="viewcode-back" href="../../_autosummary/nimiqclient.nimiq_client.NimiqClient.html#nimiqclient.nimiq_client.NimiqClient.mining">[docs]</a>    <span class="k">def</span> <span class="nf">mining</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">state</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns true if client is actively mining new blocks.</span>
+<span class="sd">        When no parameter is given, it returns the current state.</span>
+<span class="sd">        When a value is given as parameter, it sets the current state to that value.</span>
+
+<span class="sd">        :param state: The state to be set.</span>
+<span class="sd">        :type state: bool</span>
+<span class="sd">        :return: True if the client is mining, otherwise False.</span>
+<span class="sd">        :rtype: bool</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">state</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__call</span><span class="p">(</span><span class="s2">&quot;mining&quot;</span><span class="p">,</span> <span class="n">state</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__call</span><span class="p">(</span><span class="s2">&quot;mining&quot;</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="NimiqClient.peerCount"><a class="viewcode-back" href="../../_autosummary/nimiqclient.nimiq_client.NimiqClient.html#nimiqclient.nimiq_client.NimiqClient.peerCount">[docs]</a>    <span class="k">def</span> <span class="nf">peerCount</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns number of peers currently connected to the client.</span>
+
+<span class="sd">        :return: Number of connected peers.</span>
+<span class="sd">        :rtype: int</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__call</span><span class="p">(</span><span class="s2">&quot;peerCount&quot;</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="NimiqClient.peerList"><a class="viewcode-back" href="../../_autosummary/nimiqclient.nimiq_client.NimiqClient.html#nimiqclient.nimiq_client.NimiqClient.peerList">[docs]</a>    <span class="k">def</span> <span class="nf">peerList</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns list of peers known to the client.</span>
+
+<span class="sd">        :return: The list of peers.</span>
+<span class="sd">        :rtype: list of (Peer)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="p">[</span><span class="n">Peer</span><span class="p">(</span><span class="o">**</span><span class="n">peer</span><span class="p">)</span> <span class="k">for</span> <span class="n">peer</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">__call</span><span class="p">(</span><span class="s2">&quot;peerList&quot;</span><span class="p">)]</span></div>
+
+<div class="viewcode-block" id="NimiqClient.peerState"><a class="viewcode-back" href="../../_autosummary/nimiqclient.nimiq_client.NimiqClient.html#nimiqclient.nimiq_client.NimiqClient.peerState">[docs]</a>    <span class="k">def</span> <span class="nf">peerState</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">address</span><span class="p">,</span> <span class="n">command</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns the state of the peer.</span>
+<span class="sd">        When no command is given, it returns peer state.</span>
+<span class="sd">        When a value is given for command, it sets the peer state to that value.</span>
+
+<span class="sd">        :param address: The address of the peer.</span>
+<span class="sd">        :type address: str</span>
+<span class="sd">        :param command: The command to send.</span>
+<span class="sd">        :type command: PeerStateCommand</span>
+<span class="sd">        :return: The current state of the peer.</span>
+<span class="sd">        :rtype: Peer</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">if</span> <span class="n">command</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__call</span><span class="p">(</span><span class="s2">&quot;peerState&quot;</span><span class="p">,</span> <span class="n">address</span><span class="p">,</span> <span class="n">command</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__call</span><span class="p">(</span><span class="s2">&quot;peerState&quot;</span><span class="p">,</span> <span class="n">address</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">Peer</span><span class="p">(</span><span class="o">**</span><span class="n">result</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="NimiqClient.pool"><a class="viewcode-back" href="../../_autosummary/nimiqclient.nimiq_client.NimiqClient.html#nimiqclient.nimiq_client.NimiqClient.pool">[docs]</a>    <span class="k">def</span> <span class="nf">pool</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">address</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns or sets the mining pool.</span>
+<span class="sd">        When no parameter is given, it returns the current mining pool.</span>
+<span class="sd">        When a value is given as parameter, it sets the mining pool to that value.</span>
+
+<span class="sd">        :param address: The mining pool connection string (&quot;url:port&quot;) or boolean to enable/disable pool mining.</span>
+<span class="sd">        :type address: str, optional</span>
+<span class="sd">        :return: The mining pool connection string, or None if not enabled.</span>
+<span class="sd">        :rtype: str or None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">address</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__call</span><span class="p">(</span><span class="s2">&quot;pool&quot;</span><span class="p">,</span> <span class="n">address</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__call</span><span class="p">(</span><span class="s2">&quot;pool&quot;</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="NimiqClient.poolConfirmedBalance"><a class="viewcode-back" href="../../_autosummary/nimiqclient.nimiq_client.NimiqClient.html#nimiqclient.nimiq_client.NimiqClient.poolConfirmedBalance">[docs]</a>    <span class="k">def</span> <span class="nf">poolConfirmedBalance</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns the confirmed mining pool balance.</span>
+
+<span class="sd">        :return: The confirmed mining pool balance (in smallest unit).</span>
+<span class="sd">        :rtype: int</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__call</span><span class="p">(</span><span class="s2">&quot;poolConfirmedBalance&quot;</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="NimiqClient.poolConnectionState"><a class="viewcode-back" href="../../_autosummary/nimiqclient.nimiq_client.NimiqClient.html#nimiqclient.nimiq_client.NimiqClient.poolConnectionState">[docs]</a>    <span class="k">def</span> <span class="nf">poolConnectionState</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns the connection state to mining pool.</span>
+
+<span class="sd">        :return: The mining pool connection state.</span>
+<span class="sd">        :rtype: PoolConnectionState</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">PoolConnectionState</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__call</span><span class="p">(</span><span class="s2">&quot;poolConnectionState&quot;</span><span class="p">))</span></div>
+
+<div class="viewcode-block" id="NimiqClient.sendRawTransaction"><a class="viewcode-back" href="../../_autosummary/nimiqclient.nimiq_client.NimiqClient.html#nimiqclient.nimiq_client.NimiqClient.sendRawTransaction">[docs]</a>    <span class="k">def</span> <span class="nf">sendRawTransaction</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">transaction</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Sends a signed message call transaction or a contract creation, if the data field contains code.</span>
+
+<span class="sd">        :param transaction: The hex encoded signed transaction</span>
+<span class="sd">        :type transaction: str</span>
+<span class="sd">        :return: The Hex-encoded transaction hash.</span>
+<span class="sd">        :rtype: str</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__call</span><span class="p">(</span><span class="s2">&quot;sendRawTransaction&quot;</span><span class="p">,</span> <span class="n">transaction</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="NimiqClient.sendTransaction"><a class="viewcode-back" href="../../_autosummary/nimiqclient.nimiq_client.NimiqClient.html#nimiqclient.nimiq_client.NimiqClient.sendTransaction">[docs]</a>    <span class="k">def</span> <span class="nf">sendTransaction</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">transaction</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Creates new message call transaction or a contract creation, if the data field contains code.</span>
+
+<span class="sd">        :param transaction: The transaction object.</span>
+<span class="sd">        :type transaction: OutgoingTransaction</span>
+<span class="sd">        :return: The Hex-encoded transaction hash.</span>
+<span class="sd">        :rtype: str</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__call</span><span class="p">(</span><span class="s2">&quot;sendTransaction&quot;</span><span class="p">,</span> <span class="n">transaction</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="NimiqClient.submitBlock"><a class="viewcode-back" href="../../_autosummary/nimiqclient.nimiq_client.NimiqClient.html#nimiqclient.nimiq_client.NimiqClient.submitBlock">[docs]</a>    <span class="k">def</span> <span class="nf">submitBlock</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">block</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Submits a block to the node. When the block is valid, the node will forward it to other nodes in the network.</span>
+
+<span class="sd">        :param block: Hex-encoded full block (including header, interlink and body). When submitting work from getWork, remember to include the suffix.</span>
+<span class="sd">        :type block: Block</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__call</span><span class="p">(</span><span class="s2">&quot;submitBlock&quot;</span><span class="p">,</span> <span class="n">block</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="NimiqClient.syncing"><a class="viewcode-back" href="../../_autosummary/nimiqclient.nimiq_client.NimiqClient.html#nimiqclient.nimiq_client.NimiqClient.syncing">[docs]</a>    <span class="k">def</span> <span class="nf">syncing</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns an object with data about the sync status or False.</span>
+
+<span class="sd">        :return: An object with sync status data or False, when not syncing.</span>
+<span class="sd">        :rtype: SyncStatus</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__call</span><span class="p">(</span><span class="s2">&quot;syncing&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">result</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="nb">bool</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">SyncStatus</span><span class="p">(</span><span class="o">**</span><span class="n">result</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">result</span></div>
+
+<div class="viewcode-block" id="NimiqClient.getRawTransactionInfo"><a class="viewcode-back" href="../../_autosummary/nimiqclient.nimiq_client.NimiqClient.html#nimiqclient.nimiq_client.NimiqClient.getRawTransactionInfo">[docs]</a>    <span class="k">def</span> <span class="nf">getRawTransactionInfo</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">transaction</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Deserializes hex-encoded transaction and returns a transaction object.</span>
+
+<span class="sd">        :param transaction: The hex encoded signed transaction.</span>
+<span class="sd">        :type transaction: str</span>
+<span class="sd">        :return: The transaction object.</span>
+<span class="sd">        :rtype: Transaction</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">Transaction</span><span class="o">.</span><span class="n">fromDict</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__call</span><span class="p">(</span><span class="s2">&quot;getRawTransactionInfo&quot;</span><span class="p">,</span> <span class="n">transaction</span><span class="p">))</span></div>
+
+<div class="viewcode-block" id="NimiqClient.resetConstant"><a class="viewcode-back" href="../../_autosummary/nimiqclient.nimiq_client.NimiqClient.html#nimiqclient.nimiq_client.NimiqClient.resetConstant">[docs]</a>    <span class="k">def</span> <span class="nf">resetConstant</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">constant</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Resets the constant to default value.</span>
+
+<span class="sd">        :param constant: Name of the constant.</span>
+<span class="sd">        :type constant: str</span>
+<span class="sd">        :return: The new value of the constant.</span>
+<span class="sd">        :rtype: int</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__call</span><span class="p">(</span><span class="s2">&quot;constant&quot;</span><span class="p">,</span> <span class="n">constant</span><span class="p">,</span> <span class="s2">&quot;reset&quot;</span><span class="p">)</span></div></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        
+        &copy; Copyright 
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

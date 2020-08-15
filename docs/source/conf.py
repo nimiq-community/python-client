@@ -32,7 +32,6 @@ release = '1.0'
 extensions = [
     'sphinx.ext.autodoc',  # Core Sphinx library for auto html doc generation from docstrings
     'sphinx.ext.autosummary',  # Create neat summary tables for modules/classes/methods etc
-    'sphinx.ext.intersphinx',  # Link to other project's documentation (see mapping below)
     'sphinx.ext.viewcode',  # Add a link to the Python source code for classes, functions etc.
     'sphinx_autodoc_typehints', # Automatically document param types (less noise in class signature)
     'm2r2', # m2r2 converts a markdown file to a valid rst format.
@@ -40,11 +39,6 @@ extensions = [
 
 # source_suffix = '.rst'
 source_suffix = ['.rst', '.md']
-
-# Mappings for sphinx.ext.intersphinx. Projects have to have Sphinx-generated doc! (.inv file)
-# intersphinx_mapping = {
-#    "python": ("https://docs.python.org/3/", None),
-# }
 
 autosummary_generate = True  # Turn on sphinx.ext.autosummary
 autoclass_content = "both"  # Add __init__ doc (ie. params) to class summaries
@@ -67,3 +61,5 @@ if not on_rtd:  # only import and set the theme if we're building docs locally
 # relative to this directory. They are copied after the builtin static files,
 # so a file named "default.css" will overwrite the builtin "default.css".
 # html_static_path = ['_static']
+
+html_copy_source = False

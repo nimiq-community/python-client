@@ -34,7 +34,7 @@ print(blockNumber) # displays the block number, for example 748883
 
 ## API
 
-The complete [API documentation](docs) is available in the `/docs` folder.
+The complete API documentation is available [here](https://rraallvv.github.io/python-client/).
 
 Check out the [Nimiq RPC specs](https://github.com/nimiq/core-js/wiki/JSON-RPC-API) for behind the scene RPC calls.
 
@@ -86,18 +86,19 @@ $ python -m unittest discover -v
 
 ### Documentation
 
-The documentation is generated automatically with [pydoc-markdown](https://pydoc-markdown.readthedocs.io).
+The documentation is generated automatically with [Sphinx](https://www.sphinx-doc.org).
 
-First install the development requeriments:
+From the `/docs` folder install the dependency requeriments:
 
 ```sh
-$ pip install -r requirements-dev.txt
+$ cd docs
+$ pip install -r requirements.txt
 ```
 
-Then run the command `pydoc-markdown` from the repository's root folder:
+Then run the command to generate the documentation:
 
 ```sh
-$ pydoc-markdown
+$ make html
 ```
 
 ## License

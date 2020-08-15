@@ -23,5 +23,14 @@ help:
 # Convert .py to .ipynb (don't seem to need to --execute? perhaps sphinx-build does it...), then build html:
 %: Makefile
 	rm -rf build
+	rm -fr _autosummary
+	rm -fr _modules
+	rm -fr _static
+	rm -fr _sources
 	rm -rf source/_autosummary
+	rm -f *.html
+	rm -f *.js
+	rm -f objects.inv
 	@$(SPHINXBUILD) -M $@ "$(SOURCEDIR)" "$(BUILDDIR)" $(SPHINXOPTS) $(O)
+	mv build/html/* .
+	rm -fr build
