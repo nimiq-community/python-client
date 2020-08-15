@@ -14,7 +14,7 @@ checks:
       threshold: 50
   similar-code:
     config:
-      threshold: 16
+      threshold: 64 # default generates false positives
 exclude_patterns:
 - test/
 - docs/
