@@ -326,7 +326,7 @@ class NimiqClient:
         """
         result = self.__call("getTransactionByBlockHashAndIndex", hash, index)
         if result is not None:
-            return Transaction.fromDict(result)
+            return Transaction(**result)
         else:
             return None
 
@@ -343,7 +343,7 @@ class NimiqClient:
         """
         result = self.__call("getTransactionByBlockNumberAndIndex", height, index)
         if result is not None:
-            return Transaction.fromDict(result)
+            return Transaction(**result)
         else:
             return None
 
@@ -358,7 +358,7 @@ class NimiqClient:
         """
         result = self.__call("getTransactionByHash", hash)
         if result is not None:
-            return Transaction.fromDict(result)
+            return Transaction(**result)
         else:
             return None
 
@@ -394,7 +394,7 @@ class NimiqClient:
             result = self.__call("getTransactionsByAddress", address, numberOfTransactions)
         else:
             result = self.__call("getTransactionsByAddress", address)
-        return [Transaction.fromDict(tx) for tx in result]
+        return [Transaction(**tx) for tx in result]
 
     def getWork(self, address = None, extraData = ""):
         """
@@ -460,7 +460,7 @@ class NimiqClient:
             result = self.__call("mempoolContent", fullTransactions)
         else:
             result = self.__call("mempoolContent")
-        return [tx if type(tx) is str else Transaction.fromDict(tx) for tx in result]
+        return [tx if type(tx) is str else Transaction(**tx) for tx in result]
 
     def minerAddress(self):
         """
@@ -644,7 +644,7 @@ class NimiqClient:
         :return: The transaction object.
         :rtype: Transaction
         """
-        return Transaction.fromDict(self.__call("getRawTransactionInfo", transaction))
+        return Transaction(**self.__call("getRawTransactionInfo", transaction))
 
     def resetConstant(self, constant):
         """

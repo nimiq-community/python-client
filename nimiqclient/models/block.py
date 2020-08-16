@@ -59,7 +59,7 @@ class Block():
         self.size = size
         for index, transaction in enumerate(transactions):
             if type(transaction) is not str and type(transaction) is not Transaction:
-                transactions[index] = Transaction.fromDict(transaction)
+                transactions[index] = Transaction(**transaction)
         self.transactions = transactions
 
 class BlockTemplateHeader():

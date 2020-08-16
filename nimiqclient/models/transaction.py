@@ -50,6 +50,16 @@ class OutgoingTransaction():
     def __repr__(self):
         return json.dumps(self.__dict__)
 
+def preprocess_args(func):
+    """
+    Changes the attribute name 'from' in the JSON object coming from the deserialization process into 'from_' which can be used in the parameters in a class initializer.
+    """
+    def inner(*args, **kwargs):
+        if "from" in kwargs:
+            kwargs["from_"] = kwargs.pop("from")
+        func(*args, **kwargs)
+    return inner
+
 class Transaction():
     """
     Transaction returned by the server.
@@ -87,6 +97,7 @@ class Transaction():
     :param inMempool: Transaction is in mempool.
     :type inMempool: bool, optional
     """
+    @preprocess_args
     def __init__(self, hash, from_, fromAddress, to, toAddress, value, fee, flags, blockHash = None, blockNumber = None, timestamp = None, confirmations = 0, transactionIndex = None, data = None, valid = None, inMempool = None):
         self.hash = hash
         self.blockHash = blockHash
@@ -119,20 +130,6 @@ class Transaction():
 
     def __repr__(self):
         return json.dumps(self.__dict__)
-
-    @staticmethod
-    def fromDict(transaction):
-        """
-        Create Transaction object from dict
-
-        :param transaction: dict with transaction data.
-        :type: dict
-        :return: Transaction object.
-        :rtype: Transaction
-        """
-        if "from" in transaction:
-            transaction["from_"] = transaction.pop("from")
-        return Transaction(**transaction)
 
 class TransactionReceipt():
     """
