@@ -5,7 +5,7 @@ __all__ = [
     "BlockTemplate"
 ]
 
-from .transaction import *
+from .transaction import Transaction
 
 class Block():
     """

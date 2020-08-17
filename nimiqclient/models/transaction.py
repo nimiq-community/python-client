@@ -4,7 +4,7 @@ __all__ = [
     "TransactionReceipt"
 ]
 
-from .account import *
+from .account import AccountType
 import json
 
 class TXBase():
