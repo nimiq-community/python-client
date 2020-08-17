@@ -9,7 +9,7 @@ import json
 
 class TXBase():
     """
-    Enables accessing the attribute with the name 'from' in the internal dictionary of the class using the name 'from_'.
+    Enables accessing the attribute 'from' from outside using 'from_'.
     """
     def __getattr__(self, attr):
         if attr == "from_":
@@ -28,7 +28,7 @@ class TXBase():
 
 def preprocess_args(func):
     """
-    Decorator to change the parameter with the name 'from' to 'from_' before calling the decorated method.
+    Decorator to change the parameter 'from' to 'from_' during deserialization.
     """
     def inner(*args, **kwargs):
         if "from" in kwargs:
