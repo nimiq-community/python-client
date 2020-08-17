@@ -7,7 +7,36 @@ __all__ = [
 from .account import *
 import json
 
-class OutgoingTransaction():
+class TXBase():
+    """
+    Enables accessing the attribute with the name 'from' in the internal dictionary of the class using the name 'from_'.
+    """
+    def __getattr__(self, attr):
+        if attr == "from_":
+            return self.__dict__.__getitem__("from")
+        else:
+            return self.__dict__.__getitem__(attr)
+
+    def __setattr__(self, attr, value):
+        if attr == "from_":
+            self.__dict__.__setitem__("from", value)
+        else:
+            self.__dict__.__setitem__(attr, value)
+
+    def __repr__(self):
+        return json.dumps(self.__dict__)
+
+def preprocess_args(func):
+    """
+    Decorator to change the parameter with the name 'from' to 'from_' before calling the decorated method.
+    """
+    def inner(*args, **kwargs):
+        if "from" in kwargs:
+            kwargs["from_"] = kwargs.pop("from")
+        func(*args, **kwargs)
+    return inner
+
+class OutgoingTransaction(TXBase):
     """
     Used to pass the data to send transaccions.
 
@@ -35,32 +64,7 @@ class OutgoingTransaction():
         self.fee = fee
         self.data = data
 
-    def __getattr__(self, attr):
-        if attr == "from_":
-            return self.__dict__.__getitem__("from")
-        else:
-            return self.__dict__.__getitem__(attr)
-
-    def __setattr__(self, attr, value):
-        if attr == "from_":
-            self.__dict__.__setitem__("from", value)
-        else:
-            self.__dict__.__setitem__(attr, value)
-
-    def __repr__(self):
-        return json.dumps(self.__dict__)
-
-def preprocess_args(func):
-    """
-    Changes the attribute name 'from' in the JSON object coming from the deserialization process into 'from_' which can be used in the parameters in a class initializer.
-    """
-    def inner(*args, **kwargs):
-        if "from" in kwargs:
-            kwargs["from_"] = kwargs.pop("from")
-        func(*args, **kwargs)
-    return inner
-
-class Transaction():
+class Transaction(TXBase):
     """
     Transaction returned by the server.
 
@@ -115,21 +119,6 @@ class Transaction():
         self.flags = flags
         self.valid = valid
         self.inMempool = inMempool
-
-    def __getattr__(self, attr):
-        if attr == "from_":
-            return self.__dict__.__getitem__("from")
-        else:
-            return self.__dict__.__getitem__(attr)
-
-    def __setattr__(self, attr, value):
-        if attr == "from_":
-            self.__dict__.__setitem__("from", value)
-        else:
-            self.__dict__.__setitem__(attr, value)
-
-    def __repr__(self):
-        return json.dumps(self.__dict__)
 
 class TransactionReceipt():
     """
