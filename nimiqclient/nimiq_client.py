@@ -1,8 +1,7 @@
 __all__ = [
     "NimiqClient",
     "InternalErrorException",
-    "RemoteErrorException",
-    "LogLevel"
+    "RemoteErrorException"
 ]
 
 from .models.account import *
@@ -19,28 +18,6 @@ from enum import Enum
 import logging
 
 logger = logging.getLogger(__name__)
-
-class LogLevel(str, Enum):
-    """
-    Used to set the log level in the JSONRPC server.
-    """
-    TRACE = "trace"
-    """Trace level log."""
-    VERBOSE = "verbose"
-    """Verbose level log."""
-    DEBUG = "debug"
-    """Debugging level log."""
-    INFO = "info"
-    """Info level log."""
-    WARN = "warn"
-    """Warning level log."""
-    ERROR = "error"
-    """Error level log."""
-    ASSERT = "assert"
-    """Assertions level log."""
-
-    def __str__(self):
-        return self.value
 
 class InternalErrorException(Exception):
     """
@@ -140,14 +117,12 @@ class NimiqClient:
         :rtype: Account or VestingContract or HTLC
         """
         type = data.get("type")
-        if type == AccountType.BASIC:
-            return Account(**data)
+        if type == AccountType.HTLC:
+            return HTLC(**data)
         elif type == AccountType.VESTING:
             return VestingContract(**data)
-        elif type == AccountType.HTLC:
-            return HTLC(**data)
         else:
-            return None
+            return Account(**data)
 
     def accounts(self):
         """

@@ -1,6 +1,7 @@
 __all__ = [
     "ConsensusState",
-    "SyncStatus"
+    "SyncStatus",
+    "LogLevel"
 ]
 
 from enum import Enum
@@ -34,3 +35,25 @@ class SyncStatus():
         self.startingBlock = startingBlock
         self.currentBlock = currentBlock
         self.highestBlock = highestBlock
+
+class LogLevel(str, Enum):
+    """
+    Used to set the log level in the JSONRPC server.
+    """
+    TRACE = "trace"
+    """Trace level log."""
+    VERBOSE = "verbose"
+    """Verbose level log."""
+    DEBUG = "debug"
+    """Debugging level log."""
+    INFO = "info"
+    """Info level log."""
+    WARN = "warn"
+    """Warning level log."""
+    ERROR = "error"
+    """Error level log."""
+    ASSERT = "assert"
+    """Assertions level log."""
+
+    def __str__(self):
+        return self.value
