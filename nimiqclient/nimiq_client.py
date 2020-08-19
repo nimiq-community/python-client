@@ -15,9 +15,6 @@ from .models.transaction import *
 import requests
 from requests.auth import HTTPBasicAuth
 from enum import Enum
-import logging
-
-logger = logging.getLogger(__name__)
 
 class InternalErrorException(Exception):
     """
@@ -81,8 +78,6 @@ class NimiqClient:
             "id": self.id
         }
 
-        logger.info("Request: {0}".format(call_object))
-
         # make request
         requestError = None
         try:
@@ -91,8 +86,6 @@ class NimiqClient:
                 json = call_object,
                 auth = self.auth
             ).json()
-
-            logger.info("Response: {0}".format(resp_object))
 
         except Exception as e:
             requestError = e

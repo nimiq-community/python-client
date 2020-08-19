@@ -58,8 +58,13 @@ class Block():
         self.extraData = extraData
         self.size = size
         for index, transaction in enumerate(transactions):
-            if type(transaction) is not str and type(transaction) is not Transaction:
-                transactions[index] = Transaction(**transaction)
+            tt = type(transaction)
+            if tt is not str and tt is not Transaction:
+                if tt is dict:
+                    transactions[index] = Transaction(**transaction)
+                else:
+                    from ..nimiq_client import InternalErrorException
+                    raise InternalErrorException("Couldn't parse Transaction {0}".format(transaction))
         self.transactions = transactions
 
 class BlockTemplateHeader():
