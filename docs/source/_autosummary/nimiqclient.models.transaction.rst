@@ -9,6 +9,14 @@ nimiqclient.models.transaction
 
    
    
+   .. rubric:: Functions
+
+   .. autosummary::
+      :toctree:
+      :nosignatures:
+   
+      preprocess_args
+   
    
 
    
@@ -21,6 +29,7 @@ nimiqclient.models.transaction
       :nosignatures:
    
       OutgoingTransaction
+      TXBase
       Transaction
       TransactionReceipt
    

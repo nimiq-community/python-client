@@ -21,6 +21,7 @@ nimiqclient.models.node
       :nosignatures:
    
       ConsensusState
+      LogLevel
       SyncStatus
    
    

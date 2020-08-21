@@ -17,43 +17,43 @@ nimiqclient.nimiq\_client.NimiqClient
       :nosignatures:
    
       ~NimiqClient.accounts
-      ~NimiqClient.blockNumber
+      ~NimiqClient.block_number
       ~NimiqClient.consensus
       ~NimiqClient.constant
-      ~NimiqClient.createAccount
-      ~NimiqClient.createRawTransaction
-      ~NimiqClient.getAccount
-      ~NimiqClient.getBalance
-      ~NimiqClient.getBlockByHash
-      ~NimiqClient.getBlockByNumber
-      ~NimiqClient.getBlockTemplate
-      ~NimiqClient.getBlockTransactionCountByHash
-      ~NimiqClient.getBlockTransactionCountByNumber
-      ~NimiqClient.getRawTransactionInfo
-      ~NimiqClient.getTransactionByBlockHashAndIndex
-      ~NimiqClient.getTransactionByBlockNumberAndIndex
-      ~NimiqClient.getTransactionByHash
-      ~NimiqClient.getTransactionReceipt
-      ~NimiqClient.getTransactionsByAddress
-      ~NimiqClient.getWork
+      ~NimiqClient.create_account
+      ~NimiqClient.create_raw_transaction
+      ~NimiqClient.get_account
+      ~NimiqClient.get_balance
+      ~NimiqClient.get_block_by_hash
+      ~NimiqClient.get_block_by_number
+      ~NimiqClient.get_block_template
+      ~NimiqClient.get_block_transaction_count_by_hash
+      ~NimiqClient.get_block_transaction_count_by_number
+      ~NimiqClient.get_raw_transaction_info
+      ~NimiqClient.get_transaction_by_block_hash_and_index
+      ~NimiqClient.get_transaction_by_block_number_and_index
+      ~NimiqClient.get_transaction_by_hash
+      ~NimiqClient.get_transaction_receipt
+      ~NimiqClient.get_transactions_by_address
+      ~NimiqClient.get_work
       ~NimiqClient.hashrate
       ~NimiqClient.log
       ~NimiqClient.mempool
-      ~NimiqClient.mempoolContent
-      ~NimiqClient.minFeePerByte
-      ~NimiqClient.minerAddress
-      ~NimiqClient.minerThreads
+      ~NimiqClient.mempool_content
+      ~NimiqClient.min_fee_per_byte
+      ~NimiqClient.miner_address
+      ~NimiqClient.miner_threads
       ~NimiqClient.mining
-      ~NimiqClient.peerCount
-      ~NimiqClient.peerList
-      ~NimiqClient.peerState
+      ~NimiqClient.peer_count
+      ~NimiqClient.peer_list
+      ~NimiqClient.peer_state
       ~NimiqClient.pool
-      ~NimiqClient.poolConfirmedBalance
-      ~NimiqClient.poolConnectionState
-      ~NimiqClient.resetConstant
-      ~NimiqClient.sendRawTransaction
-      ~NimiqClient.sendTransaction
-      ~NimiqClient.submitBlock
+      ~NimiqClient.pool_confirmed_balance
+      ~NimiqClient.pool_connection_state
+      ~NimiqClient.reset_constant
+      ~NimiqClient.send_raw_transaction
+      ~NimiqClient.send_transaction
+      ~NimiqClient.submit_block
       ~NimiqClient.syncing
    
    

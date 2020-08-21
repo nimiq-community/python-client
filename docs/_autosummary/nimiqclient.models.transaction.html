@@ -36,7 +36,7 @@
     
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="nimiqclient.models.transaction.OutgoingTransaction" href="nimiqclient.models.transaction.OutgoingTransaction.html" />
+    <link rel="next" title="nimiqclient.models.transaction.preprocess_args" href="nimiqclient.models.transaction.preprocess_args.html" />
     <link rel="prev" title="nimiqclient.models.peer.PeerStateCommand" href="nimiqclient.models.peer.PeerStateCommand.html" /> 
 </head>
 
@@ -93,7 +93,9 @@
 <li class="toctree-l3"><a class="reference internal" href="nimiqclient.models.node.html">nimiqclient.models.node</a></li>
 <li class="toctree-l3"><a class="reference internal" href="nimiqclient.models.peer.html">nimiqclient.models.peer</a></li>
 <li class="toctree-l3 current"><a class="current reference internal" href="#">nimiqclient.models.transaction</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="nimiqclient.models.transaction.preprocess_args.html">nimiqclient.models.transaction.preprocess_args</a></li>
 <li class="toctree-l4"><a class="reference internal" href="nimiqclient.models.transaction.OutgoingTransaction.html">nimiqclient.models.transaction.OutgoingTransaction</a></li>
+<li class="toctree-l4"><a class="reference internal" href="nimiqclient.models.transaction.TXBase.html">nimiqclient.models.transaction.TXBase</a></li>
 <li class="toctree-l4"><a class="reference internal" href="nimiqclient.models.transaction.Transaction.html">nimiqclient.models.transaction.Transaction</a></li>
 <li class="toctree-l4"><a class="reference internal" href="nimiqclient.models.transaction.TransactionReceipt.html">nimiqclient.models.transaction.TransactionReceipt</a></li>
 </ul>
@@ -172,6 +174,18 @@
             
   <div class="section" id="module-nimiqclient.models.transaction">
 <span id="nimiqclient-models-transaction"></span><h1>nimiqclient.models.transaction<a class="headerlink" href="#module-nimiqclient.models.transaction" title="Permalink to this headline">¶</a></h1>
+<p class="rubric">Functions</p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="nimiqclient.models.transaction.preprocess_args.html#nimiqclient.models.transaction.preprocess_args" title="nimiqclient.models.transaction.preprocess_args"><code class="xref py py-obj docutils literal notranslate"><span class="pre">preprocess_args</span></code></a></p></td>
+<td><p>Decorator to change the parameter ‘from’ to ‘<a href="#id1"><span class="problematic" id="id2">from_</span></a>’ during deserialization.</p></td>
+</tr>
+</tbody>
+</table>
 <p class="rubric">Classes</p>
 <table class="longtable docutils align-default">
 <colgroup>
@@ -182,10 +196,13 @@
 <tr class="row-odd"><td><p><a class="reference internal" href="nimiqclient.models.transaction.OutgoingTransaction.html#nimiqclient.models.transaction.OutgoingTransaction" title="nimiqclient.models.transaction.OutgoingTransaction"><code class="xref py py-obj docutils literal notranslate"><span class="pre">OutgoingTransaction</span></code></a></p></td>
 <td><p>Used to pass the data to send transaccions.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="nimiqclient.models.transaction.Transaction.html#nimiqclient.models.transaction.Transaction" title="nimiqclient.models.transaction.Transaction"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Transaction</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="nimiqclient.models.transaction.TXBase.html#nimiqclient.models.transaction.TXBase" title="nimiqclient.models.transaction.TXBase"><code class="xref py py-obj docutils literal notranslate"><span class="pre">TXBase</span></code></a></p></td>
+<td><p>Enables accessing the attribute ‘from’ from outside using ‘<a href="#id3"><span class="problematic" id="id4">from_</span></a>’.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="nimiqclient.models.transaction.Transaction.html#nimiqclient.models.transaction.Transaction" title="nimiqclient.models.transaction.Transaction"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Transaction</span></code></a></p></td>
 <td><p>Transaction returned by the server.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="nimiqclient.models.transaction.TransactionReceipt.html#nimiqclient.models.transaction.TransactionReceipt" title="nimiqclient.models.transaction.TransactionReceipt"><code class="xref py py-obj docutils literal notranslate"><span class="pre">TransactionReceipt</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="nimiqclient.models.transaction.TransactionReceipt.html#nimiqclient.models.transaction.TransactionReceipt" title="nimiqclient.models.transaction.TransactionReceipt"><code class="xref py py-obj docutils literal notranslate"><span class="pre">TransactionReceipt</span></code></a></p></td>
 <td><p>Transaction receipt returned by the server.</p></td>
 </tr>
 </tbody>
@@ -200,7 +217,7 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="nimiqclient.models.transaction.OutgoingTransaction.html" class="btn btn-neutral float-right" title="nimiqclient.models.transaction.OutgoingTransaction" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="nimiqclient.models.transaction.preprocess_args.html" class="btn btn-neutral float-right" title="nimiqclient.models.transaction.preprocess_args" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="nimiqclient.models.peer.PeerStateCommand.html" class="btn btn-neutral float-left" title="nimiqclient.models.peer.PeerStateCommand" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>

@@ -1,6 +1,6 @@
 class MemPoolFixtures():
     @staticmethod
-    def mempoolEmpty():
+    def mempool_empty():
         return {
                 "jsonrpc": "2.0",
                 "result": {
@@ -23,7 +23,7 @@ class MemPoolFixtures():
             }
 
     @staticmethod
-    def mempoolContentFullTransactions():
+    def mempool_content_full_transactions():
         return {
                 "jsonrpc": "2.0",
                 "result": [
@@ -65,7 +65,7 @@ class MemPoolFixtures():
             }
 
     @staticmethod
-    def mempoolContentHashesOnly():
+    def mempool_content_hashes_only():
         return {
                 "jsonrpc": "2.0",
                 "result": [

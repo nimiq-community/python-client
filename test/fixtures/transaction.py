@@ -1,6 +1,6 @@
 class TransactionFixtures():
     @staticmethod
-    def createRawTransactionBasic():
+    def create_raw_transaction_basic():
         return {
                 "jsonrpc": "2.0",
                 "result": "00c3c0d1af80b84c3b3de4e3d79d5c8cc950e044098c969953d68bf9cee68d7b53305dbaac7514a06dae935e40d599caf1bd8a243c00000000000186a00000000000000001000af84c01239b16cee089836c2af5c7b1dbb22cdc0b4864349f7f3805909aa8cf24e4c1ff0461832e86f3624778a867d5f2ba318f92918ada7ae28d70d40c4ef1d6413802",
@@ -8,7 +8,7 @@ class TransactionFixtures():
             }
 
     @staticmethod
-    def getRawTransactionInfoBasic():
+    def get_raw_transaction_info_basic():
         return {
                 "jsonrpc": "2.0",
                 "result": {
@@ -29,7 +29,7 @@ class TransactionFixtures():
             }
 
     @staticmethod
-    def getTransactionContractCreation():
+    def get_transaction_contract_creation():
         return {
                 "jsonrpc": "2.0",
                 "result": {
@@ -51,7 +51,7 @@ class TransactionFixtures():
             }
 
     @staticmethod
-    def getTransactionFull():
+    def get_transaction_full():
         return {
                 "jsonrpc": "2.0",
                 "result": {
@@ -74,7 +74,7 @@ class TransactionFixtures():
             }
 
     @staticmethod
-    def getTransactionNotFound():
+    def get_transaction_not_found():
         return {
                 "jsonrpc": "2.0",
                 "result": None,
@@ -82,7 +82,7 @@ class TransactionFixtures():
             }
 
     @staticmethod
-    def getTransactionReceiptNotFound():
+    def get_transaction_receipt_not_found():
         return {
                 "jsonrpc": "2.0",
                 "result": None,
@@ -90,7 +90,7 @@ class TransactionFixtures():
             }
 
     @staticmethod
-    def getTransactionReceiptFound():
+    def get_transaction_receipt_found():
         return {
                 "jsonrpc": "2.0",
                 "result": {
@@ -105,7 +105,7 @@ class TransactionFixtures():
             }
 
     @staticmethod
-    def getTransactionsNotFound():
+    def get_transactions_not_found():
         return {
                 "jsonrpc": "2.0",
                 "result": [],
@@ -113,7 +113,7 @@ class TransactionFixtures():
             }
 
     @staticmethod
-    def getTransactionsFound():
+    def get_transactions_found():
         return {
                 "jsonrpc": "2.0",
                 "result": [
@@ -167,7 +167,7 @@ class TransactionFixtures():
             }
 
     @staticmethod
-    def sendTransaction():
+    def send_transaction():
         return {
                 "jsonrpc": "2.0",
                 "result": "81cf3f07b6b0646bb16833d57cda801ad5957e264b64705edeef6191fea0ad63",

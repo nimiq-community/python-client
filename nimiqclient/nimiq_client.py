@@ -55,7 +55,7 @@ class NimiqClient:
             session = requests.Session()
         self.session = session
 
-    def __call(self, method, *args):
+    def _call(self, method, *args):
         """
         Used in all JSONRPC requests to fetch the data.
 
@@ -79,7 +79,7 @@ class NimiqClient:
         }
 
         # make request
-        requestError = None
+        req_error = None
         try:
             resp_object = self.session.post(
                 self.url,
@@ -88,11 +88,11 @@ class NimiqClient:
             ).json()
 
         except Exception as e:
-            requestError = e
+            req_error = e
 
         # raise if there was any error
-        if requestError is not None:
-            raise InternalErrorException(requestError)
+        if req_error is not None:
+            raise InternalErrorException(req_error)
 
         error = resp_object.get("error")
         if error is not None:
@@ -100,7 +100,7 @@ class NimiqClient:
 
         return resp_object.get("result")
 
-    def __get_account(self, data):
+    def _get_account(self, data):
         """
         Get the specific account type from the dictionary data.
 
@@ -124,16 +124,16 @@ class NimiqClient:
         :return: List of Accounts owned by the client.
         :rtype: list of (Account or VestingContract or HTLC)
         """
-        return [self.__get_account(account) for account in self.__call("accounts")]
+        return [self._get_account(account) for account in self._call("accounts")]
 
-    def blockNumber(self):
+    def block_number(self):
         """
         Returns the height of most recent block.
 
         :return: The current block height the client is on.
         :rtype: int
         """
-        return self.__call("blockNumber")
+        return self._call("blockNumber")
 
     def consensus(self):
         """
@@ -142,7 +142,7 @@ class NimiqClient:
         :return: Consensus state. "established" is the value for a good state, other values indicate bad.
         :rtype: ConsensusState
         """
-        return ConsensusState(self.__call("consensus"))
+        return ConsensusState(self._call("consensus"))
 
     def constant(self, constant, value = None):
         """
@@ -158,20 +158,20 @@ class NimiqClient:
         :rtype: int
         """
         if value is not None:
-            return self.__call("constant", constant, value)
+            return self._call("constant", constant, value)
         else:
-            return self.__call("constant", constant)
+            return self._call("constant", constant)
 
-    def createAccount(self):
+    def create_account(self):
         """
         Creates a new account and stores its private key in the client store.
 
         :return: Information on the wallet that was created using the command.
         :rtype: Wallet
         """
-        return Wallet(**self.__call("createAccount"))
+        return Wallet(**self._call("createAccount"))
 
-    def createRawTransaction(self, transaction):
+    def create_raw_transaction(self, transaction):
         """
         Creates and signs a transaction without sending it. The transaction can then be send via sendRawTransaction() without accidentally replaying it.
 
@@ -180,9 +180,9 @@ class NimiqClient:
         :return: Hex-encoded transaction.
         :rtype: str
         """
-        return self.__call("createRawTransaction", transaction)
+        return self._call("createRawTransaction", transaction)
 
-    def getAccount(self, address):
+    def get_account(self, address):
         """
         Returns details for the account of given address.
 
@@ -191,9 +191,9 @@ class NimiqClient:
         :return: Details about the account. Returns the default empty basic account for non-existing accounts.
         :rtype: Account or VestingContract or HTLC
         """
-        return self.__get_account(self.__call("getAccount", address))
+        return self._get_account(self._call("getAccount", address))
 
-    def getBalance(self, address):
+    def get_balance(self, address):
         """
         Returns the balance of the account of given address.
 
@@ -202,64 +202,64 @@ class NimiqClient:
         :return: The current balance at the specified address (in smalest unit).
         :rtype: int
         """
-        return self.__call("getBalance", address)
+        return self._call("getBalance", address)
 
-    def getBlockByHash(self, hash, fullTransactions = None):
+    def get_block_by_hash(self, hash, full_transactions = None):
         """
         Returns information about a block by hash.
 
         :param hash: Hash of the block to gather information on.
         :type hash: str
-        :param fullTransactions: If True it returns the full transaction objects, if False only the hashes of the transactions.
-        :type fullTransactions: bool, optional
+        :param full_transactions: If True it returns the full transaction objects, if False only the hashes of the transactions.
+        :type full_transactions: bool, optional
         :return: A block object or None when no block was found.
         :rtype: Block or None
         """
         result = None
-        if fullTransactions is not None:
-            result = self.__call("getBlockByHash", hash, fullTransactions)
+        if full_transactions is not None:
+            result = self._call("getBlockByHash", hash, full_transactions)
         else:
-            result = self.__call("getBlockByHash", hash)
+            result = self._call("getBlockByHash", hash)
         return Block(**result) if result is not None else None
 
-    def getBlockByNumber(self, height, fullTransactions = None):
+    def get_block_by_number(self, height, full_transactions = None):
         """
         Returns information about a block by block number.
 
         :param height: The height of the block to gather information on.
         :type height: int
-        :param fullTransactions: If True it returns the full transaction objects, if False only the hashes of the transactions.
-        :type fullTransactions: bool, optional
+        :param full_transactions: If True it returns the full transaction objects, if False only the hashes of the transactions.
+        :type full_transactions: bool, optional
         :return: A block object or None when no block was found.
         :rtype: Block or None
         """
         result = None
-        if fullTransactions is not None:
-            result = self.__call("getBlockByNumber", height, fullTransactions)
+        if full_transactions is not None:
+            result = self._call("getBlockByNumber", height, full_transactions)
         else:
-            result = self.__call("getBlockByNumber", height)
+            result = self._call("getBlockByNumber", height)
         return Block(**result) if result is not None else None
 
-    def getBlockTemplate(self, address = None, extraData = ""):
+    def get_block_template(self, address = None, extra_data = ""):
         """
         Returns a template to build the next block for mining. This will consider pool instructions when connected to a pool.
-        If address and extraData are provided the values are overriden.
+        If address and extra_data are provided the values are overriden.
 
         :param address: The address to use as a miner for this block. This overrides the address provided during startup or from the pool.
         :type address: str
-        :param extraData: Hex-encoded value for the extra data field. This overrides the extra data provided during startup or from the pool.
-        :type extraData: str
+        :param extra_data: Hex-encoded value for the extra data field. This overrides the extra data provided during startup or from the pool.
+        :type extra_data: str
         :return: A block template object.
         :rtype: BlockTemplate
         """
         result = None
         if address is not None:
-            result = self.__call("getBlockTemplate", address, extraData)
+            result = self._call("getBlockTemplate", address, extra_data)
         else:
-            result = self.__call("getBlockTemplate")
+            result = self._call("getBlockTemplate")
         return BlockTemplate(BlockTemplateHeader(**result.get("header")), result.get("interlink"), BlockTemplateBody(**result.get("body")), result.get("target"))
 
-    def getBlockTransactionCountByHash(self, hash):
+    def get_block_transaction_count_by_hash(self, hash):
         """
         Returns the number of transactions in a block from a block matching the given block hash.
 
@@ -268,9 +268,9 @@ class NimiqClient:
         :return: Number of transactions in the block found, or None, when no block was found.
         :rtype: int or None
         """
-        return self.__call("getBlockTransactionCountByHash", hash)
+        return self._call("getBlockTransactionCountByHash", hash)
 
-    def getBlockTransactionCountByNumber(self, height):
+    def get_block_transaction_count_by_number(self, height):
         """
         Returns the number of transactions in a block matching the given block number.
 
@@ -279,9 +279,9 @@ class NimiqClient:
         :return: Number of transactions in the block found, or None, when no block was found.
         :rtype: int or None
         """
-        return self.__call("getBlockTransactionCountByNumber", height)
+        return self._call("getBlockTransactionCountByNumber", height)
 
-    def getTransactionByBlockHashAndIndex(self, hash, index):
+    def get_transaction_by_block_hash_and_index(self, hash, index):
         """
         Returns information about a transaction by block hash and transaction index position.
 
@@ -292,13 +292,13 @@ class NimiqClient:
         :return: A transaction object or None when no transaction was found.
         :rtype: Transaction or None
         """
-        result = self.__call("getTransactionByBlockHashAndIndex", hash, index)
+        result = self._call("getTransactionByBlockHashAndIndex", hash, index)
         if result is not None:
             return Transaction(**result)
         else:
             return None
 
-    def getTransactionByBlockNumberAndIndex(self, height, index):
+    def get_transaction_by_block_number_and_index(self, height, index):
         """
         Returns information about a transaction by block number and transaction index position.
 
@@ -309,13 +309,13 @@ class NimiqClient:
         :return: A transaction object or None when no transaction was found.
         :rtype: Transaction or None
         """
-        result = self.__call("getTransactionByBlockNumberAndIndex", height, index)
+        result = self._call("getTransactionByBlockNumberAndIndex", height, index)
         if result is not None:
             return Transaction(**result)
         else:
             return None
 
-    def getTransactionByHash(self, hash):
+    def get_transaction_by_hash(self, hash):
         """
         Returns the information about a transaction requested by transaction hash.
 
@@ -324,13 +324,13 @@ class NimiqClient:
         :return: A transaction object or None when no transaction was found.
         :rtype: Transaction or None
         """
-        result = self.__call("getTransactionByHash", hash)
+        result = self._call("getTransactionByHash", hash)
         if result is not None:
             return Transaction(**result)
         else:
             return None
 
-    def getTransactionReceipt(self, hash):
+    def get_transaction_receipt(self, hash):
         """
         Returns the receipt of a transaction by transaction hash.
 
@@ -339,47 +339,47 @@ class NimiqClient:
         :return: A transaction receipt object, or None when no receipt was found.
         :rtype: TransactionReceipt or None
         """
-        result = self.__call("getTransactionReceipt", hash)
+        result = self._call("getTransactionReceipt", hash)
         if result is not None:
             return TransactionReceipt(**result)
         else:
             return None
 
-    def getTransactionsByAddress(self, address, numberOfTransactions = None):
+    def get_transactions_by_address(self, address, number_of_transactions = None):
         """
         Returns the latest transactions successfully performed by or for an address.
         Note that this information might change when blocks are rewinded on the local state due to forks.
 
         :param address: Address of which transactions should be gathered.
         :type address: str
-        :param numberOfTransactions: Number of transactions that shall be returned.
-        :type numberOfTransactions: int, optional
+        :param number_of_transactions: Number of transactions that shall be returned.
+        :type number_of_transactions: int, optional
         :return: List of transactions linked to the requested address.
         :rtype: list of (Transaction)
         """
         result = None
-        if numberOfTransactions is not None:
-            result = self.__call("getTransactionsByAddress", address, numberOfTransactions)
+        if number_of_transactions is not None:
+            result = self._call("getTransactionsByAddress", address, number_of_transactions)
         else:
-            result = self.__call("getTransactionsByAddress", address)
+            result = self._call("getTransactionsByAddress", address)
         return [Transaction(**tx) for tx in result]
 
-    def getWork(self, address = None, extraData = ""):
+    def get_work(self, address = None, extra_data = ""):
         """
         Returns instructions to mine the next block. This will consider pool instructions when connected to a pool.
 
         :param address: The address to use as a miner for this block. This overrides the address provided during startup or from the pool.
         :type address: str
-        :param extraData: Hex-encoded value for the extra data field. This overrides the extra data provided during startup or from the pool.
-        :type extraData: str
+        :param extra_data: Hex-encoded value for the extra data field. This overrides the extra data provided during startup or from the pool.
+        :type extra_data: str
         :return: Mining work instructions.
         :rtype: WorkInstructions
         """
         result = None
         if address is not None:
-            result = self.__call("getWork", address, extraData)
+            result = self._call("getWork", address, extra_data)
         else:
-            result = self.__call("getWork")
+            result = self._call("getWork")
         return WorkInstructions(**result)
 
     def hashrate(self):
@@ -389,7 +389,7 @@ class NimiqClient:
         :return: Number of hashes per second.
         :rtype: float
         """
-        return self.__call("hashrate")
+        return self._call("hashrate")
 
     def log(self, tag, level):
         """
@@ -402,7 +402,7 @@ class NimiqClient:
         :return: True if the log level was changed, False otherwise.
         :rtype: bool
         """
-        return self.__call("log", tag, level)
+        return self._call("log", tag, level)
 
     def mempool(self):
         """
@@ -411,35 +411,35 @@ class NimiqClient:
         :return: Mempool information.
         :rtype: MempoolInfo
         """
-        result = self.__call("mempool")
+        result = self._call("mempool")
         return MempoolInfo(**result)
 
-    def mempoolContent(self, fullTransactions = None):
+    def mempool_content(self, full_transactions = None):
         """
         Returns transactions that are currently in the mempool.
 
-        :param fullTransactions: If True includes full transactions, if False includes only transaction hashes.
-        :type fullTransactions: bool, optional
+        :param full_transactions: If True includes full transactions, if False includes only transaction hashes.
+        :type full_transactions: bool, optional
         :return: List of transactions (either represented by the transaction hash or a transaction object).
         :rtype: list of (Transaction or str)
         """
         result = None
-        if fullTransactions is not None:
-            result = self.__call("mempoolContent", fullTransactions)
+        if full_transactions is not None:
+            result = self._call("mempoolContent", full_transactions)
         else:
-            result = self.__call("mempoolContent")
+            result = self._call("mempoolContent")
         return [tx if type(tx) is str else Transaction(**tx) for tx in result]
 
-    def minerAddress(self):
+    def miner_address(self):
         """
         Returns the miner address.
 
         :return: The miner address configured on the node.
         :rtype: str
         """
-        return self.__call("minerAddress")
+        return self._call("minerAddress")
 
-    def minerThreads(self, threads = None):
+    def miner_threads(self, threads = None):
         """
         Returns or sets the number of CPU threads for the miner.
         When no parameter is given, it returns the current number of miner threads.
@@ -451,11 +451,11 @@ class NimiqClient:
         :rtype: int
         """
         if threads is not None:
-            return self.__call("minerThreads", threads)
+            return self._call("minerThreads", threads)
         else:
-            return self.__call("minerThreads")
+            return self._call("minerThreads")
 
-    def minFeePerByte(self, fee = None):
+    def min_fee_per_byte(self, fee = None):
         """
         Returns or sets the minimum fee per byte.
         When no parameter is given, it returns the current minimum fee per byte.
@@ -467,9 +467,9 @@ class NimiqClient:
         :rtype: int
         """
         if fee is not None:
-            return self.__call("minFeePerByte", fee)
+            return self._call("minFeePerByte", fee)
         else:
-            return self.__call("minFeePerByte")
+            return self._call("minFeePerByte")
 
     def mining(self, state = None):
         """
@@ -483,29 +483,29 @@ class NimiqClient:
         :rtype: bool
         """
         if state is not None:
-            return self.__call("mining", state)
+            return self._call("mining", state)
         else:
-            return self.__call("mining")
+            return self._call("mining")
 
-    def peerCount(self):
+    def peer_count(self):
         """
         Returns number of peers currently connected to the client.
 
         :return: Number of connected peers.
         :rtype: int
         """
-        return self.__call("peerCount")
+        return self._call("peerCount")
 
-    def peerList(self):
+    def peer_list(self):
         """
         Returns list of peers known to the client.
 
         :return: The list of peers.
         :rtype: list of (Peer)
         """
-        return [Peer(**peer) for peer in self.__call("peerList")]
+        return [Peer(**peer) for peer in self._call("peerList")]
 
-    def peerState(self, address, command = None):
+    def peer_state(self, address, command = None):
         """
         Returns the state of the peer.
         When no command is given, it returns peer state.
@@ -520,9 +520,9 @@ class NimiqClient:
         """
         result = None
         if command is not None:
-            result = self.__call("peerState", address, command)
+            result = self._call("peerState", address, command)
         else:
-            result = self.__call("peerState", address)
+            result = self._call("peerState", address)
         return Peer(**result)
 
     def pool(self, address = None):
@@ -537,29 +537,29 @@ class NimiqClient:
         :rtype: str or None
         """
         if address is not None:
-            return self.__call("pool", address)
+            return self._call("pool", address)
         else:
-            return self.__call("pool")
+            return self._call("pool")
 
-    def poolConfirmedBalance(self):
+    def pool_confirmed_balance(self):
         """
         Returns the confirmed mining pool balance.
 
         :return: The confirmed mining pool balance (in smallest unit).
         :rtype: int
         """
-        return self.__call("poolConfirmedBalance")
+        return self._call("poolConfirmedBalance")
 
-    def poolConnectionState(self):
+    def pool_connection_state(self):
         """
         Returns the connection state to mining pool.
 
         :return: The mining pool connection state.
         :rtype: PoolConnectionState
         """
-        return PoolConnectionState(self.__call("poolConnectionState"))
+        return PoolConnectionState(self._call("poolConnectionState"))
 
-    def sendRawTransaction(self, transaction):
+    def send_raw_transaction(self, transaction):
         """
         Sends a signed message call transaction or a contract creation, if the data field contains code.
 
@@ -568,9 +568,9 @@ class NimiqClient:
         :return: The Hex-encoded transaction hash.
         :rtype: str
         """
-        return self.__call("sendRawTransaction", transaction)
+        return self._call("sendRawTransaction", transaction)
 
-    def sendTransaction(self, transaction):
+    def send_transaction(self, transaction):
         """
         Creates new message call transaction or a contract creation, if the data field contains code.
 
@@ -579,16 +579,16 @@ class NimiqClient:
         :return: The Hex-encoded transaction hash.
         :rtype: str
         """
-        return self.__call("sendTransaction", transaction)
+        return self._call("sendTransaction", transaction)
 
-    def submitBlock(self, block):
+    def submit_block(self, block):
         """
         Submits a block to the node. When the block is valid, the node will forward it to other nodes in the network.
 
         :param block: Hex-encoded full block (including header, interlink and body). When submitting work from getWork, remember to include the suffix.
         :type block: Block
         """
-        self.__call("submitBlock", block)
+        self._call("submitBlock", block)
 
     def syncing(self):
         """
@@ -597,13 +597,13 @@ class NimiqClient:
         :return: An object with sync status data or False, when not syncing.
         :rtype: SyncStatus
         """
-        result = self.__call("syncing")
+        result = self._call("syncing")
         if type(result) is not bool:
             return SyncStatus(**result)
         else:
             return result
 
-    def getRawTransactionInfo(self, transaction):
+    def get_raw_transaction_info(self, transaction):
         """
         Deserializes hex-encoded transaction and returns a transaction object.
 
@@ -612,9 +612,9 @@ class NimiqClient:
         :return: The transaction object.
         :rtype: Transaction
         """
-        return Transaction(**self.__call("getRawTransactionInfo", transaction))
+        return Transaction(**self._call("getRawTransactionInfo", transaction))
 
-    def resetConstant(self, constant):
+    def reset_constant(self, constant):
         """
         Resets the constant to default value.
 
@@ -623,4 +623,4 @@ class NimiqClient:
         :return: The new value of the constant.
         :rtype: int
         """
-        return self.__call("constant", constant, "reset")
+        return self._call("constant", constant, "reset")

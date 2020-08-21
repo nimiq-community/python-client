@@ -1,6 +1,6 @@
 class PeerFixtures():
     @staticmethod
-    def peerCount():
+    def peer_count():
         return {
                 "jsonrpc": "2.0",
                 "result": 6,
@@ -8,7 +8,7 @@ class PeerFixtures():
             }
 
     @staticmethod
-    def peerListEmpty():
+    def peer_list_empty():
         return {
                 "jsonrpc": "2.0",
                 "result": [],
@@ -16,7 +16,7 @@ class PeerFixtures():
             }
 
     @staticmethod
-    def peerList():
+    def peer_list():
         return {
                 "jsonrpc": "2.0",
                 "result": [
@@ -42,7 +42,7 @@ class PeerFixtures():
             }
 
     @staticmethod
-    def peerStateError():
+    def peer_state_error():
         return {
                 "jsonrpc": "2.0",
                 "error": {
@@ -53,7 +53,7 @@ class PeerFixtures():
             }
 
     @staticmethod
-    def peerStateFailed():
+    def peer_state_failed():
         return {
                 "jsonrpc": "2.0",
                 "result": {
@@ -65,7 +65,7 @@ class PeerFixtures():
             }
 
     @staticmethod
-    def peerStateNormal():
+    def peer_state_normal():
         return {
                 "jsonrpc": "2.0",
                 "result": {

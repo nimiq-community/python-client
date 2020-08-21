@@ -1,6 +1,6 @@
 class MinerFixtures():
     @staticmethod
-    def minerAddress():
+    def miner_address():
         return {
                 "jsonrpc": "2.0",
                 "result": "NQ39 NY67 X0F0 UTQE 0YER 4JEU B67L UPP8 G0FM",
@@ -8,7 +8,7 @@ class MinerFixtures():
             }
 
     @staticmethod
-    def minerThreads():
+    def miner_threads():
         return {
                 "jsonrpc": "2.0",
                 "result": 2,
@@ -16,7 +16,7 @@ class MinerFixtures():
             }
 
     @staticmethod
-    def miningState():
+    def mining_state():
         return {
                 "jsonrpc": "2.0",
                 "result": False,
@@ -32,7 +32,7 @@ class MinerFixtures():
             }
 
     @staticmethod
-    def poolConfirmedBalance():
+    def pool_confirmed_balance():
         return {
                 "jsonrpc": "2.0",
                 "result": 12000,
@@ -40,7 +40,7 @@ class MinerFixtures():
             }
 
     @staticmethod
-    def poolConnectionState():
+    def pool_connection_state():
         return {
                 "jsonrpc": "2.0",
                 "result": 2,
@@ -48,7 +48,7 @@ class MinerFixtures():
             }
 
     @staticmethod
-    def poolNoPool():
+    def pool_no_pool():
         return {
                 "jsonrpc": "2.0",
                 "result": None,
@@ -56,7 +56,7 @@ class MinerFixtures():
             }
 
     @staticmethod
-    def poolSushipool():
+    def pool_sushipool():
         return {
                 "jsonrpc": "2.0",
                 "result": "us.sushipool.com:443",
@@ -64,7 +64,7 @@ class MinerFixtures():
             }
 
     @staticmethod
-    def getWorkBlockTemplate():
+    def get_work_block_template():
         return {
                 "jsonrpc": "2.0",
                 "result": {
@@ -95,7 +95,7 @@ class MinerFixtures():
             }
 
     @staticmethod
-    def getWork():
+    def get_work():
         return {
                 "jsonrpc": "2.0",
                 "result": {

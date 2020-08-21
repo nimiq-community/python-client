@@ -1,6 +1,6 @@
 class BlockFixtures():
     @staticmethod
-    def blockNumber():
+    def block_number():
         return {
                 "jsonrpc": "2.0",
                 "result": 748883,
@@ -8,7 +8,7 @@ class BlockFixtures():
             }
 
     @staticmethod
-    def blockTransactionCountFound():
+    def block_transaction_count_found():
         return {
                 "jsonrpc": "2.0",
                 "result": 2,
@@ -16,7 +16,7 @@ class BlockFixtures():
             }
 
     @staticmethod
-    def blockTransactionCountNotFound():
+    def block_transaction_count_not_found():
         return {
                 "jsonrpc": "2.0",
                 "result": None,
@@ -24,7 +24,7 @@ class BlockFixtures():
             }
 
     @staticmethod
-    def getBlockFound():
+    def get_block_found():
         return {
                 "jsonrpc": "2.0",
                 "result": {
@@ -51,7 +51,7 @@ class BlockFixtures():
             }
 
     @staticmethod
-    def getBlockNotFound():
+    def get_block_not_found():
         return {
                 "jsonrpc": "2.0",
                 "result": None,
@@ -59,7 +59,7 @@ class BlockFixtures():
             }
 
     @staticmethod
-    def getBlockWithTransactions():
+    def get_block_with_transactions():
         return {
                 "jsonrpc": "2.0",
                 "result": {
@@ -116,7 +116,7 @@ class BlockFixtures():
             }
 
     @staticmethod
-    def submitBlock():
+    def submit_block():
         return {
                 "jsonrpc": "2.0",
                 "id": 1

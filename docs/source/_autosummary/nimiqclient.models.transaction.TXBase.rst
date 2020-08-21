@@ -1,9 +1,9 @@
-nimiqclient.models.transaction.Transaction
-==========================================
+nimiqclient.models.transaction.TXBase
+=====================================
 
 .. currentmodule:: nimiqclient.models.transaction
 
-.. autoclass:: Transaction
+.. autoclass:: TXBase
    :members:
    :show-inheritance:
    :inherited-members:

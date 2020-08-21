@@ -156,14 +156,13 @@
 <span class="sd">    Mempool information returned by the server.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">total</span> <span class="o">=</span> <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;total&quot;</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">total</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;total&quot;</span><span class="p">)</span>
         <span class="sd">&quot;&quot;&quot;Total number of pending transactions in mempool.&quot;&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">buckets</span> <span class="o">=</span> <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;buckets&quot;</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">buckets</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;buckets&quot;</span><span class="p">)</span>
         <span class="sd">&quot;&quot;&quot;List containing a subset of fee per byte buckets from [10000, 5000, 2000, 1000, 500, 200, 100, 50, 20, 10, 5, 2, 1, 0] that currently have more than one transaction.&quot;&quot;&quot;</span>
         <span class="n">transactionsPerBucket</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="k">for</span> <span class="n">attr</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-            <span class="k">if</span> <span class="n">attr</span><span class="o">.</span><span class="n">isdigit</span><span class="p">():</span>
-                <span class="n">transactionsPerBucket</span><span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">attr</span><span class="p">)]</span> <span class="o">=</span> <span class="n">value</span>
+            <span class="n">transactionsPerBucket</span><span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">attr</span><span class="p">)]</span> <span class="o">=</span> <span class="n">value</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">transactionsPerBucket</span> <span class="o">=</span> <span class="n">transactionsPerBucket</span>
         <span class="sd">&quot;&quot;&quot;Number of transaction in the bucket. A transaction is assigned to the highest bucket of a value lower than its fee per byte value.&quot;&quot;&quot;</span></div>
 </pre></div>

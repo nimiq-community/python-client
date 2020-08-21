@@ -37,7 +37,7 @@
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="nimiqclient.models.transaction.TransactionReceipt" href="nimiqclient.models.transaction.TransactionReceipt.html" />
-    <link rel="prev" title="nimiqclient.models.transaction.OutgoingTransaction" href="nimiqclient.models.transaction.OutgoingTransaction.html" /> 
+    <link rel="prev" title="nimiqclient.models.transaction.TXBase" href="nimiqclient.models.transaction.TXBase.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -93,7 +93,9 @@
 <li class="toctree-l3"><a class="reference internal" href="nimiqclient.models.node.html">nimiqclient.models.node</a></li>
 <li class="toctree-l3"><a class="reference internal" href="nimiqclient.models.peer.html">nimiqclient.models.peer</a></li>
 <li class="toctree-l3 current"><a class="reference internal" href="nimiqclient.models.transaction.html">nimiqclient.models.transaction</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="nimiqclient.models.transaction.preprocess_args.html">nimiqclient.models.transaction.preprocess_args</a></li>
 <li class="toctree-l4"><a class="reference internal" href="nimiqclient.models.transaction.OutgoingTransaction.html">nimiqclient.models.transaction.OutgoingTransaction</a></li>
+<li class="toctree-l4"><a class="reference internal" href="nimiqclient.models.transaction.TXBase.html">nimiqclient.models.transaction.TXBase</a></li>
 <li class="toctree-l4 current"><a class="current reference internal" href="#">nimiqclient.models.transaction.Transaction</a></li>
 <li class="toctree-l4"><a class="reference internal" href="nimiqclient.models.transaction.TransactionReceipt.html">nimiqclient.models.transaction.TransactionReceipt</a></li>
 </ul>
@@ -176,8 +178,8 @@
 <h1>nimiqclient.models.transaction.Transaction<a class="headerlink" href="#nimiqclient-models-transaction-transaction" title="Permalink to this headline">¶</a></h1>
 <dl class="py class">
 <dt id="nimiqclient.models.transaction.Transaction">
-<em class="property">class </em><code class="sig-prename descclassname">nimiqclient.models.transaction.</code><code class="sig-name descname">Transaction</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">hash</span></em>, <em class="sig-param"><span class="n">from_</span></em>, <em class="sig-param"><span class="n">fromAddress</span></em>, <em class="sig-param"><span class="n">to</span></em>, <em class="sig-param"><span class="n">toAddress</span></em>, <em class="sig-param"><span class="n">value</span></em>, <em class="sig-param"><span class="n">fee</span></em>, <em class="sig-param"><span class="n">flags</span></em>, <em class="sig-param"><span class="n">blockHash</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">blockNumber</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">timestamp</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">confirmations</span><span class="o">=</span><span class="default_value">0</span></em>, <em class="sig-param"><span class="n">transactionIndex</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">data</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">valid</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">inMempool</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nimiqclient/models/transaction.html#Transaction"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nimiqclient.models.transaction.Transaction" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<em class="property">class </em><code class="sig-prename descclassname">nimiqclient.models.transaction.</code><code class="sig-name descname">Transaction</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nimiqclient/models/transaction.html#Transaction"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nimiqclient.models.transaction.Transaction" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="nimiqclient.models.transaction.TXBase.html#nimiqclient.models.transaction.TXBase" title="nimiqclient.models.transaction.TXBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">nimiqclient.models.transaction.TXBase</span></code></a></p>
 <p>Transaction returned by the server.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -208,31 +210,8 @@
 <col style="width: 90%" />
 </colgroup>
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="#nimiqclient.models.transaction.Transaction.fromDict" title="nimiqclient.models.transaction.Transaction.fromDict"><code class="xref py py-obj docutils literal notranslate"><span class="pre">fromDict</span></code></a></p></td>
-<td><p>Create Transaction object from dict</p></td>
-</tr>
 </tbody>
 </table>
-<dl class="py method">
-<dt id="nimiqclient.models.transaction.Transaction.fromDict">
-<em class="property">static </em><code class="sig-name descname">fromDict</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">transaction</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nimiqclient/models/transaction.html#Transaction.fromDict"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nimiqclient.models.transaction.Transaction.fromDict" title="Permalink to this definition">¶</a></dt>
-<dd><p>Create Transaction object from dict</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>transaction</strong> – dict with transaction data.</p>
-</dd>
-<dt class="field-even">Type</dt>
-<dd class="field-even"><p>dict</p>
-</dd>
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>Transaction object.</p>
-</dd>
-<dt class="field-even">Return type</dt>
-<dd class="field-even"><p><a class="reference internal" href="#nimiqclient.models.transaction.Transaction" title="nimiqclient.models.transaction.Transaction">Transaction</a></p>
-</dd>
-</dl>
-</dd></dl>
-
 </dd></dl>
 
 </div>
@@ -248,7 +227,7 @@
         <a href="nimiqclient.models.transaction.TransactionReceipt.html" class="btn btn-neutral float-right" title="nimiqclient.models.transaction.TransactionReceipt" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="nimiqclient.models.transaction.OutgoingTransaction.html" class="btn btn-neutral float-left" title="nimiqclient.models.transaction.OutgoingTransaction" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="nimiqclient.models.transaction.TXBase.html" class="btn btn-neutral float-left" title="nimiqclient.models.transaction.TXBase" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

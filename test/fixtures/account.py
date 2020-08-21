@@ -42,7 +42,7 @@ class AccountFixtures():
             }
 
     @staticmethod
-    def createAccount():
+    def create_account():
         return {
                 "jsonrpc": "2.0",
                 "result": {
@@ -54,7 +54,7 @@ class AccountFixtures():
             }
 
     @staticmethod
-    def getAccountBasic():
+    def get_account_basic():
         return {
                 "jsonrpc": "2.0",
                 "result": {
@@ -67,7 +67,7 @@ class AccountFixtures():
             }
 
     @staticmethod
-    def getAccountVesting():
+    def get_account_vesting():
         return {
                 "jsonrpc": "2.0",
                 "result": {
@@ -86,7 +86,7 @@ class AccountFixtures():
             }
 
     @staticmethod
-    def getAccountVestingHtlc():
+    def get_account_vesting_htlc():
         return {
                 "jsonrpc": "2.0",
                 "result": {
@@ -108,7 +108,7 @@ class AccountFixtures():
             }
 
     @staticmethod
-    def getBalance():
+    def get_balance():
         return {
                 "id": 1,
                 "jsonrpc": "2.0",

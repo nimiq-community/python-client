@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>nimiqclient.models.node.ConsensusState &mdash; Nimiq Python Client 1.0 documentation</title>
+  <title>nimiqclient.models.node.LogLevel &mdash; Nimiq Python Client 1.0 documentation</title>
   
 
   
@@ -36,8 +36,8 @@
     
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="nimiqclient.models.node.LogLevel" href="nimiqclient.models.node.LogLevel.html" />
-    <link rel="prev" title="nimiqclient.models.node" href="nimiqclient.models.node.html" /> 
+    <link rel="next" title="nimiqclient.models.node.SyncStatus" href="nimiqclient.models.node.SyncStatus.html" />
+    <link rel="prev" title="nimiqclient.models.node.ConsensusState" href="nimiqclient.models.node.ConsensusState.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -91,8 +91,8 @@
 <li class="toctree-l3"><a class="reference internal" href="nimiqclient.models.mempool.html">nimiqclient.models.mempool</a></li>
 <li class="toctree-l3"><a class="reference internal" href="nimiqclient.models.miner.html">nimiqclient.models.miner</a></li>
 <li class="toctree-l3 current"><a class="reference internal" href="nimiqclient.models.node.html">nimiqclient.models.node</a><ul class="current">
-<li class="toctree-l4 current"><a class="current reference internal" href="#">nimiqclient.models.node.ConsensusState</a></li>
-<li class="toctree-l4"><a class="reference internal" href="nimiqclient.models.node.LogLevel.html">nimiqclient.models.node.LogLevel</a></li>
+<li class="toctree-l4"><a class="reference internal" href="nimiqclient.models.node.ConsensusState.html">nimiqclient.models.node.ConsensusState</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">nimiqclient.models.node.LogLevel</a></li>
 <li class="toctree-l4"><a class="reference internal" href="nimiqclient.models.node.SyncStatus.html">nimiqclient.models.node.SyncStatus</a></li>
 </ul>
 </li>
@@ -155,7 +155,7 @@
         
           <li><a href="nimiqclient.models.node.html">nimiqclient.models.node</a> &raquo;</li>
         
-      <li>nimiqclient.models.node.ConsensusState</li>
+      <li>nimiqclient.models.node.LogLevel</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -172,13 +172,13 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="nimiqclient-models-node-consensusstate">
-<h1>nimiqclient.models.node.ConsensusState<a class="headerlink" href="#nimiqclient-models-node-consensusstate" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="nimiqclient-models-node-loglevel">
+<h1>nimiqclient.models.node.LogLevel<a class="headerlink" href="#nimiqclient-models-node-loglevel" title="Permalink to this headline">¶</a></h1>
 <dl class="py class">
-<dt id="nimiqclient.models.node.ConsensusState">
-<em class="property">class </em><code class="sig-prename descclassname">nimiqclient.models.node.</code><code class="sig-name descname">ConsensusState</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">value</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nimiqclient/models/node.html#ConsensusState"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nimiqclient.models.node.ConsensusState" title="Permalink to this definition">¶</a></dt>
+<dt id="nimiqclient.models.node.LogLevel">
+<em class="property">class </em><code class="sig-prename descclassname">nimiqclient.models.node.</code><code class="sig-name descname">LogLevel</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">value</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nimiqclient/models/node.html#LogLevel"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nimiqclient.models.node.LogLevel" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">enum.Enum</span></code></p>
-<p>Consensus state returned by the server.</p>
+<p>Used to set the log level in the JSONRPC server.</p>
 <p class="rubric">Attributes</p>
 <table class="longtable docutils align-default">
 <colgroup>
@@ -186,33 +186,69 @@
 <col style="width: 90%" />
 </colgroup>
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="#nimiqclient.models.node.ConsensusState.CONNECTING" title="nimiqclient.models.node.ConsensusState.CONNECTING"><code class="xref py py-obj docutils literal notranslate"><span class="pre">CONNECTING</span></code></a></p></td>
-<td><p>Connecting.</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#nimiqclient.models.node.LogLevel.ASSERT" title="nimiqclient.models.node.LogLevel.ASSERT"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ASSERT</span></code></a></p></td>
+<td><p>Assertions level log.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#nimiqclient.models.node.ConsensusState.ESTABLISHED" title="nimiqclient.models.node.ConsensusState.ESTABLISHED"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ESTABLISHED</span></code></a></p></td>
-<td><p>Consensus established.</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#nimiqclient.models.node.LogLevel.DEBUG" title="nimiqclient.models.node.LogLevel.DEBUG"><code class="xref py py-obj docutils literal notranslate"><span class="pre">DEBUG</span></code></a></p></td>
+<td><p>Debugging level log.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#nimiqclient.models.node.ConsensusState.SYNCING" title="nimiqclient.models.node.ConsensusState.SYNCING"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SYNCING</span></code></a></p></td>
-<td><p>Syncing blocks.</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#nimiqclient.models.node.LogLevel.ERROR" title="nimiqclient.models.node.LogLevel.ERROR"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ERROR</span></code></a></p></td>
+<td><p>Error level log.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#nimiqclient.models.node.LogLevel.INFO" title="nimiqclient.models.node.LogLevel.INFO"><code class="xref py py-obj docutils literal notranslate"><span class="pre">INFO</span></code></a></p></td>
+<td><p>Info level log.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#nimiqclient.models.node.LogLevel.TRACE" title="nimiqclient.models.node.LogLevel.TRACE"><code class="xref py py-obj docutils literal notranslate"><span class="pre">TRACE</span></code></a></p></td>
+<td><p>Trace level log.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#nimiqclient.models.node.LogLevel.VERBOSE" title="nimiqclient.models.node.LogLevel.VERBOSE"><code class="xref py py-obj docutils literal notranslate"><span class="pre">VERBOSE</span></code></a></p></td>
+<td><p>Verbose level log.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#nimiqclient.models.node.LogLevel.WARN" title="nimiqclient.models.node.LogLevel.WARN"><code class="xref py py-obj docutils literal notranslate"><span class="pre">WARN</span></code></a></p></td>
+<td><p>Warning level log.</p></td>
 </tr>
 </tbody>
 </table>
 <dl class="py attribute">
-<dt id="nimiqclient.models.node.ConsensusState.CONNECTING">
-<code class="sig-name descname">CONNECTING</code><em class="property"> = 'connecting'</em><a class="headerlink" href="#nimiqclient.models.node.ConsensusState.CONNECTING" title="Permalink to this definition">¶</a></dt>
-<dd><p>Connecting.</p>
+<dt id="nimiqclient.models.node.LogLevel.ASSERT">
+<code class="sig-name descname">ASSERT</code><em class="property"> = 'assert'</em><a class="headerlink" href="#nimiqclient.models.node.LogLevel.ASSERT" title="Permalink to this definition">¶</a></dt>
+<dd><p>Assertions level log.</p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt id="nimiqclient.models.node.ConsensusState.ESTABLISHED">
-<code class="sig-name descname">ESTABLISHED</code><em class="property"> = 'established'</em><a class="headerlink" href="#nimiqclient.models.node.ConsensusState.ESTABLISHED" title="Permalink to this definition">¶</a></dt>
-<dd><p>Consensus established.</p>
+<dt id="nimiqclient.models.node.LogLevel.DEBUG">
+<code class="sig-name descname">DEBUG</code><em class="property"> = 'debug'</em><a class="headerlink" href="#nimiqclient.models.node.LogLevel.DEBUG" title="Permalink to this definition">¶</a></dt>
+<dd><p>Debugging level log.</p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt id="nimiqclient.models.node.ConsensusState.SYNCING">
-<code class="sig-name descname">SYNCING</code><em class="property"> = 'syncing'</em><a class="headerlink" href="#nimiqclient.models.node.ConsensusState.SYNCING" title="Permalink to this definition">¶</a></dt>
-<dd><p>Syncing blocks.</p>
+<dt id="nimiqclient.models.node.LogLevel.ERROR">
+<code class="sig-name descname">ERROR</code><em class="property"> = 'error'</em><a class="headerlink" href="#nimiqclient.models.node.LogLevel.ERROR" title="Permalink to this definition">¶</a></dt>
+<dd><p>Error level log.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="nimiqclient.models.node.LogLevel.INFO">
+<code class="sig-name descname">INFO</code><em class="property"> = 'info'</em><a class="headerlink" href="#nimiqclient.models.node.LogLevel.INFO" title="Permalink to this definition">¶</a></dt>
+<dd><p>Info level log.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="nimiqclient.models.node.LogLevel.TRACE">
+<code class="sig-name descname">TRACE</code><em class="property"> = 'trace'</em><a class="headerlink" href="#nimiqclient.models.node.LogLevel.TRACE" title="Permalink to this definition">¶</a></dt>
+<dd><p>Trace level log.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="nimiqclient.models.node.LogLevel.VERBOSE">
+<code class="sig-name descname">VERBOSE</code><em class="property"> = 'verbose'</em><a class="headerlink" href="#nimiqclient.models.node.LogLevel.VERBOSE" title="Permalink to this definition">¶</a></dt>
+<dd><p>Verbose level log.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="nimiqclient.models.node.LogLevel.WARN">
+<code class="sig-name descname">WARN</code><em class="property"> = 'warn'</em><a class="headerlink" href="#nimiqclient.models.node.LogLevel.WARN" title="Permalink to this definition">¶</a></dt>
+<dd><p>Warning level log.</p>
 </dd></dl>
 
 </dd></dl>
@@ -227,10 +263,10 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="nimiqclient.models.node.LogLevel.html" class="btn btn-neutral float-right" title="nimiqclient.models.node.LogLevel" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="nimiqclient.models.node.SyncStatus.html" class="btn btn-neutral float-right" title="nimiqclient.models.node.SyncStatus" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="nimiqclient.models.node.html" class="btn btn-neutral float-left" title="nimiqclient.models.node" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="nimiqclient.models.node.ConsensusState.html" class="btn btn-neutral float-left" title="nimiqclient.models.node.ConsensusState" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

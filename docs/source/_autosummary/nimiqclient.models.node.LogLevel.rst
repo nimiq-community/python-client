@@ -1,7 +1,7 @@
-nimiqclient.nimiq\_client.LogLevel
-==================================
+nimiqclient.models.node.LogLevel
+================================
 
-.. currentmodule:: nimiqclient.nimiq_client
+.. currentmodule:: nimiqclient.models.node
 
 .. autoclass:: LogLevel
    :members:

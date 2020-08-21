@@ -20,7 +20,6 @@ nimiqclient.nimiq\_client
       :template: custom-class-template.rst
       :nosignatures:
    
-      LogLevel
       NimiqClient
    
    

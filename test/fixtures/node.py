@@ -1,6 +1,6 @@
 class NodeFixtures():
     @staticmethod
-    def consensusSyncing():
+    def consensus_syncing():
         return {
                 "jsonrpc": "2.0",
                 "result": "syncing",
@@ -24,7 +24,7 @@ class NodeFixtures():
             }
 
     @staticmethod
-    def minFeePerByte():
+    def min_fee_per_byte():
         return {
                 "jsonrpc": "2.0",
                 "result": 0,
@@ -32,7 +32,7 @@ class NodeFixtures():
             }
 
     @staticmethod
-    def syncingNotSyncing():
+    def syncing_not_syncing():
         return {
                 "jsonrpc": "2.0",
                 "result": False,
