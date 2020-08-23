@@ -37,13 +37,12 @@ nimiqclient.nimiq\_client.NimiqClient
       ~NimiqClient.get_transactions_by_address
       ~NimiqClient.get_work
       ~NimiqClient.hashrate
-      ~NimiqClient.log
+      ~NimiqClient.is_mining
       ~NimiqClient.mempool
       ~NimiqClient.mempool_content
       ~NimiqClient.min_fee_per_byte
       ~NimiqClient.miner_address
       ~NimiqClient.miner_threads
-      ~NimiqClient.mining
       ~NimiqClient.peer_count
       ~NimiqClient.peer_list
       ~NimiqClient.peer_state
@@ -53,6 +52,13 @@ nimiqclient.nimiq\_client.NimiqClient
       ~NimiqClient.reset_constant
       ~NimiqClient.send_raw_transaction
       ~NimiqClient.send_transaction
+      ~NimiqClient.set_constant
+      ~NimiqClient.set_log
+      ~NimiqClient.set_min_fee_per_byte
+      ~NimiqClient.set_miner_threads
+      ~NimiqClient.set_mining
+      ~NimiqClient.set_peer_state
+      ~NimiqClient.set_pool
       ~NimiqClient.submit_block
       ~NimiqClient.syncing
    

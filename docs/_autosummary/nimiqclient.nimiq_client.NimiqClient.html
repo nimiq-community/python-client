@@ -197,7 +197,7 @@
 <td><p>Returns information on the current consensus state.</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="#nimiqclient.nimiq_client.NimiqClient.constant" title="nimiqclient.nimiq_client.NimiqClient.constant"><code class="xref py py-obj docutils literal notranslate"><span class="pre">constant</span></code></a></p></td>
-<td><p>Returns or overrides a constant value.</p></td>
+<td><p>Returns the value of the constant.</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="#nimiqclient.nimiq_client.NimiqClient.create_account" title="nimiqclient.nimiq_client.NimiqClient.create_account"><code class="xref py py-obj docutils literal notranslate"><span class="pre">create_account</span></code></a></p></td>
 <td><p>Creates a new account and stores its private key in the client store.</p></td>
@@ -250,8 +250,8 @@
 <tr class="row-odd"><td><p><a class="reference internal" href="#nimiqclient.nimiq_client.NimiqClient.hashrate" title="nimiqclient.nimiq_client.NimiqClient.hashrate"><code class="xref py py-obj docutils literal notranslate"><span class="pre">hashrate</span></code></a></p></td>
 <td><p>Returns the number of hashes per second that the node is mining with.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#nimiqclient.nimiq_client.NimiqClient.log" title="nimiqclient.nimiq_client.NimiqClient.log"><code class="xref py py-obj docutils literal notranslate"><span class="pre">log</span></code></a></p></td>
-<td><p>Sets the log level of the node.</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#nimiqclient.nimiq_client.NimiqClient.is_mining" title="nimiqclient.nimiq_client.NimiqClient.is_mining"><code class="xref py py-obj docutils literal notranslate"><span class="pre">is_mining</span></code></a></p></td>
+<td><p>Returns true if client is actively mining new blocks.</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="#nimiqclient.nimiq_client.NimiqClient.mempool" title="nimiqclient.nimiq_client.NimiqClient.mempool"><code class="xref py py-obj docutils literal notranslate"><span class="pre">mempool</span></code></a></p></td>
 <td><p>Returns information on the current mempool situation.</p></td>
@@ -260,43 +260,61 @@
 <td><p>Returns transactions that are currently in the mempool.</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="#nimiqclient.nimiq_client.NimiqClient.min_fee_per_byte" title="nimiqclient.nimiq_client.NimiqClient.min_fee_per_byte"><code class="xref py py-obj docutils literal notranslate"><span class="pre">min_fee_per_byte</span></code></a></p></td>
-<td><p>Returns or sets the minimum fee per byte.</p></td>
+<td><p>Returns the minimum fee per byte.</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="#nimiqclient.nimiq_client.NimiqClient.miner_address" title="nimiqclient.nimiq_client.NimiqClient.miner_address"><code class="xref py py-obj docutils literal notranslate"><span class="pre">miner_address</span></code></a></p></td>
 <td><p>Returns the miner address.</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="#nimiqclient.nimiq_client.NimiqClient.miner_threads" title="nimiqclient.nimiq_client.NimiqClient.miner_threads"><code class="xref py py-obj docutils literal notranslate"><span class="pre">miner_threads</span></code></a></p></td>
-<td><p>Returns or sets the number of CPU threads for the miner.</p></td>
+<td><p>Returns the number of CPU threads for the miner.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#nimiqclient.nimiq_client.NimiqClient.mining" title="nimiqclient.nimiq_client.NimiqClient.mining"><code class="xref py py-obj docutils literal notranslate"><span class="pre">mining</span></code></a></p></td>
-<td><p>Returns true if client is actively mining new blocks.</p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#nimiqclient.nimiq_client.NimiqClient.peer_count" title="nimiqclient.nimiq_client.NimiqClient.peer_count"><code class="xref py py-obj docutils literal notranslate"><span class="pre">peer_count</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#nimiqclient.nimiq_client.NimiqClient.peer_count" title="nimiqclient.nimiq_client.NimiqClient.peer_count"><code class="xref py py-obj docutils literal notranslate"><span class="pre">peer_count</span></code></a></p></td>
 <td><p>Returns number of peers currently connected to the client.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#nimiqclient.nimiq_client.NimiqClient.peer_list" title="nimiqclient.nimiq_client.NimiqClient.peer_list"><code class="xref py py-obj docutils literal notranslate"><span class="pre">peer_list</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#nimiqclient.nimiq_client.NimiqClient.peer_list" title="nimiqclient.nimiq_client.NimiqClient.peer_list"><code class="xref py py-obj docutils literal notranslate"><span class="pre">peer_list</span></code></a></p></td>
 <td><p>Returns list of peers known to the client.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#nimiqclient.nimiq_client.NimiqClient.peer_state" title="nimiqclient.nimiq_client.NimiqClient.peer_state"><code class="xref py py-obj docutils literal notranslate"><span class="pre">peer_state</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#nimiqclient.nimiq_client.NimiqClient.peer_state" title="nimiqclient.nimiq_client.NimiqClient.peer_state"><code class="xref py py-obj docutils literal notranslate"><span class="pre">peer_state</span></code></a></p></td>
 <td><p>Returns the state of the peer.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#nimiqclient.nimiq_client.NimiqClient.pool" title="nimiqclient.nimiq_client.NimiqClient.pool"><code class="xref py py-obj docutils literal notranslate"><span class="pre">pool</span></code></a></p></td>
-<td><p>Returns or sets the mining pool.</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#nimiqclient.nimiq_client.NimiqClient.pool" title="nimiqclient.nimiq_client.NimiqClient.pool"><code class="xref py py-obj docutils literal notranslate"><span class="pre">pool</span></code></a></p></td>
+<td><p>Returns the mining pool.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#nimiqclient.nimiq_client.NimiqClient.pool_confirmed_balance" title="nimiqclient.nimiq_client.NimiqClient.pool_confirmed_balance"><code class="xref py py-obj docutils literal notranslate"><span class="pre">pool_confirmed_balance</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#nimiqclient.nimiq_client.NimiqClient.pool_confirmed_balance" title="nimiqclient.nimiq_client.NimiqClient.pool_confirmed_balance"><code class="xref py py-obj docutils literal notranslate"><span class="pre">pool_confirmed_balance</span></code></a></p></td>
 <td><p>Returns the confirmed mining pool balance.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#nimiqclient.nimiq_client.NimiqClient.pool_connection_state" title="nimiqclient.nimiq_client.NimiqClient.pool_connection_state"><code class="xref py py-obj docutils literal notranslate"><span class="pre">pool_connection_state</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#nimiqclient.nimiq_client.NimiqClient.pool_connection_state" title="nimiqclient.nimiq_client.NimiqClient.pool_connection_state"><code class="xref py py-obj docutils literal notranslate"><span class="pre">pool_connection_state</span></code></a></p></td>
 <td><p>Returns the connection state to mining pool.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#nimiqclient.nimiq_client.NimiqClient.reset_constant" title="nimiqclient.nimiq_client.NimiqClient.reset_constant"><code class="xref py py-obj docutils literal notranslate"><span class="pre">reset_constant</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#nimiqclient.nimiq_client.NimiqClient.reset_constant" title="nimiqclient.nimiq_client.NimiqClient.reset_constant"><code class="xref py py-obj docutils literal notranslate"><span class="pre">reset_constant</span></code></a></p></td>
 <td><p>Resets the constant to default value.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#nimiqclient.nimiq_client.NimiqClient.send_raw_transaction" title="nimiqclient.nimiq_client.NimiqClient.send_raw_transaction"><code class="xref py py-obj docutils literal notranslate"><span class="pre">send_raw_transaction</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#nimiqclient.nimiq_client.NimiqClient.send_raw_transaction" title="nimiqclient.nimiq_client.NimiqClient.send_raw_transaction"><code class="xref py py-obj docutils literal notranslate"><span class="pre">send_raw_transaction</span></code></a></p></td>
 <td><p>Sends a signed message call transaction or a contract creation, if the data field contains code.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#nimiqclient.nimiq_client.NimiqClient.send_transaction" title="nimiqclient.nimiq_client.NimiqClient.send_transaction"><code class="xref py py-obj docutils literal notranslate"><span class="pre">send_transaction</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#nimiqclient.nimiq_client.NimiqClient.send_transaction" title="nimiqclient.nimiq_client.NimiqClient.send_transaction"><code class="xref py py-obj docutils literal notranslate"><span class="pre">send_transaction</span></code></a></p></td>
 <td><p>Creates new message call transaction or a contract creation, if the data field contains code.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#nimiqclient.nimiq_client.NimiqClient.set_constant" title="nimiqclient.nimiq_client.NimiqClient.set_constant"><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_constant</span></code></a></p></td>
+<td><p>Overrides the value of a constant.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#nimiqclient.nimiq_client.NimiqClient.set_log" title="nimiqclient.nimiq_client.NimiqClient.set_log"><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_log</span></code></a></p></td>
+<td><p>Sets the log level of the node.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#nimiqclient.nimiq_client.NimiqClient.set_min_fee_per_byte" title="nimiqclient.nimiq_client.NimiqClient.set_min_fee_per_byte"><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_min_fee_per_byte</span></code></a></p></td>
+<td><p>Sets the minimum fee per byte.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#nimiqclient.nimiq_client.NimiqClient.set_miner_threads" title="nimiqclient.nimiq_client.NimiqClient.set_miner_threads"><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_miner_threads</span></code></a></p></td>
+<td><p>Sets the number of CPU threads for the miner.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#nimiqclient.nimiq_client.NimiqClient.set_mining" title="nimiqclient.nimiq_client.NimiqClient.set_mining"><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_mining</span></code></a></p></td>
+<td><p>Sets the client mining state.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#nimiqclient.nimiq_client.NimiqClient.set_peer_state" title="nimiqclient.nimiq_client.NimiqClient.set_peer_state"><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_peer_state</span></code></a></p></td>
+<td><p>Returns the state of the peer.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#nimiqclient.nimiq_client.NimiqClient.set_pool" title="nimiqclient.nimiq_client.NimiqClient.set_pool"><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_pool</span></code></a></p></td>
+<td><p>Sets the mining pool.</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="#nimiqclient.nimiq_client.NimiqClient.submit_block" title="nimiqclient.nimiq_client.NimiqClient.submit_block"><code class="xref py py-obj docutils literal notranslate"><span class="pre">submit_block</span></code></a></p></td>
 <td><p>Submits a block to the node.</p></td>
@@ -350,16 +368,11 @@
 
 <dl class="py method">
 <dt id="nimiqclient.nimiq_client.NimiqClient.constant">
-<code class="sig-name descname">constant</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">constant</span></em>, <em class="sig-param"><span class="n">value</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nimiqclient/nimiq_client.html#NimiqClient.constant"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nimiqclient.nimiq_client.NimiqClient.constant" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns or overrides a constant value.
-When no parameter is given, it returns the value of the constant. When giving a value as parameter,
-it sets the constant to the given value. To reset the constant use resetConstant() instead.</p>
+<code class="sig-name descname">constant</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">constant</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nimiqclient/nimiq_client.html#NimiqClient.constant"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nimiqclient.nimiq_client.NimiqClient.constant" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the value of the constant.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>constant</strong> (<em>str</em>) – The class and name of the constant (format should be “Class.CONSTANT”).</p></li>
-<li><p><strong>value</strong> (<em>int</em><em>, </em><em>optional</em>) – The new value of the constant.</p></li>
-</ul>
+<dd class="field-odd"><p><strong>constant</strong> (<em>str</em>) – The class and name of the constant (format should be “Class.CONSTANT”).</p>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p>The value of the constant.</p>
@@ -437,13 +450,13 @@ it sets the constant to the given value. To reset the constant use resetConstant
 
 <dl class="py method">
 <dt id="nimiqclient.nimiq_client.NimiqClient.get_block_by_hash">
-<code class="sig-name descname">get_block_by_hash</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">hash</span></em>, <em class="sig-param"><span class="n">full_transactions</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nimiqclient/nimiq_client.html#NimiqClient.get_block_by_hash"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nimiqclient.nimiq_client.NimiqClient.get_block_by_hash" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">get_block_by_hash</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">hash</span></em>, <em class="sig-param"><span class="n">include_transactions</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nimiqclient/nimiq_client.html#NimiqClient.get_block_by_hash"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nimiqclient.nimiq_client.NimiqClient.get_block_by_hash" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns information about a block by hash.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>hash</strong> (<em>str</em>) – Hash of the block to gather information on.</p></li>
-<li><p><strong>full_transactions</strong> (<em>bool</em><em>, </em><em>optional</em>) – If True it returns the full transaction objects, if False only the hashes of the transactions.</p></li>
+<li><p><strong>include_transactions</strong> (<em>bool</em><em>, </em><em>optional</em>) – If True it returns the full transaction objects, if False only the hashes of the transactions.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -457,13 +470,13 @@ it sets the constant to the given value. To reset the constant use resetConstant
 
 <dl class="py method">
 <dt id="nimiqclient.nimiq_client.NimiqClient.get_block_by_number">
-<code class="sig-name descname">get_block_by_number</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">height</span></em>, <em class="sig-param"><span class="n">full_transactions</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nimiqclient/nimiq_client.html#NimiqClient.get_block_by_number"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nimiqclient.nimiq_client.NimiqClient.get_block_by_number" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">get_block_by_number</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">height</span></em>, <em class="sig-param"><span class="n">include_transactions</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nimiqclient/nimiq_client.html#NimiqClient.get_block_by_number"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nimiqclient.nimiq_client.NimiqClient.get_block_by_number" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns information about a block by block number.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>height</strong> (<em>int</em>) – The height of the block to gather information on.</p></li>
-<li><p><strong>full_transactions</strong> (<em>bool</em><em>, </em><em>optional</em>) – If True it returns the full transaction objects, if False only the hashes of the transactions.</p></li>
+<li><p><strong>include_transactions</strong> (<em>bool</em><em>, </em><em>optional</em>) – If True it returns the full transaction objects, if False only the hashes of the transactions.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -677,21 +690,15 @@ Note that this information might change when blocks are rewinded on the local st
 </dd></dl>
 
 <dl class="py method">
-<dt id="nimiqclient.nimiq_client.NimiqClient.log">
-<code class="sig-name descname">log</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">tag</span></em>, <em class="sig-param"><span class="n">level</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nimiqclient/nimiq_client.html#NimiqClient.log"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nimiqclient.nimiq_client.NimiqClient.log" title="Permalink to this definition">¶</a></dt>
-<dd><p>Sets the log level of the node.</p>
+<dt id="nimiqclient.nimiq_client.NimiqClient.is_mining">
+<code class="sig-name descname">is_mining</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nimiqclient/nimiq_client.html#NimiqClient.is_mining"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nimiqclient.nimiq_client.NimiqClient.is_mining" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns true if client is actively mining new blocks.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>tag</strong> (<em>str</em>) – Tag: If “*” the log level is set globally, otherwise the log level is applied only on this tag.</p></li>
-<li><p><strong>level</strong> (<a class="reference internal" href="nimiqclient.models.node.LogLevel.html#nimiqclient.models.node.LogLevel" title="nimiqclient.models.node.LogLevel"><em>LogLevel</em></a>) – Minimum log level to display.</p></li>
-</ul>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>True if the client is mining, otherwise False.</p>
 </dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>True if the log level was changed, False otherwise.</p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>bool</p>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>bool</p>
 </dd>
 </dl>
 </dd></dl>
@@ -712,11 +719,11 @@ Note that this information might change when blocks are rewinded on the local st
 
 <dl class="py method">
 <dt id="nimiqclient.nimiq_client.NimiqClient.mempool_content">
-<code class="sig-name descname">mempool_content</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">full_transactions</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nimiqclient/nimiq_client.html#NimiqClient.mempool_content"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nimiqclient.nimiq_client.NimiqClient.mempool_content" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">mempool_content</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">include_transactions</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nimiqclient/nimiq_client.html#NimiqClient.mempool_content"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nimiqclient.nimiq_client.NimiqClient.mempool_content" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns transactions that are currently in the mempool.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>full_transactions</strong> (<em>bool</em><em>, </em><em>optional</em>) – If True includes full transactions, if False includes only transaction hashes.</p>
+<dd class="field-odd"><p><strong>include_transactions</strong> (<em>bool</em><em>, </em><em>optional</em>) – If True includes full transactions, if False includes only transaction hashes.</p>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p>List of transactions (either represented by the transaction hash or a transaction object).</p>
@@ -729,19 +736,14 @@ Note that this information might change when blocks are rewinded on the local st
 
 <dl class="py method">
 <dt id="nimiqclient.nimiq_client.NimiqClient.min_fee_per_byte">
-<code class="sig-name descname">min_fee_per_byte</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">fee</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nimiqclient/nimiq_client.html#NimiqClient.min_fee_per_byte"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nimiqclient.nimiq_client.NimiqClient.min_fee_per_byte" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns or sets the minimum fee per byte.
-When no parameter is given, it returns the current minimum fee per byte.
-When a value is given as parameter, it sets the minimum fee per byte to that value.</p>
+<code class="sig-name descname">min_fee_per_byte</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nimiqclient/nimiq_client.html#NimiqClient.min_fee_per_byte"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nimiqclient.nimiq_client.NimiqClient.min_fee_per_byte" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the minimum fee per byte.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>fee</strong> (<em>int</em><em>, </em><em>optional</em>) – The new minimum fee per byte.</p>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The new minimum fee per byte.</p>
 </dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>The new minimum fee per byte.</p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>int</p>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>int</p>
 </dd>
 </dl>
 </dd></dl>
@@ -762,38 +764,14 @@ When a value is given as parameter, it sets the minimum fee per byte to that val
 
 <dl class="py method">
 <dt id="nimiqclient.nimiq_client.NimiqClient.miner_threads">
-<code class="sig-name descname">miner_threads</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">threads</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nimiqclient/nimiq_client.html#NimiqClient.miner_threads"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nimiqclient.nimiq_client.NimiqClient.miner_threads" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns or sets the number of CPU threads for the miner.
-When no parameter is given, it returns the current number of miner threads.
-When a value is given as parameter, it sets the number of miner threads to that value.</p>
+<code class="sig-name descname">miner_threads</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nimiqclient/nimiq_client.html#NimiqClient.miner_threads"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nimiqclient.nimiq_client.NimiqClient.miner_threads" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the number of CPU threads for the miner.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>threads</strong> (<em>int</em><em>, </em><em>optional</em>) – The number of threads to allocate for mining.</p>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The number of threads allocated for mining.</p>
 </dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>The number of threads allocated for mining.</p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>int</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt id="nimiqclient.nimiq_client.NimiqClient.mining">
-<code class="sig-name descname">mining</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">state</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nimiqclient/nimiq_client.html#NimiqClient.mining"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nimiqclient.nimiq_client.NimiqClient.mining" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns true if client is actively mining new blocks.
-When no parameter is given, it returns the current state.
-When a value is given as parameter, it sets the current state to that value.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>state</strong> (<em>bool</em>) – The state to be set.</p>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>True if the client is mining, otherwise False.</p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>bool</p>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>int</p>
 </dd>
 </dl>
 </dd></dl>
@@ -828,16 +806,11 @@ When a value is given as parameter, it sets the current state to that value.</p>
 
 <dl class="py method">
 <dt id="nimiqclient.nimiq_client.NimiqClient.peer_state">
-<code class="sig-name descname">peer_state</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">address</span></em>, <em class="sig-param"><span class="n">command</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nimiqclient/nimiq_client.html#NimiqClient.peer_state"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nimiqclient.nimiq_client.NimiqClient.peer_state" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns the state of the peer.
-When no command is given, it returns peer state.
-When a value is given for command, it sets the peer state to that value.</p>
+<code class="sig-name descname">peer_state</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">address</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nimiqclient/nimiq_client.html#NimiqClient.peer_state"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nimiqclient.nimiq_client.NimiqClient.peer_state" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the state of the peer.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>address</strong> (<em>str</em>) – The address of the peer.</p></li>
-<li><p><strong>command</strong> (<a class="reference internal" href="nimiqclient.models.peer.PeerStateCommand.html#nimiqclient.models.peer.PeerStateCommand" title="nimiqclient.models.peer.PeerStateCommand"><em>PeerStateCommand</em></a>) – The command to send.</p></li>
-</ul>
+<dd class="field-odd"><p><strong>address</strong> (<em>str</em>) – The address of the peer.</p>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p>The current state of the peer.</p>
@@ -850,19 +823,14 @@ When a value is given for command, it sets the peer state to that value.</p>
 
 <dl class="py method">
 <dt id="nimiqclient.nimiq_client.NimiqClient.pool">
-<code class="sig-name descname">pool</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">address</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nimiqclient/nimiq_client.html#NimiqClient.pool"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nimiqclient.nimiq_client.NimiqClient.pool" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns or sets the mining pool.
-When no parameter is given, it returns the current mining pool.
-When a value is given as parameter, it sets the mining pool to that value.</p>
+<code class="sig-name descname">pool</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nimiqclient/nimiq_client.html#NimiqClient.pool"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nimiqclient.nimiq_client.NimiqClient.pool" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the mining pool.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>address</strong> (<em>str</em><em>, </em><em>optional</em>) – The mining pool connection string (“url:port”) or boolean to enable/disable pool mining.</p>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The mining pool connection string, or None if not enabled.</p>
 </dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>The mining pool connection string, or None if not enabled.</p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>str or None</p>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>str or None</p>
 </dd>
 </dl>
 </dd></dl>
@@ -942,6 +910,134 @@ When a value is given as parameter, it sets the mining pool to that value.</p>
 </dd>
 <dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="nimiqclient.nimiq_client.NimiqClient.set_constant">
+<code class="sig-name descname">set_constant</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">constant</span></em>, <em class="sig-param"><span class="n">value</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nimiqclient/nimiq_client.html#NimiqClient.set_constant"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nimiqclient.nimiq_client.NimiqClient.set_constant" title="Permalink to this definition">¶</a></dt>
+<dd><p>Overrides the value of a constant. It sets the constant to the given value. To reset the constant use reset_constant() instead.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>constant</strong> (<em>str</em>) – The class and name of the constant (format should be “Class.CONSTANT”).</p></li>
+<li><p><strong>value</strong> (<em>int</em><em>, </em><em>optional</em>) – The new value of the constant.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The new value of the constant.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="nimiqclient.nimiq_client.NimiqClient.set_log">
+<code class="sig-name descname">set_log</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">tag</span></em>, <em class="sig-param"><span class="n">level</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nimiqclient/nimiq_client.html#NimiqClient.set_log"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nimiqclient.nimiq_client.NimiqClient.set_log" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sets the log level of the node.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>tag</strong> (<em>str</em>) – Tag: If “*” the log level is set globally, otherwise the log level is applied only on this tag.</p></li>
+<li><p><strong>level</strong> (<a class="reference internal" href="nimiqclient.models.node.LogLevel.html#nimiqclient.models.node.LogLevel" title="nimiqclient.models.node.LogLevel"><em>LogLevel</em></a>) – Minimum log level to display.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>True if the log level was changed, False otherwise.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="nimiqclient.nimiq_client.NimiqClient.set_min_fee_per_byte">
+<code class="sig-name descname">set_min_fee_per_byte</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">fee</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nimiqclient/nimiq_client.html#NimiqClient.set_min_fee_per_byte"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nimiqclient.nimiq_client.NimiqClient.set_min_fee_per_byte" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sets the minimum fee per byte.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>fee</strong> (<em>int</em><em>, </em><em>optional</em>) – The new minimum fee per byte.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The new minimum fee per byte.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="nimiqclient.nimiq_client.NimiqClient.set_miner_threads">
+<code class="sig-name descname">set_miner_threads</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">threads</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nimiqclient/nimiq_client.html#NimiqClient.set_miner_threads"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nimiqclient.nimiq_client.NimiqClient.set_miner_threads" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sets the number of CPU threads for the miner.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>threads</strong> (<em>int</em><em>, </em><em>optional</em>) – The number of threads to allocate for mining.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The new number of threads allocated for mining.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="nimiqclient.nimiq_client.NimiqClient.set_mining">
+<code class="sig-name descname">set_mining</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">state</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nimiqclient/nimiq_client.html#NimiqClient.set_mining"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nimiqclient.nimiq_client.NimiqClient.set_mining" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sets the client mining state.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>state</strong> (<em>bool</em>) – The state to be set.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>True if the client is mining, otherwise False.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="nimiqclient.nimiq_client.NimiqClient.set_peer_state">
+<code class="sig-name descname">set_peer_state</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">address</span></em>, <em class="sig-param"><span class="n">command</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nimiqclient/nimiq_client.html#NimiqClient.set_peer_state"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nimiqclient.nimiq_client.NimiqClient.set_peer_state" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the state of the peer.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>address</strong> (<em>str</em>) – The address of the peer.</p></li>
+<li><p><strong>command</strong> (<a class="reference internal" href="nimiqclient.models.peer.PeerStateCommand.html#nimiqclient.models.peer.PeerStateCommand" title="nimiqclient.models.peer.PeerStateCommand"><em>PeerStateCommand</em></a>) – The command to send.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The new state of the peer.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="nimiqclient.models.peer.Peer.html#nimiqclient.models.peer.Peer" title="nimiqclient.models.peer.Peer">Peer</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="nimiqclient.nimiq_client.NimiqClient.set_pool">
+<code class="sig-name descname">set_pool</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">address</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nimiqclient/nimiq_client.html#NimiqClient.set_pool"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nimiqclient.nimiq_client.NimiqClient.set_pool" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sets the mining pool.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>address</strong> (<em>str</em><em>, </em><em>optional</em>) – The mining pool connection string (“url:port”) or boolean to enable/disable pool mining.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The new mining pool connection string, or None if not enabled.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>str or None</p>
 </dd>
 </dl>
 </dd></dl>

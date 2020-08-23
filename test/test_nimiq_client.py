@@ -124,7 +124,7 @@ class TestNimiqClientMethods(unittest.TestCase):
     def test_setPeerNormal(self):
         SessionStub.test_data = PeerFixtures.peer_state_normal()
 
-        result = self.client.peer_state("wss://seed1.nimiq-testnet.com:8080/b99034c552e9c0fd34eb95c1cdf17f5e", PeerStateCommand.CONNECT)
+        result = self.client.set_peer_state("wss://seed1.nimiq-testnet.com:8080/b99034c552e9c0fd34eb95c1cdf17f5e", PeerStateCommand.CONNECT)
 
         self.assertEqual("peerState", SessionStub.latest_request_method)
         self.assertEqual("wss://seed1.nimiq-testnet.com:8080/b99034c552e9c0fd34eb95c1cdf17f5e", SessionStub.latest_request_params[0])
@@ -456,7 +456,7 @@ class TestNimiqClientMethods(unittest.TestCase):
     def test_setMinFeePerByte(self):
         SessionStub.test_data = NodeFixtures.min_fee_per_byte()
 
-        result = self.client.min_fee_per_byte(0)
+        result = self.client.set_min_fee_per_byte(0)
 
         self.assertEqual("minFeePerByte", SessionStub.latest_request_method)
         self.assertEqual(0, SessionStub.latest_request_params[0])
@@ -466,7 +466,7 @@ class TestNimiqClientMethods(unittest.TestCase):
     def test_mining(self):
         SessionStub.test_data = MinerFixtures.mining_state()
 
-        result = self.client.mining()
+        result = self.client.is_mining()
 
         self.assertEqual("mining", SessionStub.latest_request_method)
 
@@ -475,7 +475,7 @@ class TestNimiqClientMethods(unittest.TestCase):
     def test_setMining(self):
         SessionStub.test_data = MinerFixtures.mining_state()
 
-        result = self.client.mining(False)
+        result = self.client.set_mining(False)
 
         self.assertEqual("mining", SessionStub.latest_request_method)
         self.assertEqual(False, SessionStub.latest_request_params[0])
@@ -503,7 +503,7 @@ class TestNimiqClientMethods(unittest.TestCase):
     def test_setMinerThreads(self):
         SessionStub.test_data = MinerFixtures.miner_threads()
 
-        result = self.client.miner_threads(2)
+        result = self.client.set_miner_threads(2)
 
         self.assertEqual("minerThreads", SessionStub.latest_request_method)
         self.assertEqual(2, SessionStub.latest_request_params[0])
@@ -531,7 +531,7 @@ class TestNimiqClientMethods(unittest.TestCase):
     def test_setPool(self):
         SessionStub.test_data = MinerFixtures.pool_sushipool()
 
-        result = self.client.pool("us.sushipool.com:443")
+        result = self.client.set_pool("us.sushipool.com:443")
 
         self.assertEqual("pool", SessionStub.latest_request_method)
         self.assertEqual("us.sushipool.com:443", SessionStub.latest_request_params[0])
@@ -902,7 +902,7 @@ class TestNimiqClientMethods(unittest.TestCase):
     def test_setConstant(self):
         SessionStub.test_data = NodeFixtures.constant()
 
-        result = self.client.constant("BaseConsensus.MAX_ATTEMPTS_TO_FETCH", 10)
+        result = self.client.set_constant("BaseConsensus.MAX_ATTEMPTS_TO_FETCH", 10)
 
         self.assertEqual("constant", SessionStub.latest_request_method)
         self.assertEqual("BaseConsensus.MAX_ATTEMPTS_TO_FETCH", SessionStub.latest_request_params[0])
@@ -924,7 +924,7 @@ class TestNimiqClientMethods(unittest.TestCase):
     def test_log(self):
         SessionStub.test_data = NodeFixtures.log()
 
-        result = self.client.log("*", LogLevel.VERBOSE)
+        result = self.client.set_log("*", LogLevel.VERBOSE)
 
         self.assertEqual("log", SessionStub.latest_request_method)
         self.assertEqual("*", SessionStub.latest_request_params[0])

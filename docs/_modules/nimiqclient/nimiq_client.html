@@ -293,23 +293,29 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="n">ConsensusState</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_call</span><span class="p">(</span><span class="s2">&quot;consensus&quot;</span><span class="p">))</span></div>
 
-<div class="viewcode-block" id="NimiqClient.constant"><a class="viewcode-back" href="../../_autosummary/nimiqclient.nimiq_client.NimiqClient.html#nimiqclient.nimiq_client.NimiqClient.constant">[docs]</a>    <span class="k">def</span> <span class="nf">constant</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">constant</span><span class="p">,</span> <span class="n">value</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+<div class="viewcode-block" id="NimiqClient.constant"><a class="viewcode-back" href="../../_autosummary/nimiqclient.nimiq_client.NimiqClient.html#nimiqclient.nimiq_client.NimiqClient.constant">[docs]</a>    <span class="k">def</span> <span class="nf">constant</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">constant</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Returns or overrides a constant value.</span>
-<span class="sd">        When no parameter is given, it returns the value of the constant. When giving a value as parameter,</span>
-<span class="sd">        it sets the constant to the given value. To reset the constant use resetConstant() instead.</span>
+<span class="sd">        Returns the value of the constant.</span>
+
+<span class="sd">        :param constant: The class and name of the constant (format should be &quot;Class.CONSTANT&quot;).</span>
+<span class="sd">        :type constant: str</span>
+<span class="sd">        :return: The value of the constant.</span>
+<span class="sd">        :rtype: int</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_call</span><span class="p">(</span><span class="s2">&quot;constant&quot;</span><span class="p">,</span> <span class="n">constant</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="NimiqClient.set_constant"><a class="viewcode-back" href="../../_autosummary/nimiqclient.nimiq_client.NimiqClient.html#nimiqclient.nimiq_client.NimiqClient.set_constant">[docs]</a>    <span class="k">def</span> <span class="nf">set_constant</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">constant</span><span class="p">,</span> <span class="n">value</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Overrides the value of a constant. It sets the constant to the given value. To reset the constant use reset_constant() instead.</span>
 
 <span class="sd">        :param constant: The class and name of the constant (format should be &quot;Class.CONSTANT&quot;).</span>
 <span class="sd">        :type constant: str</span>
 <span class="sd">        :param value: The new value of the constant.</span>
 <span class="sd">        :type value: int, optional</span>
-<span class="sd">        :return: The value of the constant.</span>
+<span class="sd">        :return: The new value of the constant.</span>
 <span class="sd">        :rtype: int</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="n">value</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_call</span><span class="p">(</span><span class="s2">&quot;constant&quot;</span><span class="p">,</span> <span class="n">constant</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_call</span><span class="p">(</span><span class="s2">&quot;constant&quot;</span><span class="p">,</span> <span class="n">constant</span><span class="p">)</span></div>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_call</span><span class="p">(</span><span class="s2">&quot;constant&quot;</span><span class="p">,</span> <span class="n">constant</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="NimiqClient.create_account"><a class="viewcode-back" href="../../_autosummary/nimiqclient.nimiq_client.NimiqClient.html#nimiqclient.nimiq_client.NimiqClient.create_account">[docs]</a>    <span class="k">def</span> <span class="nf">create_account</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
@@ -353,38 +359,38 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_call</span><span class="p">(</span><span class="s2">&quot;getBalance&quot;</span><span class="p">,</span> <span class="n">address</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="NimiqClient.get_block_by_hash"><a class="viewcode-back" href="../../_autosummary/nimiqclient.nimiq_client.NimiqClient.html#nimiqclient.nimiq_client.NimiqClient.get_block_by_hash">[docs]</a>    <span class="k">def</span> <span class="nf">get_block_by_hash</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">hash</span><span class="p">,</span> <span class="n">full_transactions</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+<div class="viewcode-block" id="NimiqClient.get_block_by_hash"><a class="viewcode-back" href="../../_autosummary/nimiqclient.nimiq_client.NimiqClient.html#nimiqclient.nimiq_client.NimiqClient.get_block_by_hash">[docs]</a>    <span class="k">def</span> <span class="nf">get_block_by_hash</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">hash</span><span class="p">,</span> <span class="n">include_transactions</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns information about a block by hash.</span>
 
 <span class="sd">        :param hash: Hash of the block to gather information on.</span>
 <span class="sd">        :type hash: str</span>
-<span class="sd">        :param full_transactions: If True it returns the full transaction objects, if False only the hashes of the transactions.</span>
-<span class="sd">        :type full_transactions: bool, optional</span>
+<span class="sd">        :param include_transactions: If True it returns the full transaction objects, if False only the hashes of the transactions.</span>
+<span class="sd">        :type include_transactions: bool, optional</span>
 <span class="sd">        :return: A block object or None when no block was found.</span>
 <span class="sd">        :rtype: Block or None</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">result</span> <span class="o">=</span> <span class="kc">None</span>
-        <span class="k">if</span> <span class="n">full_transactions</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_call</span><span class="p">(</span><span class="s2">&quot;getBlockByHash&quot;</span><span class="p">,</span> <span class="nb">hash</span><span class="p">,</span> <span class="n">full_transactions</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">include_transactions</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_call</span><span class="p">(</span><span class="s2">&quot;getBlockByHash&quot;</span><span class="p">,</span> <span class="nb">hash</span><span class="p">,</span> <span class="n">include_transactions</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_call</span><span class="p">(</span><span class="s2">&quot;getBlockByHash&quot;</span><span class="p">,</span> <span class="nb">hash</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">Block</span><span class="p">(</span><span class="o">**</span><span class="n">result</span><span class="p">)</span> <span class="k">if</span> <span class="n">result</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="kc">None</span></div>
 
-<div class="viewcode-block" id="NimiqClient.get_block_by_number"><a class="viewcode-back" href="../../_autosummary/nimiqclient.nimiq_client.NimiqClient.html#nimiqclient.nimiq_client.NimiqClient.get_block_by_number">[docs]</a>    <span class="k">def</span> <span class="nf">get_block_by_number</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">height</span><span class="p">,</span> <span class="n">full_transactions</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+<div class="viewcode-block" id="NimiqClient.get_block_by_number"><a class="viewcode-back" href="../../_autosummary/nimiqclient.nimiq_client.NimiqClient.html#nimiqclient.nimiq_client.NimiqClient.get_block_by_number">[docs]</a>    <span class="k">def</span> <span class="nf">get_block_by_number</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">height</span><span class="p">,</span> <span class="n">include_transactions</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns information about a block by block number.</span>
 
 <span class="sd">        :param height: The height of the block to gather information on.</span>
 <span class="sd">        :type height: int</span>
-<span class="sd">        :param full_transactions: If True it returns the full transaction objects, if False only the hashes of the transactions.</span>
-<span class="sd">        :type full_transactions: bool, optional</span>
+<span class="sd">        :param include_transactions: If True it returns the full transaction objects, if False only the hashes of the transactions.</span>
+<span class="sd">        :type include_transactions: bool, optional</span>
 <span class="sd">        :return: A block object or None when no block was found.</span>
 <span class="sd">        :rtype: Block or None</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">result</span> <span class="o">=</span> <span class="kc">None</span>
-        <span class="k">if</span> <span class="n">full_transactions</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_call</span><span class="p">(</span><span class="s2">&quot;getBlockByNumber&quot;</span><span class="p">,</span> <span class="n">height</span><span class="p">,</span> <span class="n">full_transactions</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">include_transactions</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_call</span><span class="p">(</span><span class="s2">&quot;getBlockByNumber&quot;</span><span class="p">,</span> <span class="n">height</span><span class="p">,</span> <span class="n">include_transactions</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_call</span><span class="p">(</span><span class="s2">&quot;getBlockByNumber&quot;</span><span class="p">,</span> <span class="n">height</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">Block</span><span class="p">(</span><span class="o">**</span><span class="n">result</span><span class="p">)</span> <span class="k">if</span> <span class="n">result</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="kc">None</span></div>
@@ -540,7 +546,7 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_call</span><span class="p">(</span><span class="s2">&quot;hashrate&quot;</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="NimiqClient.log"><a class="viewcode-back" href="../../_autosummary/nimiqclient.nimiq_client.NimiqClient.html#nimiqclient.nimiq_client.NimiqClient.log">[docs]</a>    <span class="k">def</span> <span class="nf">log</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tag</span><span class="p">,</span> <span class="n">level</span><span class="p">):</span>
+<div class="viewcode-block" id="NimiqClient.set_log"><a class="viewcode-back" href="../../_autosummary/nimiqclient.nimiq_client.NimiqClient.html#nimiqclient.nimiq_client.NimiqClient.set_log">[docs]</a>    <span class="k">def</span> <span class="nf">set_log</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tag</span><span class="p">,</span> <span class="n">level</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Sets the log level of the node.</span>
 
@@ -563,18 +569,18 @@
         <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_call</span><span class="p">(</span><span class="s2">&quot;mempool&quot;</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">MempoolInfo</span><span class="p">(</span><span class="o">**</span><span class="n">result</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="NimiqClient.mempool_content"><a class="viewcode-back" href="../../_autosummary/nimiqclient.nimiq_client.NimiqClient.html#nimiqclient.nimiq_client.NimiqClient.mempool_content">[docs]</a>    <span class="k">def</span> <span class="nf">mempool_content</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">full_transactions</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+<div class="viewcode-block" id="NimiqClient.mempool_content"><a class="viewcode-back" href="../../_autosummary/nimiqclient.nimiq_client.NimiqClient.html#nimiqclient.nimiq_client.NimiqClient.mempool_content">[docs]</a>    <span class="k">def</span> <span class="nf">mempool_content</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">include_transactions</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns transactions that are currently in the mempool.</span>
 
-<span class="sd">        :param full_transactions: If True includes full transactions, if False includes only transaction hashes.</span>
-<span class="sd">        :type full_transactions: bool, optional</span>
+<span class="sd">        :param include_transactions: If True includes full transactions, if False includes only transaction hashes.</span>
+<span class="sd">        :type include_transactions: bool, optional</span>
 <span class="sd">        :return: List of transactions (either represented by the transaction hash or a transaction object).</span>
 <span class="sd">        :rtype: list of (Transaction or str)</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">result</span> <span class="o">=</span> <span class="kc">None</span>
-        <span class="k">if</span> <span class="n">full_transactions</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_call</span><span class="p">(</span><span class="s2">&quot;mempoolContent&quot;</span><span class="p">,</span> <span class="n">full_transactions</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">include_transactions</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_call</span><span class="p">(</span><span class="s2">&quot;mempoolContent&quot;</span><span class="p">,</span> <span class="n">include_transactions</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_call</span><span class="p">(</span><span class="s2">&quot;mempoolContent&quot;</span><span class="p">)</span>
         <span class="k">return</span> <span class="p">[</span><span class="n">tx</span> <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">tx</span><span class="p">)</span> <span class="ow">is</span> <span class="nb">str</span> <span class="k">else</span> <span class="n">Transaction</span><span class="p">(</span><span class="o">**</span><span class="n">tx</span><span class="p">)</span> <span class="k">for</span> <span class="n">tx</span> <span class="ow">in</span> <span class="n">result</span><span class="p">]</span></div>
@@ -588,53 +594,65 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_call</span><span class="p">(</span><span class="s2">&quot;minerAddress&quot;</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="NimiqClient.miner_threads"><a class="viewcode-back" href="../../_autosummary/nimiqclient.nimiq_client.NimiqClient.html#nimiqclient.nimiq_client.NimiqClient.miner_threads">[docs]</a>    <span class="k">def</span> <span class="nf">miner_threads</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">threads</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+<div class="viewcode-block" id="NimiqClient.miner_threads"><a class="viewcode-back" href="../../_autosummary/nimiqclient.nimiq_client.NimiqClient.html#nimiqclient.nimiq_client.NimiqClient.miner_threads">[docs]</a>    <span class="k">def</span> <span class="nf">miner_threads</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Returns or sets the number of CPU threads for the miner.</span>
-<span class="sd">        When no parameter is given, it returns the current number of miner threads.</span>
-<span class="sd">        When a value is given as parameter, it sets the number of miner threads to that value.</span>
+<span class="sd">        Returns the number of CPU threads for the miner.</span>
 
-<span class="sd">        :param threads: The number of threads to allocate for mining.</span>
-<span class="sd">        :type threads: int, optional</span>
 <span class="sd">        :return: The number of threads allocated for mining.</span>
 <span class="sd">        :rtype: int</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="n">threads</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_call</span><span class="p">(</span><span class="s2">&quot;minerThreads&quot;</span><span class="p">,</span> <span class="n">threads</span><span class="p">)</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_call</span><span class="p">(</span><span class="s2">&quot;minerThreads&quot;</span><span class="p">)</span></div>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_call</span><span class="p">(</span><span class="s2">&quot;minerThreads&quot;</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="NimiqClient.min_fee_per_byte"><a class="viewcode-back" href="../../_autosummary/nimiqclient.nimiq_client.NimiqClient.html#nimiqclient.nimiq_client.NimiqClient.min_fee_per_byte">[docs]</a>    <span class="k">def</span> <span class="nf">min_fee_per_byte</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">fee</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+<div class="viewcode-block" id="NimiqClient.set_miner_threads"><a class="viewcode-back" href="../../_autosummary/nimiqclient.nimiq_client.NimiqClient.html#nimiqclient.nimiq_client.NimiqClient.set_miner_threads">[docs]</a>    <span class="k">def</span> <span class="nf">set_miner_threads</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">threads</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Returns or sets the minimum fee per byte.</span>
-<span class="sd">        When no parameter is given, it returns the current minimum fee per byte.</span>
-<span class="sd">        When a value is given as parameter, it sets the minimum fee per byte to that value.</span>
+<span class="sd">        Sets the number of CPU threads for the miner.</span>
+
+<span class="sd">        :param threads: The number of threads to allocate for mining.</span>
+<span class="sd">        :type threads: int, optional</span>
+<span class="sd">        :return: The new number of threads allocated for mining.</span>
+<span class="sd">        :rtype: int</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_call</span><span class="p">(</span><span class="s2">&quot;minerThreads&quot;</span><span class="p">,</span> <span class="n">threads</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="NimiqClient.min_fee_per_byte"><a class="viewcode-back" href="../../_autosummary/nimiqclient.nimiq_client.NimiqClient.html#nimiqclient.nimiq_client.NimiqClient.min_fee_per_byte">[docs]</a>    <span class="k">def</span> <span class="nf">min_fee_per_byte</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns the minimum fee per byte.</span>
+
+<span class="sd">        :return: The new minimum fee per byte.</span>
+<span class="sd">        :rtype: int</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_call</span><span class="p">(</span><span class="s2">&quot;minFeePerByte&quot;</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="NimiqClient.set_min_fee_per_byte"><a class="viewcode-back" href="../../_autosummary/nimiqclient.nimiq_client.NimiqClient.html#nimiqclient.nimiq_client.NimiqClient.set_min_fee_per_byte">[docs]</a>    <span class="k">def</span> <span class="nf">set_min_fee_per_byte</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">fee</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Sets the minimum fee per byte.</span>
 
 <span class="sd">        :param fee: The new minimum fee per byte.</span>
 <span class="sd">        :type fee: int, optional</span>
 <span class="sd">        :return: The new minimum fee per byte.</span>
 <span class="sd">        :rtype: int</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="n">fee</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_call</span><span class="p">(</span><span class="s2">&quot;minFeePerByte&quot;</span><span class="p">,</span> <span class="n">fee</span><span class="p">)</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_call</span><span class="p">(</span><span class="s2">&quot;minFeePerByte&quot;</span><span class="p">)</span></div>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_call</span><span class="p">(</span><span class="s2">&quot;minFeePerByte&quot;</span><span class="p">,</span> <span class="n">fee</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="NimiqClient.mining"><a class="viewcode-back" href="../../_autosummary/nimiqclient.nimiq_client.NimiqClient.html#nimiqclient.nimiq_client.NimiqClient.mining">[docs]</a>    <span class="k">def</span> <span class="nf">mining</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">state</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+<div class="viewcode-block" id="NimiqClient.is_mining"><a class="viewcode-back" href="../../_autosummary/nimiqclient.nimiq_client.NimiqClient.html#nimiqclient.nimiq_client.NimiqClient.is_mining">[docs]</a>    <span class="k">def</span> <span class="nf">is_mining</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns true if client is actively mining new blocks.</span>
-<span class="sd">        When no parameter is given, it returns the current state.</span>
-<span class="sd">        When a value is given as parameter, it sets the current state to that value.</span>
+
+<span class="sd">        :return: True if the client is mining, otherwise False.</span>
+<span class="sd">        :rtype: bool</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_call</span><span class="p">(</span><span class="s2">&quot;mining&quot;</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="NimiqClient.set_mining"><a class="viewcode-back" href="../../_autosummary/nimiqclient.nimiq_client.NimiqClient.html#nimiqclient.nimiq_client.NimiqClient.set_mining">[docs]</a>    <span class="k">def</span> <span class="nf">set_mining</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">state</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Sets the client mining state.</span>
 
 <span class="sd">        :param state: The state to be set.</span>
 <span class="sd">        :type state: bool</span>
 <span class="sd">        :return: True if the client is mining, otherwise False.</span>
 <span class="sd">        :rtype: bool</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="n">state</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_call</span><span class="p">(</span><span class="s2">&quot;mining&quot;</span><span class="p">,</span> <span class="n">state</span><span class="p">)</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_call</span><span class="p">(</span><span class="s2">&quot;mining&quot;</span><span class="p">)</span></div>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_call</span><span class="p">(</span><span class="s2">&quot;mining&quot;</span><span class="p">,</span> <span class="n">state</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="NimiqClient.peer_count"><a class="viewcode-back" href="../../_autosummary/nimiqclient.nimiq_client.NimiqClient.html#nimiqclient.nimiq_client.NimiqClient.peer_count">[docs]</a>    <span class="k">def</span> <span class="nf">peer_count</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
@@ -654,41 +672,49 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="p">[</span><span class="n">Peer</span><span class="p">(</span><span class="o">**</span><span class="n">peer</span><span class="p">)</span> <span class="k">for</span> <span class="n">peer</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_call</span><span class="p">(</span><span class="s2">&quot;peerList&quot;</span><span class="p">)]</span></div>
 
-<div class="viewcode-block" id="NimiqClient.peer_state"><a class="viewcode-back" href="../../_autosummary/nimiqclient.nimiq_client.NimiqClient.html#nimiqclient.nimiq_client.NimiqClient.peer_state">[docs]</a>    <span class="k">def</span> <span class="nf">peer_state</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">address</span><span class="p">,</span> <span class="n">command</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+<div class="viewcode-block" id="NimiqClient.peer_state"><a class="viewcode-back" href="../../_autosummary/nimiqclient.nimiq_client.NimiqClient.html#nimiqclient.nimiq_client.NimiqClient.peer_state">[docs]</a>    <span class="k">def</span> <span class="nf">peer_state</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">address</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns the state of the peer.</span>
-<span class="sd">        When no command is given, it returns peer state.</span>
-<span class="sd">        When a value is given for command, it sets the peer state to that value.</span>
+
+<span class="sd">        :param address: The address of the peer.</span>
+<span class="sd">        :type address: str</span>
+<span class="sd">        :return: The current state of the peer.</span>
+<span class="sd">        :rtype: Peer</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">Peer</span><span class="p">(</span><span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">_call</span><span class="p">(</span><span class="s2">&quot;peerState&quot;</span><span class="p">,</span> <span class="n">address</span><span class="p">))</span></div>
+
+<div class="viewcode-block" id="NimiqClient.set_peer_state"><a class="viewcode-back" href="../../_autosummary/nimiqclient.nimiq_client.NimiqClient.html#nimiqclient.nimiq_client.NimiqClient.set_peer_state">[docs]</a>    <span class="k">def</span> <span class="nf">set_peer_state</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">address</span><span class="p">,</span> <span class="n">command</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns the state of the peer.</span>
 
 <span class="sd">        :param address: The address of the peer.</span>
 <span class="sd">        :type address: str</span>
 <span class="sd">        :param command: The command to send.</span>
 <span class="sd">        :type command: PeerStateCommand</span>
-<span class="sd">        :return: The current state of the peer.</span>
+<span class="sd">        :return: The new state of the peer.</span>
 <span class="sd">        :rtype: Peer</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">result</span> <span class="o">=</span> <span class="kc">None</span>
-        <span class="k">if</span> <span class="n">command</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_call</span><span class="p">(</span><span class="s2">&quot;peerState&quot;</span><span class="p">,</span> <span class="n">address</span><span class="p">,</span> <span class="n">command</span><span class="p">)</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_call</span><span class="p">(</span><span class="s2">&quot;peerState&quot;</span><span class="p">,</span> <span class="n">address</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">Peer</span><span class="p">(</span><span class="o">**</span><span class="n">result</span><span class="p">)</span></div>
+        <span class="k">return</span> <span class="n">Peer</span><span class="p">(</span><span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">_call</span><span class="p">(</span><span class="s2">&quot;peerState&quot;</span><span class="p">,</span> <span class="n">address</span><span class="p">,</span> <span class="n">command</span><span class="p">))</span></div>
 
-<div class="viewcode-block" id="NimiqClient.pool"><a class="viewcode-back" href="../../_autosummary/nimiqclient.nimiq_client.NimiqClient.html#nimiqclient.nimiq_client.NimiqClient.pool">[docs]</a>    <span class="k">def</span> <span class="nf">pool</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">address</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+<div class="viewcode-block" id="NimiqClient.pool"><a class="viewcode-back" href="../../_autosummary/nimiqclient.nimiq_client.NimiqClient.html#nimiqclient.nimiq_client.NimiqClient.pool">[docs]</a>    <span class="k">def</span> <span class="nf">pool</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Returns or sets the mining pool.</span>
-<span class="sd">        When no parameter is given, it returns the current mining pool.</span>
-<span class="sd">        When a value is given as parameter, it sets the mining pool to that value.</span>
+<span class="sd">        Returns the mining pool.</span>
 
-<span class="sd">        :param address: The mining pool connection string (&quot;url:port&quot;) or boolean to enable/disable pool mining.</span>
-<span class="sd">        :type address: str, optional</span>
 <span class="sd">        :return: The mining pool connection string, or None if not enabled.</span>
 <span class="sd">        :rtype: str or None</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="n">address</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_call</span><span class="p">(</span><span class="s2">&quot;pool&quot;</span><span class="p">,</span> <span class="n">address</span><span class="p">)</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_call</span><span class="p">(</span><span class="s2">&quot;pool&quot;</span><span class="p">)</span></div>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_call</span><span class="p">(</span><span class="s2">&quot;pool&quot;</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="NimiqClient.set_pool"><a class="viewcode-back" href="../../_autosummary/nimiqclient.nimiq_client.NimiqClient.html#nimiqclient.nimiq_client.NimiqClient.set_pool">[docs]</a>    <span class="k">def</span> <span class="nf">set_pool</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">address</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Sets the mining pool.</span>
+
+<span class="sd">        :param address: The mining pool connection string (&quot;url:port&quot;) or boolean to enable/disable pool mining.</span>
+<span class="sd">        :type address: str, optional</span>
+<span class="sd">        :return: The new mining pool connection string, or None if not enabled.</span>
+<span class="sd">        :rtype: str or None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_call</span><span class="p">(</span><span class="s2">&quot;pool&quot;</span><span class="p">,</span> <span class="n">address</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="NimiqClient.pool_confirmed_balance"><a class="viewcode-back" href="../../_autosummary/nimiqclient.nimiq_client.NimiqClient.html#nimiqclient.nimiq_client.NimiqClient.pool_confirmed_balance">[docs]</a>    <span class="k">def</span> <span class="nf">pool_confirmed_balance</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>

@@ -144,23 +144,29 @@ class NimiqClient:
         """
         return ConsensusState(self._call("consensus"))
 
-    def constant(self, constant, value = None):
+    def constant(self, constant):
         """
-        Returns or overrides a constant value.
-        When no parameter is given, it returns the value of the constant. When giving a value as parameter,
-        it sets the constant to the given value. To reset the constant use resetConstant() instead.
+        Returns the value of the constant.
+
+        :param constant: The class and name of the constant (format should be "Class.CONSTANT").
+        :type constant: str
+        :return: The value of the constant.
+        :rtype: int
+        """
+        return self._call("constant", constant)
+
+    def set_constant(self, constant, value = None):
+        """
+        Overrides the value of a constant. It sets the constant to the given value. To reset the constant use reset_constant() instead.
 
         :param constant: The class and name of the constant (format should be "Class.CONSTANT").
         :type constant: str
         :param value: The new value of the constant.
         :type value: int, optional
-        :return: The value of the constant.
+        :return: The new value of the constant.
         :rtype: int
         """
-        if value is not None:
-            return self._call("constant", constant, value)
-        else:
-            return self._call("constant", constant)
+        return self._call("constant", constant, value)
 
     def create_account(self):
         """
@@ -204,38 +210,38 @@ class NimiqClient:
         """
         return self._call("getBalance", address)
 
-    def get_block_by_hash(self, hash, full_transactions = None):
+    def get_block_by_hash(self, hash, include_transactions = None):
         """
         Returns information about a block by hash.
 
         :param hash: Hash of the block to gather information on.
         :type hash: str
-        :param full_transactions: If True it returns the full transaction objects, if False only the hashes of the transactions.
-        :type full_transactions: bool, optional
+        :param include_transactions: If True it returns the full transaction objects, if False only the hashes of the transactions.
+        :type include_transactions: bool, optional
         :return: A block object or None when no block was found.
         :rtype: Block or None
         """
         result = None
-        if full_transactions is not None:
-            result = self._call("getBlockByHash", hash, full_transactions)
+        if include_transactions is not None:
+            result = self._call("getBlockByHash", hash, include_transactions)
         else:
             result = self._call("getBlockByHash", hash)
         return Block(**result) if result is not None else None
 
-    def get_block_by_number(self, height, full_transactions = None):
+    def get_block_by_number(self, height, include_transactions = None):
         """
         Returns information about a block by block number.
 
         :param height: The height of the block to gather information on.
         :type height: int
-        :param full_transactions: If True it returns the full transaction objects, if False only the hashes of the transactions.
-        :type full_transactions: bool, optional
+        :param include_transactions: If True it returns the full transaction objects, if False only the hashes of the transactions.
+        :type include_transactions: bool, optional
         :return: A block object or None when no block was found.
         :rtype: Block or None
         """
         result = None
-        if full_transactions is not None:
-            result = self._call("getBlockByNumber", height, full_transactions)
+        if include_transactions is not None:
+            result = self._call("getBlockByNumber", height, include_transactions)
         else:
             result = self._call("getBlockByNumber", height)
         return Block(**result) if result is not None else None
@@ -391,7 +397,7 @@ class NimiqClient:
         """
         return self._call("hashrate")
 
-    def log(self, tag, level):
+    def set_log(self, tag, level):
         """
         Sets the log level of the node.
 
@@ -414,18 +420,18 @@ class NimiqClient:
         result = self._call("mempool")
         return MempoolInfo(**result)
 
-    def mempool_content(self, full_transactions = None):
+    def mempool_content(self, include_transactions = None):
         """
         Returns transactions that are currently in the mempool.
 
-        :param full_transactions: If True includes full transactions, if False includes only transaction hashes.
-        :type full_transactions: bool, optional
+        :param include_transactions: If True includes full transactions, if False includes only transaction hashes.
+        :type include_transactions: bool, optional
         :return: List of transactions (either represented by the transaction hash or a transaction object).
         :rtype: list of (Transaction or str)
         """
         result = None
-        if full_transactions is not None:
-            result = self._call("mempoolContent", full_transactions)
+        if include_transactions is not None:
+            result = self._call("mempoolContent", include_transactions)
         else:
             result = self._call("mempoolContent")
         return [tx if type(tx) is str else Transaction(**tx) for tx in result]
@@ -439,53 +445,65 @@ class NimiqClient:
         """
         return self._call("minerAddress")
 
-    def miner_threads(self, threads = None):
+    def miner_threads(self):
         """
-        Returns or sets the number of CPU threads for the miner.
-        When no parameter is given, it returns the current number of miner threads.
-        When a value is given as parameter, it sets the number of miner threads to that value.
+        Returns the number of CPU threads for the miner.
 
-        :param threads: The number of threads to allocate for mining.
-        :type threads: int, optional
         :return: The number of threads allocated for mining.
         :rtype: int
         """
-        if threads is not None:
-            return self._call("minerThreads", threads)
-        else:
-            return self._call("minerThreads")
+        return self._call("minerThreads")
 
-    def min_fee_per_byte(self, fee = None):
+    def set_miner_threads(self, threads = None):
         """
-        Returns or sets the minimum fee per byte.
-        When no parameter is given, it returns the current minimum fee per byte.
-        When a value is given as parameter, it sets the minimum fee per byte to that value.
+        Sets the number of CPU threads for the miner.
+
+        :param threads: The number of threads to allocate for mining.
+        :type threads: int, optional
+        :return: The new number of threads allocated for mining.
+        :rtype: int
+        """
+        return self._call("minerThreads", threads)
+
+    def min_fee_per_byte(self):
+        """
+        Returns the minimum fee per byte.
+
+        :return: The new minimum fee per byte.
+        :rtype: int
+        """
+        return self._call("minFeePerByte")
+
+    def set_min_fee_per_byte(self, fee = None):
+        """
+        Sets the minimum fee per byte.
 
         :param fee: The new minimum fee per byte.
         :type fee: int, optional
         :return: The new minimum fee per byte.
         :rtype: int
         """
-        if fee is not None:
-            return self._call("minFeePerByte", fee)
-        else:
-            return self._call("minFeePerByte")
+        return self._call("minFeePerByte", fee)
 
-    def mining(self, state = None):
+    def is_mining(self):
         """
         Returns true if client is actively mining new blocks.
-        When no parameter is given, it returns the current state.
-        When a value is given as parameter, it sets the current state to that value.
+
+        :return: True if the client is mining, otherwise False.
+        :rtype: bool
+        """
+        return self._call("mining")
+
+    def set_mining(self, state = None):
+        """
+        Sets the client mining state.
 
         :param state: The state to be set.
         :type state: bool
         :return: True if the client is mining, otherwise False.
         :rtype: bool
         """
-        if state is not None:
-            return self._call("mining", state)
-        else:
-            return self._call("mining")
+        return self._call("mining", state)
 
     def peer_count(self):
         """
@@ -505,41 +523,49 @@ class NimiqClient:
         """
         return [Peer(**peer) for peer in self._call("peerList")]
 
-    def peer_state(self, address, command = None):
+    def peer_state(self, address):
         """
         Returns the state of the peer.
-        When no command is given, it returns peer state.
-        When a value is given for command, it sets the peer state to that value.
+
+        :param address: The address of the peer.
+        :type address: str
+        :return: The current state of the peer.
+        :rtype: Peer
+        """
+        return Peer(**self._call("peerState", address))
+
+    def set_peer_state(self, address, command = None):
+        """
+        Returns the state of the peer.
 
         :param address: The address of the peer.
         :type address: str
         :param command: The command to send.
         :type command: PeerStateCommand
-        :return: The current state of the peer.
+        :return: The new state of the peer.
         :rtype: Peer
         """
-        result = None
-        if command is not None:
-            result = self._call("peerState", address, command)
-        else:
-            result = self._call("peerState", address)
-        return Peer(**result)
+        return Peer(**self._call("peerState", address, command))
 
-    def pool(self, address = None):
+    def pool(self):
         """
-        Returns or sets the mining pool.
-        When no parameter is given, it returns the current mining pool.
-        When a value is given as parameter, it sets the mining pool to that value.
+        Returns the mining pool.
 
-        :param address: The mining pool connection string ("url:port") or boolean to enable/disable pool mining.
-        :type address: str, optional
         :return: The mining pool connection string, or None if not enabled.
         :rtype: str or None
         """
-        if address is not None:
-            return self._call("pool", address)
-        else:
-            return self._call("pool")
+        return self._call("pool")
+
+    def set_pool(self, address = None):
+        """
+        Sets the mining pool.
+
+        :param address: The mining pool connection string ("url:port") or boolean to enable/disable pool mining.
+        :type address: str, optional
+        :return: The new mining pool connection string, or None if not enabled.
+        :rtype: str or None
+        """
+        return self._call("pool", address)
 
     def pool_confirmed_balance(self):
         """
