@@ -88,16 +88,16 @@ $ python -m unittest discover -v
 
 The documentation is generated automatically with [Sphinx](https://www.sphinx-doc.org).
 
-From the `/docs` folder install the dependency requeriments:
+From the repository root directory install the development dependency requeriments:
 
 ```sh
-$ cd docs
 $ pip install -r requirements.txt
 ```
 
-Then run the command to generate the documentation:
+Then from the `/docs` directory run Sphinx via de the command `make`:
 
 ```sh
+$ cd docs
 $ make html
 ```
 
