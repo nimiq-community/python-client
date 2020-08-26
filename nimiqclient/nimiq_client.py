@@ -1,8 +1,4 @@
-__all__ = [
-    "NimiqClient",
-    "InternalErrorException",
-    "RemoteErrorException"
-]
+__all__ = ["NimiqClient", "InternalErrorException", "RemoteErrorException"]
 
 from .models.account import *
 from .models.block import *
