@@ -1,11 +1,11 @@
-__all__ = [
-    "MempoolInfo"
-]
+__all__ = ["MempoolInfo"]
 
-class MempoolInfo():
+
+class MempoolInfo:
     """
     Mempool information returned by the server.
     """
+
     def __init__(self, **kwargs):
         self.total = kwargs.pop("total")
         """Total number of pending transactions in mempool."""

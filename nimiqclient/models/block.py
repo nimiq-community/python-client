@@ -1,13 +1,9 @@
-__all__ = [
-    "Block",
-    "BlockTemplateHeader",
-    "BlockTemplateBody",
-    "BlockTemplate"
-]
+__all__ = ["Block", "BlockTemplateHeader", "BlockTemplateBody", "BlockTemplate"]
 
 from .transaction import Transaction
 
-class Block():
+
+class Block:
     """
     Block returned by the server.
 
@@ -42,7 +38,25 @@ class Block():
     :param transactions: List of transactions. Either represented by the transaction hash or a Transaction object.
     :type transactions: list of (Transaction or str)
     """
-    def __init__(self, number, hash, pow, parentHash, nonce, bodyHash, accountsHash, difficulty, timestamp, confirmations, miner, minerAddress, extraData, size, transactions):
+
+    def __init__(
+        self,
+        number,
+        hash,
+        pow,
+        parentHash,
+        nonce,
+        bodyHash,
+        accountsHash,
+        difficulty,
+        timestamp,
+        confirmations,
+        miner,
+        minerAddress,
+        extraData,
+        size,
+        transactions,
+    ):
         self.number = number
         self.hash = hash
         self.pow = pow
@@ -64,10 +78,14 @@ class Block():
                     transactions[index] = Transaction(**transaction)
                 else:
                     from ..nimiq_client import InternalErrorException
-                    raise InternalErrorException("Couldn't parse Transaction {0}".format(transaction))
+
+                    raise InternalErrorException(
+                        "Couldn't parse Transaction {0}".format(transaction)
+                    )
         self.transactions = transactions
 
-class BlockTemplateHeader():
+
+class BlockTemplateHeader:
     """
     Block template header returned by the server.
 
@@ -84,6 +102,7 @@ class BlockTemplateHeader():
     :param height: Height of the block in the block chain (also known as block number).
     :type height: int
     """
+
     def __init__(self, version, prevHash, interlinkHash, accountsHash, nBits, height):
         self.version = version
         self.prevHash = prevHash
@@ -92,7 +111,8 @@ class BlockTemplateHeader():
         self.nBits = nBits
         self.height = height
 
-class BlockTemplateBody():
+
+class BlockTemplateBody:
     """
     Block template body returned by the server.
 
@@ -109,7 +129,10 @@ class BlockTemplateBody():
     :param merkleHashes: List of hex-encoded hashes that verify the path of the miner address in the merkle tree. This can be used to change the miner address easily.
     :type merkleHashes: str
     """
-    def __init__(self, hash, minerAddr, extraData, transactions, prunedAccounts, merkleHashes):
+
+    def __init__(
+        self, hash, minerAddr, extraData, transactions, prunedAccounts, merkleHashes
+    ):
         self.hash = hash
         self.minerAddr = minerAddr
         self.extraData = extraData
@@ -117,7 +140,8 @@ class BlockTemplateBody():
         self.prunedAccounts = prunedAccounts
         self.merkleHashes = merkleHashes
 
-class BlockTemplate():
+
+class BlockTemplate:
     """
     Block template returned by the server.
 
@@ -130,6 +154,7 @@ class BlockTemplate():
     :param target: Compact form of the hash target to submit a block to this client.
     :type target: int
     """
+
     def __init__(self, header, interlink, body, target):
         self.header = header
         self.interlink = interlink

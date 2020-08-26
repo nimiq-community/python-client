@@ -2,11 +2,7 @@ from nimiqclient import *
 
 # Create Nimiq RPC client
 client = NimiqClient(
-    scheme = "http",
-    user = "luna",
-    password = "moon",
-    host = "127.0.0.1",
-    port = 8648
+    scheme="http", user="luna", password="moon", host="127.0.0.1", port=8648
 )
 
 try:

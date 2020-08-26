@@ -1,19 +1,15 @@
-__all__ = [
-    "AccountType",
-    "Account",
-    "VestingContract",
-    "HTLC",
-    "Wallet"
-]
+__all__ = ["AccountType", "Account", "VestingContract", "HTLC", "Wallet"]
 
 __metaclass__ = type
 
 from enum import Enum
 
+
 class AccountType(int, Enum):
     """
     Type of a Nimiq account.
     """
+
     BASIC = 0
     """Normal Nimiq account."""
     VESTING = 1
@@ -21,7 +17,8 @@ class AccountType(int, Enum):
     HTLC = 2
     """Hashed Timelock Contract."""
 
-class Account():
+
+class Account:
     """
     Normal Nimiq account object returned by the server.
 
@@ -34,11 +31,13 @@ class Account():
     :param type: The account type associated with the account.
     :type type: AccountType
     """
+
     def __init__(self, id, address, balance, type):
         self.id = id
         self.address = address
         self.balance = balance
         self.type = type
+
 
 class VestingContract(Account):
     """
@@ -65,7 +64,20 @@ class VestingContract(Account):
     :param vestingTotalAmount: The total amount (in smallest unit) that was provided at the contract creation.
     :type vestingTotalAmount: int
     """
-    def __init__(self, id, address, balance, type, owner, ownerAddress, vestingStart, vestingStepBlocks, vestingStepAmount, vestingTotalAmount):
+
+    def __init__(
+        self,
+        id,
+        address,
+        balance,
+        type,
+        owner,
+        ownerAddress,
+        vestingStart,
+        vestingStepBlocks,
+        vestingStepAmount,
+        vestingTotalAmount,
+    ):
         super(VestingContract, self).__init__(id, address, balance, type)
         self.owner = owner
         self.ownerAddress = ownerAddress
@@ -73,6 +85,7 @@ class VestingContract(Account):
         self.vestingStepBlocks = vestingStepBlocks
         self.vestingStepAmount = vestingStepAmount
         self.vestingTotalAmount = vestingTotalAmount
+
 
 class HTLC(Account):
     """
@@ -105,7 +118,23 @@ class HTLC(Account):
     :param totalAmount: The total amount (in smallest unit) that was provided at the contract creation.
     :type totalAmount: int
     """
-    def __init__(self, id, address, balance, type, sender, senderAddress, recipient, recipientAddress, hashRoot, hashAlgorithm, hashCount, timeout, totalAmount):
+
+    def __init__(
+        self,
+        id,
+        address,
+        balance,
+        type,
+        sender,
+        senderAddress,
+        recipient,
+        recipientAddress,
+        hashRoot,
+        hashAlgorithm,
+        hashCount,
+        timeout,
+        totalAmount,
+    ):
         super(HTLC, self).__init__(id, address, balance, type)
         self.sender = sender
         self.senderAddress = senderAddress
@@ -117,7 +146,8 @@ class HTLC(Account):
         self.timeout = timeout
         self.totalAmount = totalAmount
 
-class Wallet():
+
+class Wallet:
     """
     Nimiq wallet returned by the server.
 
@@ -130,9 +160,9 @@ class Wallet():
     :param privateKey: Hex-encoded 32 byte Ed25519 private key.
     :type privateKey: str, optional
     """
-    def __init__(self, id, address, publicKey, privateKey = None):
+
+    def __init__(self, id, address, publicKey, privateKey=None):
         self.id = id
         self.address = address
         self.publicKey = publicKey
         self.privateKey = privateKey
-

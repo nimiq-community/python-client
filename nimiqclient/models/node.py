@@ -1,15 +1,13 @@
-__all__ = [
-    "ConsensusState",
-    "SyncStatus",
-    "LogLevel"
-]
+__all__ = ["ConsensusState", "SyncStatus", "LogLevel"]
 
 from enum import Enum
+
 
 class ConsensusState(str, Enum):
     """
     Consensus state returned by the server.
     """
+
     CONNECTING = "connecting"
     """Connecting."""
     SYNCING = "syncing"
@@ -20,7 +18,8 @@ class ConsensusState(str, Enum):
     def __str__(self):
         return self.value
 
-class SyncStatus():
+
+class SyncStatus:
     """
     Syncing status returned by the server.
 
@@ -31,15 +30,18 @@ class SyncStatus():
     :param highestBlock: The estimated highest block.
     :type highestBlock: int
     """
+
     def __init__(self, startingBlock, currentBlock, highestBlock):
         self.startingBlock = startingBlock
         self.currentBlock = currentBlock
         self.highestBlock = highestBlock
 
+
 class LogLevel(str, Enum):
     """
     Used to set the log level in the JSONRPC server.
     """
+
     TRACE = "trace"
     """Trace level log."""
     VERBOSE = "verbose"

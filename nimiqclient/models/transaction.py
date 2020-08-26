@@ -1,16 +1,14 @@
-__all__ = [
-    "OutgoingTransaction",
-    "Transaction",
-    "TransactionReceipt"
-]
+__all__ = ["OutgoingTransaction", "Transaction", "TransactionReceipt"]
 
 from .account import AccountType
 import json
 
-class TXBase():
+
+class TXBase:
     """
     Enables accessing the attribute 'from' from outside using 'from_'.
     """
+
     def __getattr__(self, attr):
         if attr == "from_":
             return self.__dict__.__getitem__("from")
@@ -26,15 +24,19 @@ class TXBase():
     def __repr__(self):
         return json.dumps(self.__dict__)
 
+
 def preprocess_args(func):
     """
     Decorator to change the parameter 'from' to 'from_' during deserialization.
     """
+
     def inner(*args, **kwargs):
         if "from" in kwargs:
             kwargs["from_"] = kwargs.pop("from")
         func(*args, **kwargs)
+
     return inner
+
 
 class OutgoingTransaction(TXBase):
     """
@@ -55,7 +57,17 @@ class OutgoingTransaction(TXBase):
     :param data: Hex-encoded contract parameters or a message.
     :type data: str, optional
     """
-    def __init__(self, from_, to, value, fee, fromType = AccountType.BASIC, toType = AccountType.BASIC, data = None):
+
+    def __init__(
+        self,
+        from_,
+        to,
+        value,
+        fee,
+        fromType=AccountType.BASIC,
+        toType=AccountType.BASIC,
+        data=None,
+    ):
         self.from_ = from_
         self.fromType = fromType
         self.to = to
@@ -63,6 +75,7 @@ class OutgoingTransaction(TXBase):
         self.value = value
         self.fee = fee
         self.data = data
+
 
 class Transaction(TXBase):
     """
@@ -101,8 +114,27 @@ class Transaction(TXBase):
     :param inMempool: Transaction is in mempool.
     :type inMempool: bool, optional
     """
+
     @preprocess_args
-    def __init__(self, hash, from_, fromAddress, to, toAddress, value, fee, flags, blockHash = None, blockNumber = None, timestamp = None, confirmations = 0, transactionIndex = None, data = None, valid = None, inMempool = None):
+    def __init__(
+        self,
+        hash,
+        from_,
+        fromAddress,
+        to,
+        toAddress,
+        value,
+        fee,
+        flags,
+        blockHash=None,
+        blockNumber=None,
+        timestamp=None,
+        confirmations=0,
+        transactionIndex=None,
+        data=None,
+        valid=None,
+        inMempool=None,
+    ):
         self.hash = hash
         self.blockHash = blockHash
         self.blockNumber = blockNumber
@@ -120,7 +152,8 @@ class Transaction(TXBase):
         self.valid = valid
         self.inMempool = inMempool
 
-class TransactionReceipt():
+
+class TransactionReceipt:
     """
     Transaction receipt returned by the server.
 
@@ -137,7 +170,16 @@ class TransactionReceipt():
     :param timestamp: Timestamp of the block where this transaction was in.
     :type timestamp: int
     """
-    def __init__(self, transactionHash, transactionIndex, blockHash, blockNumber, confirmations, timestamp):
+
+    def __init__(
+        self,
+        transactionHash,
+        transactionIndex,
+        blockHash,
+        blockNumber,
+        confirmations,
+        timestamp,
+    ):
         self.transactionHash = transactionHash
         self.transactionIndex = transactionIndex
         self.blockHash = blockHash

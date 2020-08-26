@@ -1,4 +1,4 @@
-class SessionStub():
+class SessionStub:
     test_data = None
     latest_request = None
     latest_request_method = None

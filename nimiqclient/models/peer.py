@@ -1,16 +1,13 @@
-__all__ = [
-    "PeerAddressState",
-    "PeerConnectionState",
-    "PeerStateCommand",
-    "Peer"
-]
+__all__ = ["PeerAddressState", "PeerConnectionState", "PeerStateCommand", "Peer"]
 
 from enum import Enum
+
 
 class PeerAddressState(int, Enum):
     """
     Peer address state returned by the server.
     """
+
     NEW = 1
     """New peer."""
     ESTABLISHED = 2
@@ -22,10 +19,12 @@ class PeerAddressState(int, Enum):
     BANNED = 5
     """Balled peer."""
 
+
 class PeerConnectionState(int, Enum):
     """
     Peer connection state returned by the server.
     """
+
     NEW = 1
     """New connection."""
     CONNECTING = 2
@@ -39,10 +38,12 @@ class PeerConnectionState(int, Enum):
     CLOSED = 6
     """Connection closed."""
 
+
 class PeerStateCommand(str, Enum):
     """
     Commands to change the state of a peer.
     """
+
     CONNECT = "connect"
     """Connect."""
     DISCONNECT = "disconnect"
@@ -55,7 +56,8 @@ class PeerStateCommand(str, Enum):
     def __str__(self):
         return self.value
 
-class Peer():
+
+class Peer:
     """
     Peer information returned by the server.
 
@@ -80,7 +82,20 @@ class Peer():
     :param tx: Sent bytes.
     :type tx: int, optional
     """
-    def __init__(self, id, address, addressState, connectionState = None, version = None, timeOffset = None, headHash = None, latency= None, rx = None, tx = None):
+
+    def __init__(
+        self,
+        id,
+        address,
+        addressState,
+        connectionState=None,
+        version=None,
+        timeOffset=None,
+        headHash=None,
+        latency=None,
+        rx=None,
+        tx=None,
+    ):
         self.id = id
         self.address = address
         self.addressState = addressState

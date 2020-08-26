@@ -1,8 +1,4 @@
-__all__ = [
-    "NimiqClient",
-    "InternalErrorException",
-    "RemoteErrorException"
-]
+__all__ = ["NimiqClient", "InternalErrorException", "RemoteErrorException"]
 
 from .models.account import *
 from .models.block import *
@@ -16,18 +12,23 @@ import requests
 from requests.auth import HTTPBasicAuth
 from enum import Enum
 
+
 class InternalErrorException(Exception):
     """
     Internal error during a JSON RPC request.
     """
+
     pass
+
 
 class RemoteErrorException(Exception):
     """
     Exception on the remote server.
     """
+
     def __init__(self, message, code):
         super(RemoteErrorException, self).__init__("{0} ({1})".format(message, code))
+
 
 class NimiqClient:
     """
@@ -47,7 +48,15 @@ class NimiqClient:
     :type session: Session, optional
     """
 
-    def __init__(self, scheme="http", user="", password="", host="127.0.0.1", port=8648, session=None):
+    def __init__(
+        self,
+        scheme="http",
+        user="",
+        password="",
+        host="127.0.0.1",
+        port=8648,
+        session=None,
+    ):
         self.id = 0
         self.url = "{0}://{1}:{2}".format(scheme, host, port)
         self.auth = HTTPBasicAuth(user, password)
@@ -75,16 +84,14 @@ class NimiqClient:
             "jsonrpc": "2.0",
             "method": method,
             "params": (list(args),),
-            "id": self.id
+            "id": self.id,
         }
 
         # make request
         req_error = None
         try:
             resp_object = self.session.post(
-                self.url,
-                json = call_object,
-                auth = self.auth
+                self.url, json=call_object, auth=self.auth
             ).json()
 
         except Exception as e:
@@ -155,7 +162,7 @@ class NimiqClient:
         """
         return self._call("constant", constant)
 
-    def set_constant(self, constant, value = None):
+    def set_constant(self, constant, value=None):
         """
         Overrides the value of a constant. It sets the constant to the given value. To reset the constant use reset_constant() instead.
 
@@ -210,7 +217,7 @@ class NimiqClient:
         """
         return self._call("getBalance", address)
 
-    def get_block_by_hash(self, hash, include_transactions = None):
+    def get_block_by_hash(self, hash, include_transactions=None):
         """
         Returns information about a block by hash.
 
@@ -228,7 +235,7 @@ class NimiqClient:
             result = self._call("getBlockByHash", hash)
         return Block(**result) if result is not None else None
 
-    def get_block_by_number(self, height, include_transactions = None):
+    def get_block_by_number(self, height, include_transactions=None):
         """
         Returns information about a block by block number.
 
@@ -246,7 +253,7 @@ class NimiqClient:
             result = self._call("getBlockByNumber", height)
         return Block(**result) if result is not None else None
 
-    def get_block_template(self, address = None, extra_data = ""):
+    def get_block_template(self, address=None, extra_data=""):
         """
         Returns a template to build the next block for mining. This will consider pool instructions when connected to a pool.
         If address and extra_data are provided the values are overriden.
@@ -263,7 +270,12 @@ class NimiqClient:
             result = self._call("getBlockTemplate", address, extra_data)
         else:
             result = self._call("getBlockTemplate")
-        return BlockTemplate(BlockTemplateHeader(**result.get("header")), result.get("interlink"), BlockTemplateBody(**result.get("body")), result.get("target"))
+        return BlockTemplate(
+            BlockTemplateHeader(**result.get("header")),
+            result.get("interlink"),
+            BlockTemplateBody(**result.get("body")),
+            result.get("target"),
+        )
 
     def get_block_transaction_count_by_hash(self, hash):
         """
@@ -351,7 +363,7 @@ class NimiqClient:
         else:
             return None
 
-    def get_transactions_by_address(self, address, number_of_transactions = None):
+    def get_transactions_by_address(self, address, number_of_transactions=None):
         """
         Returns the latest transactions successfully performed by or for an address.
         Note that this information might change when blocks are rewinded on the local state due to forks.
@@ -365,12 +377,14 @@ class NimiqClient:
         """
         result = None
         if number_of_transactions is not None:
-            result = self._call("getTransactionsByAddress", address, number_of_transactions)
+            result = self._call(
+                "getTransactionsByAddress", address, number_of_transactions
+            )
         else:
             result = self._call("getTransactionsByAddress", address)
         return [Transaction(**tx) for tx in result]
 
-    def get_work(self, address = None, extra_data = ""):
+    def get_work(self, address=None, extra_data=""):
         """
         Returns instructions to mine the next block. This will consider pool instructions when connected to a pool.
 
@@ -420,7 +434,7 @@ class NimiqClient:
         result = self._call("mempool")
         return MempoolInfo(**result)
 
-    def mempool_content(self, include_transactions = None):
+    def mempool_content(self, include_transactions=None):
         """
         Returns transactions that are currently in the mempool.
 
@@ -454,7 +468,7 @@ class NimiqClient:
         """
         return self._call("minerThreads")
 
-    def set_miner_threads(self, threads = None):
+    def set_miner_threads(self, threads=None):
         """
         Sets the number of CPU threads for the miner.
 
@@ -474,7 +488,7 @@ class NimiqClient:
         """
         return self._call("minFeePerByte")
 
-    def set_min_fee_per_byte(self, fee = None):
+    def set_min_fee_per_byte(self, fee=None):
         """
         Sets the minimum fee per byte.
 
@@ -494,7 +508,7 @@ class NimiqClient:
         """
         return self._call("mining")
 
-    def set_mining(self, state = None):
+    def set_mining(self, state=None):
         """
         Sets the client mining state.
 
@@ -534,7 +548,7 @@ class NimiqClient:
         """
         return Peer(**self._call("peerState", address))
 
-    def set_peer_state(self, address, command = None):
+    def set_peer_state(self, address, command=None):
         """
         Returns the state of the peer.
 
@@ -556,7 +570,7 @@ class NimiqClient:
         """
         return self._call("pool")
 
-    def set_pool(self, address = None):
+    def set_pool(self, address=None):
         """
         Sets the mining pool.
 

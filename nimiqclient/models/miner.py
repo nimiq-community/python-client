@@ -1,14 +1,13 @@
-__all__ = [
-    "PoolConnectionState",
-    "WorkInstructions"
-]
+__all__ = ["PoolConnectionState", "WorkInstructions"]
 
 from enum import Enum
+
 
 class PoolConnectionState(int, Enum):
     """
     Pool connection state information returned by the server.
     """
+
     CONNECTED = 0
     """Connected."""
     CONNECTING = 1
@@ -16,7 +15,8 @@ class PoolConnectionState(int, Enum):
     CLOSED = 2
     """Closed."""
 
-class WorkInstructions():
+
+class WorkInstructions:
     """
     Work instructions receipt returned by the server.
 
@@ -31,6 +31,7 @@ class WorkInstructions():
     :param algorithm: Field to describe the algorithm used to mine the block. Always nimiq-argon2 for now.
     :type algorithm: str
     """
+
     def __init__(self, data, suffix, target, algorithm):
         self.data = data
         self.suffix = suffix
