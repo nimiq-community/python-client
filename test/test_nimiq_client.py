@@ -16,13 +16,9 @@ class TestNimiqClientMethods(unittest.TestCase):
 
     def setUp(self):
         self.client = NimiqClient(
-            scheme="http",
-            user="",
-            password="",
-            host="127.0.0.1",
-            port=8648,
-            session=SessionStub(),
+            scheme="http", user="", password="", host="127.0.0.1", port=8648
         )
+        self.client.session = SessionStub()
 
     def tearDown(self):
         pass

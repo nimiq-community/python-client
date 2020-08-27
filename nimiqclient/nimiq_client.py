@@ -44,25 +44,15 @@ class NimiqClient:
     :type host: str, optional
     :param port: Host port.
     :type port: int, optional
-    :param session: Used to make all requests. If ommited requests.Session() is used.
-    :type session: Session, optional
     """
 
     def __init__(
-        self,
-        scheme="http",
-        user="",
-        password="",
-        host="127.0.0.1",
-        port=8648,
-        session=None,
+        self, scheme="http", user="", password="", host="127.0.0.1", port=8648
     ):
         self.id = 0
         self.url = "{0}://{1}:{2}".format(scheme, host, port)
         self.auth = HTTPBasicAuth(user, password)
-        if session is None:
-            session = requests.Session()
-        self.session = session
+        self.session = requests.Session()
 
     def _call(self, method, *args):
         """
