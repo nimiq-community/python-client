@@ -1,4 +1,4 @@
-nimiqclient
+﻿nimiqclient
 ===========
 
 .. automodule:: nimiqclient

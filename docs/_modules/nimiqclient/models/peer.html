@@ -147,19 +147,16 @@
            <div itemprop="articleBody">
             
   <h1>Source code for nimiqclient.models.peer</h1><div class="highlight"><pre>
-<span></span><span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span>
-    <span class="s2">&quot;PeerAddressState&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;PeerConnectionState&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;PeerStateCommand&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;Peer&quot;</span>
-<span class="p">]</span>
+<span></span><span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;PeerAddressState&quot;</span><span class="p">,</span> <span class="s2">&quot;PeerConnectionState&quot;</span><span class="p">,</span> <span class="s2">&quot;PeerStateCommand&quot;</span><span class="p">,</span> <span class="s2">&quot;Peer&quot;</span><span class="p">]</span>
 
 <span class="kn">from</span> <span class="nn">enum</span> <span class="kn">import</span> <span class="n">Enum</span>
+
 
 <div class="viewcode-block" id="PeerAddressState"><a class="viewcode-back" href="../../../_autosummary/nimiqclient.models.peer.PeerAddressState.html#nimiqclient.models.peer.PeerAddressState">[docs]</a><span class="k">class</span> <span class="nc">PeerAddressState</span><span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="n">Enum</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Peer address state returned by the server.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
+
     <span class="n">NEW</span> <span class="o">=</span> <span class="mi">1</span>
     <span class="sd">&quot;&quot;&quot;New peer.&quot;&quot;&quot;</span>
     <span class="n">ESTABLISHED</span> <span class="o">=</span> <span class="mi">2</span>
@@ -171,10 +168,12 @@
     <span class="n">BANNED</span> <span class="o">=</span> <span class="mi">5</span>
     <span class="sd">&quot;&quot;&quot;Balled peer.&quot;&quot;&quot;</span></div>
 
+
 <div class="viewcode-block" id="PeerConnectionState"><a class="viewcode-back" href="../../../_autosummary/nimiqclient.models.peer.PeerConnectionState.html#nimiqclient.models.peer.PeerConnectionState">[docs]</a><span class="k">class</span> <span class="nc">PeerConnectionState</span><span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="n">Enum</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Peer connection state returned by the server.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
+
     <span class="n">NEW</span> <span class="o">=</span> <span class="mi">1</span>
     <span class="sd">&quot;&quot;&quot;New connection.&quot;&quot;&quot;</span>
     <span class="n">CONNECTING</span> <span class="o">=</span> <span class="mi">2</span>
@@ -188,10 +187,12 @@
     <span class="n">CLOSED</span> <span class="o">=</span> <span class="mi">6</span>
     <span class="sd">&quot;&quot;&quot;Connection closed.&quot;&quot;&quot;</span></div>
 
+
 <div class="viewcode-block" id="PeerStateCommand"><a class="viewcode-back" href="../../../_autosummary/nimiqclient.models.peer.PeerStateCommand.html#nimiqclient.models.peer.PeerStateCommand">[docs]</a><span class="k">class</span> <span class="nc">PeerStateCommand</span><span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="n">Enum</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Commands to change the state of a peer.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
+
     <span class="n">CONNECT</span> <span class="o">=</span> <span class="s2">&quot;connect&quot;</span>
     <span class="sd">&quot;&quot;&quot;Connect.&quot;&quot;&quot;</span>
     <span class="n">DISCONNECT</span> <span class="o">=</span> <span class="s2">&quot;disconnect&quot;</span>
@@ -204,7 +205,8 @@
     <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">value</span></div>
 
-<div class="viewcode-block" id="Peer"><a class="viewcode-back" href="../../../_autosummary/nimiqclient.models.peer.Peer.html#nimiqclient.models.peer.Peer">[docs]</a><span class="k">class</span> <span class="nc">Peer</span><span class="p">():</span>
+
+<div class="viewcode-block" id="Peer"><a class="viewcode-back" href="../../../_autosummary/nimiqclient.models.peer.Peer.html#nimiqclient.models.peer.Peer">[docs]</a><span class="k">class</span> <span class="nc">Peer</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Peer information returned by the server.</span>
 
@@ -229,7 +231,20 @@
 <span class="sd">    :param tx: Sent bytes.</span>
 <span class="sd">    :type tx: int, optional</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">id</span><span class="p">,</span> <span class="n">address</span><span class="p">,</span> <span class="n">addressState</span><span class="p">,</span> <span class="n">connectionState</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">version</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">timeOffset</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">headHash</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">latency</span><span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">rx</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">tx</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="nb">id</span><span class="p">,</span>
+        <span class="n">address</span><span class="p">,</span>
+        <span class="n">addressState</span><span class="p">,</span>
+        <span class="n">connectionState</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">version</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">timeOffset</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">headHash</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">latency</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">rx</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">tx</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">id</span> <span class="o">=</span> <span class="nb">id</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">address</span> <span class="o">=</span> <span class="n">address</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">addressState</span> <span class="o">=</span> <span class="n">addressState</span>

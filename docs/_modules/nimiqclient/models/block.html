@@ -147,16 +147,12 @@
            <div itemprop="articleBody">
             
   <h1>Source code for nimiqclient.models.block</h1><div class="highlight"><pre>
-<span></span><span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span>
-    <span class="s2">&quot;Block&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;BlockTemplateHeader&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;BlockTemplateBody&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;BlockTemplate&quot;</span>
-<span class="p">]</span>
+<span></span><span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;Block&quot;</span><span class="p">,</span> <span class="s2">&quot;BlockTemplateHeader&quot;</span><span class="p">,</span> <span class="s2">&quot;BlockTemplateBody&quot;</span><span class="p">,</span> <span class="s2">&quot;BlockTemplate&quot;</span><span class="p">]</span>
 
 <span class="kn">from</span> <span class="nn">.transaction</span> <span class="kn">import</span> <span class="n">Transaction</span>
 
-<div class="viewcode-block" id="Block"><a class="viewcode-back" href="../../../_autosummary/nimiqclient.models.block.Block.html#nimiqclient.models.block.Block">[docs]</a><span class="k">class</span> <span class="nc">Block</span><span class="p">():</span>
+
+<div class="viewcode-block" id="Block"><a class="viewcode-back" href="../../../_autosummary/nimiqclient.models.block.Block.html#nimiqclient.models.block.Block">[docs]</a><span class="k">class</span> <span class="nc">Block</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Block returned by the server.</span>
 
@@ -191,7 +187,25 @@
 <span class="sd">    :param transactions: List of transactions. Either represented by the transaction hash or a Transaction object.</span>
 <span class="sd">    :type transactions: list of (Transaction or str)</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">number</span><span class="p">,</span> <span class="nb">hash</span><span class="p">,</span> <span class="nb">pow</span><span class="p">,</span> <span class="n">parentHash</span><span class="p">,</span> <span class="n">nonce</span><span class="p">,</span> <span class="n">bodyHash</span><span class="p">,</span> <span class="n">accountsHash</span><span class="p">,</span> <span class="n">difficulty</span><span class="p">,</span> <span class="n">timestamp</span><span class="p">,</span> <span class="n">confirmations</span><span class="p">,</span> <span class="n">miner</span><span class="p">,</span> <span class="n">minerAddress</span><span class="p">,</span> <span class="n">extraData</span><span class="p">,</span> <span class="n">size</span><span class="p">,</span> <span class="n">transactions</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">number</span><span class="p">,</span>
+        <span class="nb">hash</span><span class="p">,</span>
+        <span class="nb">pow</span><span class="p">,</span>
+        <span class="n">parentHash</span><span class="p">,</span>
+        <span class="n">nonce</span><span class="p">,</span>
+        <span class="n">bodyHash</span><span class="p">,</span>
+        <span class="n">accountsHash</span><span class="p">,</span>
+        <span class="n">difficulty</span><span class="p">,</span>
+        <span class="n">timestamp</span><span class="p">,</span>
+        <span class="n">confirmations</span><span class="p">,</span>
+        <span class="n">miner</span><span class="p">,</span>
+        <span class="n">minerAddress</span><span class="p">,</span>
+        <span class="n">extraData</span><span class="p">,</span>
+        <span class="n">size</span><span class="p">,</span>
+        <span class="n">transactions</span><span class="p">,</span>
+    <span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">number</span> <span class="o">=</span> <span class="n">number</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">hash</span> <span class="o">=</span> <span class="nb">hash</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">pow</span> <span class="o">=</span> <span class="nb">pow</span>
@@ -213,10 +227,14 @@
                     <span class="n">transactions</span><span class="p">[</span><span class="n">index</span><span class="p">]</span> <span class="o">=</span> <span class="n">Transaction</span><span class="p">(</span><span class="o">**</span><span class="n">transaction</span><span class="p">)</span>
                 <span class="k">else</span><span class="p">:</span>
                     <span class="kn">from</span> <span class="nn">..nimiq_client</span> <span class="kn">import</span> <span class="n">InternalErrorException</span>
-                    <span class="k">raise</span> <span class="n">InternalErrorException</span><span class="p">(</span><span class="s2">&quot;Couldn&#39;t parse Transaction </span><span class="si">{0}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">transaction</span><span class="p">))</span>
+
+                    <span class="k">raise</span> <span class="n">InternalErrorException</span><span class="p">(</span>
+                        <span class="s2">&quot;Couldn&#39;t parse Transaction </span><span class="si">{0}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">transaction</span><span class="p">)</span>
+                    <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">transactions</span> <span class="o">=</span> <span class="n">transactions</span></div>
 
-<div class="viewcode-block" id="BlockTemplateHeader"><a class="viewcode-back" href="../../../_autosummary/nimiqclient.models.block.BlockTemplateHeader.html#nimiqclient.models.block.BlockTemplateHeader">[docs]</a><span class="k">class</span> <span class="nc">BlockTemplateHeader</span><span class="p">():</span>
+
+<div class="viewcode-block" id="BlockTemplateHeader"><a class="viewcode-back" href="../../../_autosummary/nimiqclient.models.block.BlockTemplateHeader.html#nimiqclient.models.block.BlockTemplateHeader">[docs]</a><span class="k">class</span> <span class="nc">BlockTemplateHeader</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Block template header returned by the server.</span>
 
@@ -233,6 +251,7 @@
 <span class="sd">    :param height: Height of the block in the block chain (also known as block number).</span>
 <span class="sd">    :type height: int</span>
 <span class="sd">    &quot;&quot;&quot;</span>
+
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">version</span><span class="p">,</span> <span class="n">prevHash</span><span class="p">,</span> <span class="n">interlinkHash</span><span class="p">,</span> <span class="n">accountsHash</span><span class="p">,</span> <span class="n">nBits</span><span class="p">,</span> <span class="n">height</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">version</span> <span class="o">=</span> <span class="n">version</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">prevHash</span> <span class="o">=</span> <span class="n">prevHash</span>
@@ -241,7 +260,8 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">nBits</span> <span class="o">=</span> <span class="n">nBits</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">height</span> <span class="o">=</span> <span class="n">height</span></div>
 
-<div class="viewcode-block" id="BlockTemplateBody"><a class="viewcode-back" href="../../../_autosummary/nimiqclient.models.block.BlockTemplateBody.html#nimiqclient.models.block.BlockTemplateBody">[docs]</a><span class="k">class</span> <span class="nc">BlockTemplateBody</span><span class="p">():</span>
+
+<div class="viewcode-block" id="BlockTemplateBody"><a class="viewcode-back" href="../../../_autosummary/nimiqclient.models.block.BlockTemplateBody.html#nimiqclient.models.block.BlockTemplateBody">[docs]</a><span class="k">class</span> <span class="nc">BlockTemplateBody</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Block template body returned by the server.</span>
 
@@ -258,7 +278,10 @@
 <span class="sd">    :param merkleHashes: List of hex-encoded hashes that verify the path of the miner address in the merkle tree. This can be used to change the miner address easily.</span>
 <span class="sd">    :type merkleHashes: str</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">hash</span><span class="p">,</span> <span class="n">minerAddr</span><span class="p">,</span> <span class="n">extraData</span><span class="p">,</span> <span class="n">transactions</span><span class="p">,</span> <span class="n">prunedAccounts</span><span class="p">,</span> <span class="n">merkleHashes</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="nb">hash</span><span class="p">,</span> <span class="n">minerAddr</span><span class="p">,</span> <span class="n">extraData</span><span class="p">,</span> <span class="n">transactions</span><span class="p">,</span> <span class="n">prunedAccounts</span><span class="p">,</span> <span class="n">merkleHashes</span>
+    <span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">hash</span> <span class="o">=</span> <span class="nb">hash</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">minerAddr</span> <span class="o">=</span> <span class="n">minerAddr</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">extraData</span> <span class="o">=</span> <span class="n">extraData</span>
@@ -266,7 +289,8 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">prunedAccounts</span> <span class="o">=</span> <span class="n">prunedAccounts</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">merkleHashes</span> <span class="o">=</span> <span class="n">merkleHashes</span></div>
 
-<div class="viewcode-block" id="BlockTemplate"><a class="viewcode-back" href="../../../_autosummary/nimiqclient.models.block.BlockTemplate.html#nimiqclient.models.block.BlockTemplate">[docs]</a><span class="k">class</span> <span class="nc">BlockTemplate</span><span class="p">():</span>
+
+<div class="viewcode-block" id="BlockTemplate"><a class="viewcode-back" href="../../../_autosummary/nimiqclient.models.block.BlockTemplate.html#nimiqclient.models.block.BlockTemplate">[docs]</a><span class="k">class</span> <span class="nc">BlockTemplate</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Block template returned by the server.</span>
 
@@ -279,6 +303,7 @@
 <span class="sd">    :param target: Compact form of the hash target to submit a block to this client.</span>
 <span class="sd">    :type target: int</span>
 <span class="sd">    &quot;&quot;&quot;</span>
+
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">header</span><span class="p">,</span> <span class="n">interlink</span><span class="p">,</span> <span class="n">body</span><span class="p">,</span> <span class="n">target</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">header</span> <span class="o">=</span> <span class="n">header</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">interlink</span> <span class="o">=</span> <span class="n">interlink</span>

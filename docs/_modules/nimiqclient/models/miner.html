@@ -147,17 +147,16 @@
            <div itemprop="articleBody">
             
   <h1>Source code for nimiqclient.models.miner</h1><div class="highlight"><pre>
-<span></span><span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span>
-    <span class="s2">&quot;PoolConnectionState&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;WorkInstructions&quot;</span>
-<span class="p">]</span>
+<span></span><span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;PoolConnectionState&quot;</span><span class="p">,</span> <span class="s2">&quot;WorkInstructions&quot;</span><span class="p">]</span>
 
 <span class="kn">from</span> <span class="nn">enum</span> <span class="kn">import</span> <span class="n">Enum</span>
+
 
 <div class="viewcode-block" id="PoolConnectionState"><a class="viewcode-back" href="../../../_autosummary/nimiqclient.models.miner.PoolConnectionState.html#nimiqclient.models.miner.PoolConnectionState">[docs]</a><span class="k">class</span> <span class="nc">PoolConnectionState</span><span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="n">Enum</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Pool connection state information returned by the server.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
+
     <span class="n">CONNECTED</span> <span class="o">=</span> <span class="mi">0</span>
     <span class="sd">&quot;&quot;&quot;Connected.&quot;&quot;&quot;</span>
     <span class="n">CONNECTING</span> <span class="o">=</span> <span class="mi">1</span>
@@ -165,7 +164,8 @@
     <span class="n">CLOSED</span> <span class="o">=</span> <span class="mi">2</span>
     <span class="sd">&quot;&quot;&quot;Closed.&quot;&quot;&quot;</span></div>
 
-<div class="viewcode-block" id="WorkInstructions"><a class="viewcode-back" href="../../../_autosummary/nimiqclient.models.miner.WorkInstructions.html#nimiqclient.models.miner.WorkInstructions">[docs]</a><span class="k">class</span> <span class="nc">WorkInstructions</span><span class="p">():</span>
+
+<div class="viewcode-block" id="WorkInstructions"><a class="viewcode-back" href="../../../_autosummary/nimiqclient.models.miner.WorkInstructions.html#nimiqclient.models.miner.WorkInstructions">[docs]</a><span class="k">class</span> <span class="nc">WorkInstructions</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Work instructions receipt returned by the server.</span>
 
@@ -180,6 +180,7 @@
 <span class="sd">    :param algorithm: Field to describe the algorithm used to mine the block. Always nimiq-argon2 for now.</span>
 <span class="sd">    :type algorithm: str</span>
 <span class="sd">    &quot;&quot;&quot;</span>
+
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">suffix</span><span class="p">,</span> <span class="n">target</span><span class="p">,</span> <span class="n">algorithm</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">data</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">suffix</span> <span class="o">=</span> <span class="n">suffix</span>

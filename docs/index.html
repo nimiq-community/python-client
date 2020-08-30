@@ -225,13 +225,13 @@ $ python setup.py install
 <div class="section" id="documentation">
 <h3>Documentation<a class="headerlink" href="#documentation" title="Permalink to this headline">¶</a></h3>
 <p>The documentation is generated automatically with <a class="reference external" href="https://www.sphinx-doc.org">Sphinx</a>.</p>
-<p>From the <code class="docutils literal notranslate"><span class="pre">/docs</span></code> folder install the dependency requeriments:</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$ <span class="nb">cd</span> docs
-$ pip install -r requirements.txt
+<p>From the repository root directory install the development dependency requeriments:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$ pip install -r requirements.txt
 </pre></div>
 </div>
-<p>Then run the command to generate the documentation:</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$ make html
+<p>Then from the <code class="docutils literal notranslate"><span class="pre">/docs</span></code> directory run Sphinx via de the command <code class="docutils literal notranslate"><span class="pre">make</span></code>:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$ <span class="nb">cd</span> docs
+$ make html
 </pre></div>
 </div>
 </div>

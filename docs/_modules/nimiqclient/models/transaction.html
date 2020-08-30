@@ -147,19 +147,17 @@
            <div itemprop="articleBody">
             
   <h1>Source code for nimiqclient.models.transaction</h1><div class="highlight"><pre>
-<span></span><span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span>
-    <span class="s2">&quot;OutgoingTransaction&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;Transaction&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;TransactionReceipt&quot;</span>
-<span class="p">]</span>
+<span></span><span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;OutgoingTransaction&quot;</span><span class="p">,</span> <span class="s2">&quot;Transaction&quot;</span><span class="p">,</span> <span class="s2">&quot;TransactionReceipt&quot;</span><span class="p">]</span>
 
 <span class="kn">from</span> <span class="nn">.account</span> <span class="kn">import</span> <span class="n">AccountType</span>
 <span class="kn">import</span> <span class="nn">json</span>
 
-<div class="viewcode-block" id="TXBase"><a class="viewcode-back" href="../../../_autosummary/nimiqclient.models.transaction.TXBase.html#nimiqclient.models.transaction.TXBase">[docs]</a><span class="k">class</span> <span class="nc">TXBase</span><span class="p">():</span>
+
+<div class="viewcode-block" id="TXBase"><a class="viewcode-back" href="../../../_autosummary/nimiqclient.models.transaction.TXBase.html#nimiqclient.models.transaction.TXBase">[docs]</a><span class="k">class</span> <span class="nc">TXBase</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Enables accessing the attribute &#39;from&#39; from outside using &#39;from_&#39;.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
+
     <span class="k">def</span> <span class="fm">__getattr__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">attr</span><span class="p">):</span>
         <span class="k">if</span> <span class="n">attr</span> <span class="o">==</span> <span class="s2">&quot;from_&quot;</span><span class="p">:</span>
             <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span><span class="o">.</span><span class="fm">__getitem__</span><span class="p">(</span><span class="s2">&quot;from&quot;</span><span class="p">)</span>
@@ -175,15 +173,19 @@
     <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span><span class="p">)</span></div>
 
+
 <div class="viewcode-block" id="preprocess_args"><a class="viewcode-back" href="../../../_autosummary/nimiqclient.models.transaction.preprocess_args.html#nimiqclient.models.transaction.preprocess_args">[docs]</a><span class="k">def</span> <span class="nf">preprocess_args</span><span class="p">(</span><span class="n">func</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Decorator to change the parameter &#39;from&#39; to &#39;from_&#39; during deserialization.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
+
     <span class="k">def</span> <span class="nf">inner</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="k">if</span> <span class="s2">&quot;from&quot;</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span>
             <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;from_&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;from&quot;</span><span class="p">)</span>
         <span class="n">func</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
     <span class="k">return</span> <span class="n">inner</span></div>
+
 
 <div class="viewcode-block" id="OutgoingTransaction"><a class="viewcode-back" href="../../../_autosummary/nimiqclient.models.transaction.OutgoingTransaction.html#nimiqclient.models.transaction.OutgoingTransaction">[docs]</a><span class="k">class</span> <span class="nc">OutgoingTransaction</span><span class="p">(</span><span class="n">TXBase</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
@@ -204,7 +206,17 @@
 <span class="sd">    :param data: Hex-encoded contract parameters or a message.</span>
 <span class="sd">    :type data: str, optional</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">from_</span><span class="p">,</span> <span class="n">to</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">fee</span><span class="p">,</span> <span class="n">fromType</span> <span class="o">=</span> <span class="n">AccountType</span><span class="o">.</span><span class="n">BASIC</span><span class="p">,</span> <span class="n">toType</span> <span class="o">=</span> <span class="n">AccountType</span><span class="o">.</span><span class="n">BASIC</span><span class="p">,</span> <span class="n">data</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">from_</span><span class="p">,</span>
+        <span class="n">to</span><span class="p">,</span>
+        <span class="n">value</span><span class="p">,</span>
+        <span class="n">fee</span><span class="p">,</span>
+        <span class="n">fromType</span><span class="o">=</span><span class="n">AccountType</span><span class="o">.</span><span class="n">BASIC</span><span class="p">,</span>
+        <span class="n">toType</span><span class="o">=</span><span class="n">AccountType</span><span class="o">.</span><span class="n">BASIC</span><span class="p">,</span>
+        <span class="n">data</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">from_</span> <span class="o">=</span> <span class="n">from_</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">fromType</span> <span class="o">=</span> <span class="n">fromType</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">to</span> <span class="o">=</span> <span class="n">to</span>
@@ -212,6 +224,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="n">value</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">fee</span> <span class="o">=</span> <span class="n">fee</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">data</span></div>
+
 
 <div class="viewcode-block" id="Transaction"><a class="viewcode-back" href="../../../_autosummary/nimiqclient.models.transaction.Transaction.html#nimiqclient.models.transaction.Transaction">[docs]</a><span class="k">class</span> <span class="nc">Transaction</span><span class="p">(</span><span class="n">TXBase</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
@@ -250,8 +263,27 @@
 <span class="sd">    :param inMempool: Transaction is in mempool.</span>
 <span class="sd">    :type inMempool: bool, optional</span>
 <span class="sd">    &quot;&quot;&quot;</span>
+
     <span class="nd">@preprocess_args</span>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">hash</span><span class="p">,</span> <span class="n">from_</span><span class="p">,</span> <span class="n">fromAddress</span><span class="p">,</span> <span class="n">to</span><span class="p">,</span> <span class="n">toAddress</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">fee</span><span class="p">,</span> <span class="n">flags</span><span class="p">,</span> <span class="n">blockHash</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">blockNumber</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">timestamp</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">confirmations</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">transactionIndex</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">data</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">valid</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">inMempool</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="nb">hash</span><span class="p">,</span>
+        <span class="n">from_</span><span class="p">,</span>
+        <span class="n">fromAddress</span><span class="p">,</span>
+        <span class="n">to</span><span class="p">,</span>
+        <span class="n">toAddress</span><span class="p">,</span>
+        <span class="n">value</span><span class="p">,</span>
+        <span class="n">fee</span><span class="p">,</span>
+        <span class="n">flags</span><span class="p">,</span>
+        <span class="n">blockHash</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">blockNumber</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">timestamp</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">confirmations</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+        <span class="n">transactionIndex</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">data</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">valid</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">inMempool</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">hash</span> <span class="o">=</span> <span class="nb">hash</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">blockHash</span> <span class="o">=</span> <span class="n">blockHash</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">blockNumber</span> <span class="o">=</span> <span class="n">blockNumber</span>
@@ -269,7 +301,8 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">valid</span> <span class="o">=</span> <span class="n">valid</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">inMempool</span> <span class="o">=</span> <span class="n">inMempool</span></div>
 
-<div class="viewcode-block" id="TransactionReceipt"><a class="viewcode-back" href="../../../_autosummary/nimiqclient.models.transaction.TransactionReceipt.html#nimiqclient.models.transaction.TransactionReceipt">[docs]</a><span class="k">class</span> <span class="nc">TransactionReceipt</span><span class="p">():</span>
+
+<div class="viewcode-block" id="TransactionReceipt"><a class="viewcode-back" href="../../../_autosummary/nimiqclient.models.transaction.TransactionReceipt.html#nimiqclient.models.transaction.TransactionReceipt">[docs]</a><span class="k">class</span> <span class="nc">TransactionReceipt</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Transaction receipt returned by the server.</span>
 
@@ -286,7 +319,16 @@
 <span class="sd">    :param timestamp: Timestamp of the block where this transaction was in.</span>
 <span class="sd">    :type timestamp: int</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">transactionHash</span><span class="p">,</span> <span class="n">transactionIndex</span><span class="p">,</span> <span class="n">blockHash</span><span class="p">,</span> <span class="n">blockNumber</span><span class="p">,</span> <span class="n">confirmations</span><span class="p">,</span> <span class="n">timestamp</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">transactionHash</span><span class="p">,</span>
+        <span class="n">transactionIndex</span><span class="p">,</span>
+        <span class="n">blockHash</span><span class="p">,</span>
+        <span class="n">blockNumber</span><span class="p">,</span>
+        <span class="n">confirmations</span><span class="p">,</span>
+        <span class="n">timestamp</span><span class="p">,</span>
+    <span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">transactionHash</span> <span class="o">=</span> <span class="n">transactionHash</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">transactionIndex</span> <span class="o">=</span> <span class="n">transactionIndex</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">blockHash</span> <span class="o">=</span> <span class="n">blockHash</span>

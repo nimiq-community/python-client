@@ -147,22 +147,18 @@
            <div itemprop="articleBody">
             
   <h1>Source code for nimiqclient.models.account</h1><div class="highlight"><pre>
-<span></span><span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span>
-    <span class="s2">&quot;AccountType&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;Account&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;VestingContract&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;HTLC&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;Wallet&quot;</span>
-<span class="p">]</span>
+<span></span><span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;AccountType&quot;</span><span class="p">,</span> <span class="s2">&quot;Account&quot;</span><span class="p">,</span> <span class="s2">&quot;VestingContract&quot;</span><span class="p">,</span> <span class="s2">&quot;HTLC&quot;</span><span class="p">,</span> <span class="s2">&quot;Wallet&quot;</span><span class="p">]</span>
 
 <span class="n">__metaclass__</span> <span class="o">=</span> <span class="nb">type</span>
 
 <span class="kn">from</span> <span class="nn">enum</span> <span class="kn">import</span> <span class="n">Enum</span>
 
+
 <div class="viewcode-block" id="AccountType"><a class="viewcode-back" href="../../../_autosummary/nimiqclient.models.account.AccountType.html#nimiqclient.models.account.AccountType">[docs]</a><span class="k">class</span> <span class="nc">AccountType</span><span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="n">Enum</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Type of a Nimiq account.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
+
     <span class="n">BASIC</span> <span class="o">=</span> <span class="mi">0</span>
     <span class="sd">&quot;&quot;&quot;Normal Nimiq account.&quot;&quot;&quot;</span>
     <span class="n">VESTING</span> <span class="o">=</span> <span class="mi">1</span>
@@ -170,7 +166,8 @@
     <span class="n">HTLC</span> <span class="o">=</span> <span class="mi">2</span>
     <span class="sd">&quot;&quot;&quot;Hashed Timelock Contract.&quot;&quot;&quot;</span></div>
 
-<div class="viewcode-block" id="Account"><a class="viewcode-back" href="../../../_autosummary/nimiqclient.models.account.Account.html#nimiqclient.models.account.Account">[docs]</a><span class="k">class</span> <span class="nc">Account</span><span class="p">():</span>
+
+<div class="viewcode-block" id="Account"><a class="viewcode-back" href="../../../_autosummary/nimiqclient.models.account.Account.html#nimiqclient.models.account.Account">[docs]</a><span class="k">class</span> <span class="nc">Account</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Normal Nimiq account object returned by the server.</span>
 
@@ -183,11 +180,13 @@
 <span class="sd">    :param type: The account type associated with the account.</span>
 <span class="sd">    :type type: AccountType</span>
 <span class="sd">    &quot;&quot;&quot;</span>
+
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">id</span><span class="p">,</span> <span class="n">address</span><span class="p">,</span> <span class="n">balance</span><span class="p">,</span> <span class="nb">type</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">id</span> <span class="o">=</span> <span class="nb">id</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">address</span> <span class="o">=</span> <span class="n">address</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">balance</span> <span class="o">=</span> <span class="n">balance</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">type</span> <span class="o">=</span> <span class="nb">type</span></div>
+
 
 <div class="viewcode-block" id="VestingContract"><a class="viewcode-back" href="../../../_autosummary/nimiqclient.models.account.VestingContract.html#nimiqclient.models.account.VestingContract">[docs]</a><span class="k">class</span> <span class="nc">VestingContract</span><span class="p">(</span><span class="n">Account</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
@@ -214,7 +213,20 @@
 <span class="sd">    :param vestingTotalAmount: The total amount (in smallest unit) that was provided at the contract creation.</span>
 <span class="sd">    :type vestingTotalAmount: int</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">id</span><span class="p">,</span> <span class="n">address</span><span class="p">,</span> <span class="n">balance</span><span class="p">,</span> <span class="nb">type</span><span class="p">,</span> <span class="n">owner</span><span class="p">,</span> <span class="n">ownerAddress</span><span class="p">,</span> <span class="n">vestingStart</span><span class="p">,</span> <span class="n">vestingStepBlocks</span><span class="p">,</span> <span class="n">vestingStepAmount</span><span class="p">,</span> <span class="n">vestingTotalAmount</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="nb">id</span><span class="p">,</span>
+        <span class="n">address</span><span class="p">,</span>
+        <span class="n">balance</span><span class="p">,</span>
+        <span class="nb">type</span><span class="p">,</span>
+        <span class="n">owner</span><span class="p">,</span>
+        <span class="n">ownerAddress</span><span class="p">,</span>
+        <span class="n">vestingStart</span><span class="p">,</span>
+        <span class="n">vestingStepBlocks</span><span class="p">,</span>
+        <span class="n">vestingStepAmount</span><span class="p">,</span>
+        <span class="n">vestingTotalAmount</span><span class="p">,</span>
+    <span class="p">):</span>
         <span class="nb">super</span><span class="p">(</span><span class="n">VestingContract</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="nb">id</span><span class="p">,</span> <span class="n">address</span><span class="p">,</span> <span class="n">balance</span><span class="p">,</span> <span class="nb">type</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">owner</span> <span class="o">=</span> <span class="n">owner</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">ownerAddress</span> <span class="o">=</span> <span class="n">ownerAddress</span>
@@ -222,6 +234,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">vestingStepBlocks</span> <span class="o">=</span> <span class="n">vestingStepBlocks</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">vestingStepAmount</span> <span class="o">=</span> <span class="n">vestingStepAmount</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">vestingTotalAmount</span> <span class="o">=</span> <span class="n">vestingTotalAmount</span></div>
+
 
 <div class="viewcode-block" id="HTLC"><a class="viewcode-back" href="../../../_autosummary/nimiqclient.models.account.HTLC.html#nimiqclient.models.account.HTLC">[docs]</a><span class="k">class</span> <span class="nc">HTLC</span><span class="p">(</span><span class="n">Account</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
@@ -254,7 +267,23 @@
 <span class="sd">    :param totalAmount: The total amount (in smallest unit) that was provided at the contract creation.</span>
 <span class="sd">    :type totalAmount: int</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">id</span><span class="p">,</span> <span class="n">address</span><span class="p">,</span> <span class="n">balance</span><span class="p">,</span> <span class="nb">type</span><span class="p">,</span> <span class="n">sender</span><span class="p">,</span> <span class="n">senderAddress</span><span class="p">,</span> <span class="n">recipient</span><span class="p">,</span> <span class="n">recipientAddress</span><span class="p">,</span> <span class="n">hashRoot</span><span class="p">,</span> <span class="n">hashAlgorithm</span><span class="p">,</span> <span class="n">hashCount</span><span class="p">,</span> <span class="n">timeout</span><span class="p">,</span> <span class="n">totalAmount</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="nb">id</span><span class="p">,</span>
+        <span class="n">address</span><span class="p">,</span>
+        <span class="n">balance</span><span class="p">,</span>
+        <span class="nb">type</span><span class="p">,</span>
+        <span class="n">sender</span><span class="p">,</span>
+        <span class="n">senderAddress</span><span class="p">,</span>
+        <span class="n">recipient</span><span class="p">,</span>
+        <span class="n">recipientAddress</span><span class="p">,</span>
+        <span class="n">hashRoot</span><span class="p">,</span>
+        <span class="n">hashAlgorithm</span><span class="p">,</span>
+        <span class="n">hashCount</span><span class="p">,</span>
+        <span class="n">timeout</span><span class="p">,</span>
+        <span class="n">totalAmount</span><span class="p">,</span>
+    <span class="p">):</span>
         <span class="nb">super</span><span class="p">(</span><span class="n">HTLC</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="nb">id</span><span class="p">,</span> <span class="n">address</span><span class="p">,</span> <span class="n">balance</span><span class="p">,</span> <span class="nb">type</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">sender</span> <span class="o">=</span> <span class="n">sender</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">senderAddress</span> <span class="o">=</span> <span class="n">senderAddress</span>
@@ -266,7 +295,8 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">timeout</span> <span class="o">=</span> <span class="n">timeout</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">totalAmount</span> <span class="o">=</span> <span class="n">totalAmount</span></div>
 
-<div class="viewcode-block" id="Wallet"><a class="viewcode-back" href="../../../_autosummary/nimiqclient.models.account.Wallet.html#nimiqclient.models.account.Wallet">[docs]</a><span class="k">class</span> <span class="nc">Wallet</span><span class="p">():</span>
+
+<div class="viewcode-block" id="Wallet"><a class="viewcode-back" href="../../../_autosummary/nimiqclient.models.account.Wallet.html#nimiqclient.models.account.Wallet">[docs]</a><span class="k">class</span> <span class="nc">Wallet</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Nimiq wallet returned by the server.</span>
 
@@ -279,12 +309,12 @@
 <span class="sd">    :param privateKey: Hex-encoded 32 byte Ed25519 private key.</span>
 <span class="sd">    :type privateKey: str, optional</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">id</span><span class="p">,</span> <span class="n">address</span><span class="p">,</span> <span class="n">publicKey</span><span class="p">,</span> <span class="n">privateKey</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">id</span><span class="p">,</span> <span class="n">address</span><span class="p">,</span> <span class="n">publicKey</span><span class="p">,</span> <span class="n">privateKey</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">id</span> <span class="o">=</span> <span class="nb">id</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">address</span> <span class="o">=</span> <span class="n">address</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">publicKey</span> <span class="o">=</span> <span class="n">publicKey</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">privateKey</span> <span class="o">=</span> <span class="n">privateKey</span></div>
-
 </pre></div>
 
            </div>
