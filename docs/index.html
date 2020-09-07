@@ -154,7 +154,7 @@
 </div></blockquote>
 <div class="section" id="usage">
 <h2>Usage<a class="headerlink" href="#usage" title="Permalink to this headline">¶</a></h2>
-<p>Send requests to a Nimiq node with <code class="docutils literal notranslate"><span class="pre">NimiqClient</span></code> object.</p>
+<p>To get started sending requests to a Nimiq node, we create a <code class="docutils literal notranslate"><span class="pre">NimiqClient</span></code> object.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">nimiqclient</span>
 
 <span class="n">client</span> <span class="o">=</span> <span class="n">NimiqClient</span><span class="p">(</span>
@@ -164,77 +164,74 @@
     <span class="n">host</span> <span class="o">=</span> <span class="s2">&quot;127.0.0.1&quot;</span><span class="p">,</span>
     <span class="n">port</span> <span class="o">=</span> <span class="mi">8648</span>
 <span class="p">)</span>
-</pre></div>
-</div>
-<p>Once the client have been set up, we can call the methods with the appropiate arguments to make requests to the Nimiq node.</p>
-<p>When no <code class="docutils literal notranslate"><span class="pre">config</span></code> object is passed in the initialization it will use the default values in the Nimiq node.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">client</span> <span class="o">=</span> <span class="n">NimiqClient</span><span class="p">()</span>
 
-<span class="c1"># make rpc call to get the block number</span>
+<span class="c1"># make rpc call to get current block number</span>
 <span class="n">blockNumber</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">blockNumber</span><span class="p">()</span>
-
-<span class="nb">print</span><span class="p">(</span><span class="n">blockNumber</span><span class="p">)</span> <span class="c1"># displays the block number, for example 748883</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">blockNumber</span><span class="p">)</span>
 </pre></div>
 </div>
+<p>Note: When no <code class="docutils literal notranslate"><span class="pre">config</span></code> object is passed in the initialization it will use the default values in the Nimiq node.</p>
 </div>
 <div class="section" id="api">
 <h2>API<a class="headerlink" href="#api" title="Permalink to this headline">¶</a></h2>
-<p>The complete API documentation is available <a class="reference external" href="https://rraallvv.github.io/python-client/">here</a>.</p>
-<p>Check out the <a class="reference external" href="https://github.com/nimiq/core-js/wiki/JSON-RPC-API">Nimiq RPC specs</a> for behind the scene RPC calls.</p>
+<p>The complete API documentation is available <a class="reference external" href="https://nimiq-community.github.io/python-client/">here</a>.</p>
+<p>Check out the original <a class="reference external" href="https://github.com/nimiq/core-js/wiki/JSON-RPC-API">Nimiq RPC specs</a> for the behind-the-scenes RPC calls.</p>
 </div>
 <div class="section" id="installation">
 <h2>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="from-github-repository">
-<h3>From GitHub repository<a class="headerlink" href="#from-github-repository" title="Permalink to this headline">¶</a></h3>
-<p>Clone the repository then intall the package.</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$ git clone https://github.com/nimiq-community/python-client
-$ <span class="nb">cd</span> python-client
-$ python setup.py install
+<p>Using PIP</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>pip install nimiqclient
+</pre></div>
+</div>
+<p>Or clone the repository and install the package from source</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>git clone https://github.com/nimiq-community/python-client
+<span class="nb">cd</span> python-client
+python setup.py install
 </pre></div>
 </div>
 </div>
-<div class="section" id="from-python-package-index-pypi">
-<h3>From Python Package Index (PyPI)<a class="headerlink" href="#from-python-package-index-pypi" title="Permalink to this headline">¶</a></h3>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="nv">$pip</span> install nimiqclient
+<div class="section" id="build">
+<h2>Build<a class="headerlink" href="#build" title="Permalink to this headline">¶</a></h2>
+<p>Clone the repo and install it</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>git clone https://github.com/nimiq-community/python-client
+<span class="nb">cd</span> python-client
+python setup.py install
 </pre></div>
 </div>
+<p>All done, happy coding!</p>
+</div>
+<div class="section" id="test">
+<h2>Test<a class="headerlink" href="#test" title="Permalink to this headline">¶</a></h2>
+<p>You need a start a Testnet Nimiq node:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>nodejs index.js --protocol<span class="o">=</span>dumb --type<span class="o">=</span>full --network<span class="o">=</span><span class="nb">test</span> --rpc
+</pre></div>
+</div>
+<p>Tests are stored in the <code class="docutils literal notranslate"><span class="pre">/tests</span></code> folder and can be run from the command line like this:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>python -m unittest discover -v
+</pre></div>
+</div>
+</div>
+<div class="section" id="documentation">
+<h2>Documentation<a class="headerlink" href="#documentation" title="Permalink to this headline">¶</a></h2>
+<p>The documentation is generated automatically with <a class="reference external" href="https://www.sphinx-doc.org">Sphinx</a>.</p>
+<p>From the repository root directory install the development dependency requirements:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>pip install -r requirements-dev.txt
+</pre></div>
+</div>
+<p>Then from the <code class="docutils literal notranslate"><span class="pre">/docs</span></code> directory run Sphinx via the <code class="docutils literal notranslate"><span class="pre">make</span></code> command:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span> docs
+make html
+</pre></div>
+</div>
+<p>Add a blank file in the <code class="docutils literal notranslate"><span class="pre">/docs</span></code> folder with the name <code class="docutils literal notranslate"><span class="pre">.nojekyll</span></code> for the documentation hosted on GitHub Pages:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>touch .nojekyll
+</pre></div>
 </div>
 </div>
 <div class="section" id="contributions">
 <h2>Contributions<a class="headerlink" href="#contributions" title="Permalink to this headline">¶</a></h2>
 <p>This implementation was originally contributed by <a class="reference external" href="https://github.com/rraallvv/">rraallvv</a>.</p>
-<p>Please send your contributions as pull requests.</p>
-<p>Refer to the <a class="reference external" href="https://github.com/nimiq-community/python-client/issues">issue tracker</a> for ideas.</p>
-<div class="section" id="develop">
-<h3>Develop<a class="headerlink" href="#develop" title="Permalink to this headline">¶</a></h3>
-<p>After cloning the repository intall the package.</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$ git clone https://github.com/nimiq-community/python-client
-$ <span class="nb">cd</span> python-client
-$ python setup.py install
-</pre></div>
-</div>
-<p>All done, happy coding!</p>
-</div>
-<div class="section" id="testing">
-<h3>Testing<a class="headerlink" href="#testing" title="Permalink to this headline">¶</a></h3>
-<p>Tests are stored in the <code class="docutils literal notranslate"><span class="pre">/tests</span></code> folder and can be run from the command line like this:</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$ python -m unittest discover -v
-</pre></div>
-</div>
-</div>
-<div class="section" id="documentation">
-<h3>Documentation<a class="headerlink" href="#documentation" title="Permalink to this headline">¶</a></h3>
-<p>The documentation is generated automatically with <a class="reference external" href="https://www.sphinx-doc.org">Sphinx</a>.</p>
-<p>From the repository root directory install the development dependency requeriments:</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$ pip install -r requirements.txt
-</pre></div>
-</div>
-<p>Then from the <code class="docutils literal notranslate"><span class="pre">/docs</span></code> directory run Sphinx via de the command <code class="docutils literal notranslate"><span class="pre">make</span></code>:</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$ <span class="nb">cd</span> docs
-$ make html
-</pre></div>
-</div>
-</div>
+<p>Bug reports and pull requests are welcome! Please refer to the <a class="reference external" href="https://github.com/nimiq-community/python-client/issues">issue tracker</a> for ideas.</p>
 </div>
 <div class="section" id="license">
 <h2>License<a class="headerlink" href="#license" title="Permalink to this headline">¶</a></h2>

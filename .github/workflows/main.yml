@@ -37,8 +37,6 @@ jobs:
     - name: Run tests
       run: |
         coverage run --source=nimiqclient setup.py test
-    - name: Coveralls
-      env:
-        COVERALLS_REPO_TOKEN: ${{ secrets.COVERALLS_REPO_TOKEN }}
-      run: |
-        coveralls
+    - uses: AndreMiras/coveralls-python-action@develop
+      with:
+        github-token: ${{ secrets.GITHUB_TOKEN }}

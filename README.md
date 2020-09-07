@@ -26,7 +26,7 @@ Note: When no `config` object is passed in the initialization it will use the de
 
 ## API
 
-The complete API documentation is available [here](https://rraallvv.github.io/python-client/).
+The complete API documentation is available [here](https://nimiq-community.github.io/python-client/).
 
 Check out the original [Nimiq RPC specs](https://github.com/nimiq/core-js/wiki/JSON-RPC-API) for the behind-the-scenes RPC calls.
 
@@ -79,7 +79,7 @@ The documentation is generated automatically with [Sphinx](https://www.sphinx-do
 From the repository root directory install the development dependency requirements:
 
 ```sh
-pip install -r requirements.txt
+pip install -r requirements-dev.txt
 ```
 
 Then from the `/docs` directory run Sphinx via the `make` command:
@@ -87,6 +87,12 @@ Then from the `/docs` directory run Sphinx via the `make` command:
 ```sh
 cd docs
 make html
+```
+
+Add a blank file in the `/docs` folder with the name `.nojekyll` for the documentation hosted on GitHub Pages:
+
+```sh
+touch .nojekyll
 ```
 
 ## Contributions
