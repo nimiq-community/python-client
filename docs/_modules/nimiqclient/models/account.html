@@ -1,0 +1,366 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>nimiqclient.models.account &mdash; Nimiq Python Client 1.0 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+
+  
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+        <script src="../../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home" alt="Documentation Home"> Nimiq Python Client
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">API Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../_autosummary/nimiqclient.html">nimiqclient</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">Nimiq Python Client</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+        
+      <li>nimiqclient.models.account</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for nimiqclient.models.account</h1><div class="highlight"><pre>
+<span></span><span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;AccountType&quot;</span><span class="p">,</span> <span class="s2">&quot;Account&quot;</span><span class="p">,</span> <span class="s2">&quot;VestingContract&quot;</span><span class="p">,</span> <span class="s2">&quot;HTLC&quot;</span><span class="p">,</span> <span class="s2">&quot;Wallet&quot;</span><span class="p">]</span>
+
+<span class="n">__metaclass__</span> <span class="o">=</span> <span class="nb">type</span>
+
+<span class="kn">from</span> <span class="nn">enum</span> <span class="kn">import</span> <span class="n">Enum</span>
+
+
+<div class="viewcode-block" id="AccountType"><a class="viewcode-back" href="../../../_autosummary/nimiqclient.models.account.AccountType.html#nimiqclient.models.account.AccountType">[docs]</a><span class="k">class</span> <span class="nc">AccountType</span><span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="n">Enum</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Type of a Nimiq account.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">BASIC</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="sd">&quot;&quot;&quot;Normal Nimiq account.&quot;&quot;&quot;</span>
+    <span class="n">VESTING</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="sd">&quot;&quot;&quot;Vesting contract.&quot;&quot;&quot;</span>
+    <span class="n">HTLC</span> <span class="o">=</span> <span class="mi">2</span>
+    <span class="sd">&quot;&quot;&quot;Hashed Timelock Contract.&quot;&quot;&quot;</span></div>
+
+
+<div class="viewcode-block" id="Account"><a class="viewcode-back" href="../../../_autosummary/nimiqclient.models.account.Account.html#nimiqclient.models.account.Account">[docs]</a><span class="k">class</span> <span class="nc">Account</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Normal Nimiq account object returned by the server.</span>
+
+<span class="sd">    :param id: Hex-encoded 20 byte address.</span>
+<span class="sd">    :type id: str</span>
+<span class="sd">    :param address: User friendly address (NQ-address).</span>
+<span class="sd">    :type address: str</span>
+<span class="sd">    :param balance: Balance of the account (in smallest unit).</span>
+<span class="sd">    :type balance: int</span>
+<span class="sd">    :param type: The account type associated with the account.</span>
+<span class="sd">    :type type: AccountType</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">id</span><span class="p">,</span> <span class="n">address</span><span class="p">,</span> <span class="n">balance</span><span class="p">,</span> <span class="nb">type</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">id</span> <span class="o">=</span> <span class="nb">id</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">address</span> <span class="o">=</span> <span class="n">address</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">balance</span> <span class="o">=</span> <span class="n">balance</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">type</span> <span class="o">=</span> <span class="nb">type</span></div>
+
+
+<div class="viewcode-block" id="VestingContract"><a class="viewcode-back" href="../../../_autosummary/nimiqclient.models.account.VestingContract.html#nimiqclient.models.account.VestingContract">[docs]</a><span class="k">class</span> <span class="nc">VestingContract</span><span class="p">(</span><span class="n">Account</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Vesting contract object returned by the server.</span>
+
+<span class="sd">    :param id: Hex-encoded 20 byte address.</span>
+<span class="sd">    :type id: str</span>
+<span class="sd">    :param address: User friendly address (NQ-address).</span>
+<span class="sd">    :type address: str</span>
+<span class="sd">    :param balance: Balance of the account (in smallest unit).</span>
+<span class="sd">    :type balance: int</span>
+<span class="sd">    :param type: The account type associated with the account.</span>
+<span class="sd">    :type type: AccountType</span>
+<span class="sd">    :param owner: Hex-encoded 20 byte address of the owner of the vesting contract.</span>
+<span class="sd">    :type owner: str</span>
+<span class="sd">    :param ownerAddress: User friendly address (NQ-address) of the owner of the vesting contract.</span>
+<span class="sd">    :type ownerAddress: str</span>
+<span class="sd">    :param vestingStart: The block that the vesting contracted commenced.</span>
+<span class="sd">    :type vestingStart: int</span>
+<span class="sd">    :param vestingStepBlocks: The number of blocks after which some part of the vested funds is released.</span>
+<span class="sd">    :type vestingStepBlocks: int</span>
+<span class="sd">    :param vestingStepAmount: The amount (in smallest unit) released every vestingStepBlocks blocks.</span>
+<span class="sd">    :type vestingStepAmount: int</span>
+<span class="sd">    :param vestingTotalAmount: The total amount (in smallest unit) that was provided at the contract creation.</span>
+<span class="sd">    :type vestingTotalAmount: int</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="nb">id</span><span class="p">,</span>
+        <span class="n">address</span><span class="p">,</span>
+        <span class="n">balance</span><span class="p">,</span>
+        <span class="nb">type</span><span class="p">,</span>
+        <span class="n">owner</span><span class="p">,</span>
+        <span class="n">ownerAddress</span><span class="p">,</span>
+        <span class="n">vestingStart</span><span class="p">,</span>
+        <span class="n">vestingStepBlocks</span><span class="p">,</span>
+        <span class="n">vestingStepAmount</span><span class="p">,</span>
+        <span class="n">vestingTotalAmount</span><span class="p">,</span>
+    <span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">VestingContract</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="nb">id</span><span class="p">,</span> <span class="n">address</span><span class="p">,</span> <span class="n">balance</span><span class="p">,</span> <span class="nb">type</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">owner</span> <span class="o">=</span> <span class="n">owner</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ownerAddress</span> <span class="o">=</span> <span class="n">ownerAddress</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">vestingStart</span> <span class="o">=</span> <span class="n">vestingStart</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">vestingStepBlocks</span> <span class="o">=</span> <span class="n">vestingStepBlocks</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">vestingStepAmount</span> <span class="o">=</span> <span class="n">vestingStepAmount</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">vestingTotalAmount</span> <span class="o">=</span> <span class="n">vestingTotalAmount</span></div>
+
+
+<div class="viewcode-block" id="HTLC"><a class="viewcode-back" href="../../../_autosummary/nimiqclient.models.account.HTLC.html#nimiqclient.models.account.HTLC">[docs]</a><span class="k">class</span> <span class="nc">HTLC</span><span class="p">(</span><span class="n">Account</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Hashed Timelock Contract object returned by the server.</span>
+
+<span class="sd">    :param id: Hex-encoded 20 byte address.</span>
+<span class="sd">    :type id: str</span>
+<span class="sd">    :param address: User friendly address (NQ-address).</span>
+<span class="sd">    :type address: str</span>
+<span class="sd">    :param balance: Balance of the account (in smallest unit).</span>
+<span class="sd">    :type balance: int</span>
+<span class="sd">    :param type: The account type associated with the account.</span>
+<span class="sd">    :type type: AccountType</span>
+<span class="sd">    :param sender: Hex-encoded 20 byte address of the sender of the HTLC.</span>
+<span class="sd">    :type sender: str</span>
+<span class="sd">    :param senderAddress: User friendly address (NQ-address) of the sender of the HTLC.</span>
+<span class="sd">    :type senderAddress: str</span>
+<span class="sd">    :param recipient: Hex-encoded 20 byte address of the recipient of the HTLC.</span>
+<span class="sd">    :type recipient: str</span>
+<span class="sd">    :param recipientAddress: User friendly address (NQ-address) of the recipient of the HTLC.</span>
+<span class="sd">    :type recipientAddress: str</span>
+<span class="sd">    :param hashRoot: Hex-encoded 32 byte hash root.</span>
+<span class="sd">    :type hashRoot: str</span>
+<span class="sd">    :param hashAlgorithm: Hash algorithm.</span>
+<span class="sd">    :type hashAlgorithm: int</span>
+<span class="sd">    :param hashCount: Number of hashes this HTLC is split into.</span>
+<span class="sd">    :type hashCount: int</span>
+<span class="sd">    :param timeout: Block after which the contract can only be used by the original sender to recover funds.</span>
+<span class="sd">    :type timeout: int</span>
+<span class="sd">    :param totalAmount: The total amount (in smallest unit) that was provided at the contract creation.</span>
+<span class="sd">    :type totalAmount: int</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="nb">id</span><span class="p">,</span>
+        <span class="n">address</span><span class="p">,</span>
+        <span class="n">balance</span><span class="p">,</span>
+        <span class="nb">type</span><span class="p">,</span>
+        <span class="n">sender</span><span class="p">,</span>
+        <span class="n">senderAddress</span><span class="p">,</span>
+        <span class="n">recipient</span><span class="p">,</span>
+        <span class="n">recipientAddress</span><span class="p">,</span>
+        <span class="n">hashRoot</span><span class="p">,</span>
+        <span class="n">hashAlgorithm</span><span class="p">,</span>
+        <span class="n">hashCount</span><span class="p">,</span>
+        <span class="n">timeout</span><span class="p">,</span>
+        <span class="n">totalAmount</span><span class="p">,</span>
+    <span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">HTLC</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="nb">id</span><span class="p">,</span> <span class="n">address</span><span class="p">,</span> <span class="n">balance</span><span class="p">,</span> <span class="nb">type</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sender</span> <span class="o">=</span> <span class="n">sender</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">senderAddress</span> <span class="o">=</span> <span class="n">senderAddress</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">recipient</span> <span class="o">=</span> <span class="n">recipient</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">recipientAddress</span> <span class="o">=</span> <span class="n">recipientAddress</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">hashRoot</span> <span class="o">=</span> <span class="n">hashRoot</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">hashAlgorithm</span> <span class="o">=</span> <span class="n">hashAlgorithm</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">hashCount</span> <span class="o">=</span> <span class="n">hashCount</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">timeout</span> <span class="o">=</span> <span class="n">timeout</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">totalAmount</span> <span class="o">=</span> <span class="n">totalAmount</span></div>
+
+
+<div class="viewcode-block" id="Wallet"><a class="viewcode-back" href="../../../_autosummary/nimiqclient.models.account.Wallet.html#nimiqclient.models.account.Wallet">[docs]</a><span class="k">class</span> <span class="nc">Wallet</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Nimiq wallet returned by the server.</span>
+
+<span class="sd">    :param id: Hex-encoded 20 byte address.</span>
+<span class="sd">    :type id: str</span>
+<span class="sd">    :param address: User friendly address (NQ-address).</span>
+<span class="sd">    :type address: str</span>
+<span class="sd">    :param publicKey: Hex-encoded 32 byte Ed25519 public key.</span>
+<span class="sd">    :type publicKey: str</span>
+<span class="sd">    :param privateKey: Hex-encoded 32 byte Ed25519 private key.</span>
+<span class="sd">    :type privateKey: str, optional</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">id</span><span class="p">,</span> <span class="n">address</span><span class="p">,</span> <span class="n">publicKey</span><span class="p">,</span> <span class="n">privateKey</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">id</span> <span class="o">=</span> <span class="nb">id</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">address</span> <span class="o">=</span> <span class="n">address</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">publicKey</span> <span class="o">=</span> <span class="n">publicKey</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">privateKey</span> <span class="o">=</span> <span class="n">privateKey</span></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        
+        &copy; Copyright 
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

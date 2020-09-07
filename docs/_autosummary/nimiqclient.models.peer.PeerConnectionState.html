@@ -1,0 +1,306 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>nimiqclient.models.peer.PeerConnectionState &mdash; Nimiq Python Client 1.0 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+
+  
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="nimiqclient.models.peer.PeerStateCommand" href="nimiqclient.models.peer.PeerStateCommand.html" />
+    <link rel="prev" title="nimiqclient.models.peer.PeerAddressState" href="nimiqclient.models.peer.PeerAddressState.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home" alt="Documentation Home"> Nimiq Python Client
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">API Reference</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="nimiqclient.html">nimiqclient</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="nimiqclient.models.html">nimiqclient.models</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="nimiqclient.models.account.html">nimiqclient.models.account</a></li>
+<li class="toctree-l3"><a class="reference internal" href="nimiqclient.models.block.html">nimiqclient.models.block</a></li>
+<li class="toctree-l3"><a class="reference internal" href="nimiqclient.models.mempool.html">nimiqclient.models.mempool</a></li>
+<li class="toctree-l3"><a class="reference internal" href="nimiqclient.models.miner.html">nimiqclient.models.miner</a></li>
+<li class="toctree-l3"><a class="reference internal" href="nimiqclient.models.node.html">nimiqclient.models.node</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="nimiqclient.models.peer.html">nimiqclient.models.peer</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="nimiqclient.models.peer.Peer.html">nimiqclient.models.peer.Peer</a></li>
+<li class="toctree-l4"><a class="reference internal" href="nimiqclient.models.peer.PeerAddressState.html">nimiqclient.models.peer.PeerAddressState</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">nimiqclient.models.peer.PeerConnectionState</a></li>
+<li class="toctree-l4"><a class="reference internal" href="nimiqclient.models.peer.PeerStateCommand.html">nimiqclient.models.peer.PeerStateCommand</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="nimiqclient.models.transaction.html">nimiqclient.models.transaction</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="nimiqclient.nimiq_client.html">nimiqclient.nimiq_client</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Nimiq Python Client</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="nimiqclient.html">nimiqclient</a> &raquo;</li>
+        
+          <li><a href="nimiqclient.models.html">nimiqclient.models</a> &raquo;</li>
+        
+          <li><a href="nimiqclient.models.peer.html">nimiqclient.models.peer</a> &raquo;</li>
+        
+      <li>nimiqclient.models.peer.PeerConnectionState</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="nimiqclient-models-peer-peerconnectionstate">
+<h1>nimiqclient.models.peer.PeerConnectionState<a class="headerlink" href="#nimiqclient-models-peer-peerconnectionstate" title="Permalink to this headline">¶</a></h1>
+<dl class="py class">
+<dt id="nimiqclient.models.peer.PeerConnectionState">
+<em class="property">class </em><code class="sig-prename descclassname">nimiqclient.models.peer.</code><code class="sig-name descname">PeerConnectionState</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">value</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nimiqclient/models/peer.html#PeerConnectionState"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nimiqclient.models.peer.PeerConnectionState" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">enum.Enum</span></code></p>
+<p>Peer connection state returned by the server.</p>
+<p class="rubric">Attributes</p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#nimiqclient.models.peer.PeerConnectionState.CLOSED" title="nimiqclient.models.peer.PeerConnectionState.CLOSED"><code class="xref py py-obj docutils literal notranslate"><span class="pre">CLOSED</span></code></a></p></td>
+<td><p>Connection closed.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#nimiqclient.models.peer.PeerConnectionState.CONNECTED" title="nimiqclient.models.peer.PeerConnectionState.CONNECTED"><code class="xref py py-obj docutils literal notranslate"><span class="pre">CONNECTED</span></code></a></p></td>
+<td><p>Connected.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#nimiqclient.models.peer.PeerConnectionState.CONNECTING" title="nimiqclient.models.peer.PeerConnectionState.CONNECTING"><code class="xref py py-obj docutils literal notranslate"><span class="pre">CONNECTING</span></code></a></p></td>
+<td><p>Connecting.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#nimiqclient.models.peer.PeerConnectionState.ESTABLISHED" title="nimiqclient.models.peer.PeerConnectionState.ESTABLISHED"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ESTABLISHED</span></code></a></p></td>
+<td><p>Connection established.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#nimiqclient.models.peer.PeerConnectionState.NEGOTIATING" title="nimiqclient.models.peer.PeerConnectionState.NEGOTIATING"><code class="xref py py-obj docutils literal notranslate"><span class="pre">NEGOTIATING</span></code></a></p></td>
+<td><p>Negotiating connection.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#nimiqclient.models.peer.PeerConnectionState.NEW" title="nimiqclient.models.peer.PeerConnectionState.NEW"><code class="xref py py-obj docutils literal notranslate"><span class="pre">NEW</span></code></a></p></td>
+<td><p>New connection.</p></td>
+</tr>
+</tbody>
+</table>
+<dl class="py attribute">
+<dt id="nimiqclient.models.peer.PeerConnectionState.CLOSED">
+<code class="sig-name descname">CLOSED</code><em class="property"> = 6</em><a class="headerlink" href="#nimiqclient.models.peer.PeerConnectionState.CLOSED" title="Permalink to this definition">¶</a></dt>
+<dd><p>Connection closed.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="nimiqclient.models.peer.PeerConnectionState.CONNECTED">
+<code class="sig-name descname">CONNECTED</code><em class="property"> = 3</em><a class="headerlink" href="#nimiqclient.models.peer.PeerConnectionState.CONNECTED" title="Permalink to this definition">¶</a></dt>
+<dd><p>Connected.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="nimiqclient.models.peer.PeerConnectionState.CONNECTING">
+<code class="sig-name descname">CONNECTING</code><em class="property"> = 2</em><a class="headerlink" href="#nimiqclient.models.peer.PeerConnectionState.CONNECTING" title="Permalink to this definition">¶</a></dt>
+<dd><p>Connecting.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="nimiqclient.models.peer.PeerConnectionState.ESTABLISHED">
+<code class="sig-name descname">ESTABLISHED</code><em class="property"> = 5</em><a class="headerlink" href="#nimiqclient.models.peer.PeerConnectionState.ESTABLISHED" title="Permalink to this definition">¶</a></dt>
+<dd><p>Connection established.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="nimiqclient.models.peer.PeerConnectionState.NEGOTIATING">
+<code class="sig-name descname">NEGOTIATING</code><em class="property"> = 4</em><a class="headerlink" href="#nimiqclient.models.peer.PeerConnectionState.NEGOTIATING" title="Permalink to this definition">¶</a></dt>
+<dd><p>Negotiating connection.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="nimiqclient.models.peer.PeerConnectionState.NEW">
+<code class="sig-name descname">NEW</code><em class="property"> = 1</em><a class="headerlink" href="#nimiqclient.models.peer.PeerConnectionState.NEW" title="Permalink to this definition">¶</a></dt>
+<dd><p>New connection.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="nimiqclient.models.peer.PeerStateCommand.html" class="btn btn-neutral float-right" title="nimiqclient.models.peer.PeerStateCommand" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="nimiqclient.models.peer.PeerAddressState.html" class="btn btn-neutral float-left" title="nimiqclient.models.peer.PeerAddressState" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        
+        &copy; Copyright 
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

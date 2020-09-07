@@ -1,0 +1,22 @@
+version: "2"
+checks:
+  argument-count:
+    config:
+      threshold: 16
+  file-lines:
+    config:
+      threshold: 600
+  method-count:
+    config:
+      threshold: 50
+  method-lines:
+    config:
+      threshold: 50
+  similar-code:
+    config:
+      threshold: 64 # default generates false positives
+exclude_patterns:
+- test/
+- docs/
+- build/
+- dist/

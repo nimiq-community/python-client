@@ -1,0 +1,275 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>nimiqclient.models.transaction.Transaction &mdash; Nimiq Python Client 1.0 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+
+  
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="nimiqclient.models.transaction.TransactionReceipt" href="nimiqclient.models.transaction.TransactionReceipt.html" />
+    <link rel="prev" title="nimiqclient.models.transaction.TXBase" href="nimiqclient.models.transaction.TXBase.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home" alt="Documentation Home"> Nimiq Python Client
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">API Reference</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="nimiqclient.html">nimiqclient</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="nimiqclient.models.html">nimiqclient.models</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="nimiqclient.models.account.html">nimiqclient.models.account</a></li>
+<li class="toctree-l3"><a class="reference internal" href="nimiqclient.models.block.html">nimiqclient.models.block</a></li>
+<li class="toctree-l3"><a class="reference internal" href="nimiqclient.models.mempool.html">nimiqclient.models.mempool</a></li>
+<li class="toctree-l3"><a class="reference internal" href="nimiqclient.models.miner.html">nimiqclient.models.miner</a></li>
+<li class="toctree-l3"><a class="reference internal" href="nimiqclient.models.node.html">nimiqclient.models.node</a></li>
+<li class="toctree-l3"><a class="reference internal" href="nimiqclient.models.peer.html">nimiqclient.models.peer</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="nimiqclient.models.transaction.html">nimiqclient.models.transaction</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="nimiqclient.models.transaction.preprocess_args.html">nimiqclient.models.transaction.preprocess_args</a></li>
+<li class="toctree-l4"><a class="reference internal" href="nimiqclient.models.transaction.OutgoingTransaction.html">nimiqclient.models.transaction.OutgoingTransaction</a></li>
+<li class="toctree-l4"><a class="reference internal" href="nimiqclient.models.transaction.TXBase.html">nimiqclient.models.transaction.TXBase</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">nimiqclient.models.transaction.Transaction</a></li>
+<li class="toctree-l4"><a class="reference internal" href="nimiqclient.models.transaction.TransactionReceipt.html">nimiqclient.models.transaction.TransactionReceipt</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="nimiqclient.nimiq_client.html">nimiqclient.nimiq_client</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Nimiq Python Client</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="nimiqclient.html">nimiqclient</a> &raquo;</li>
+        
+          <li><a href="nimiqclient.models.html">nimiqclient.models</a> &raquo;</li>
+        
+          <li><a href="nimiqclient.models.transaction.html">nimiqclient.models.transaction</a> &raquo;</li>
+        
+      <li>nimiqclient.models.transaction.Transaction</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="nimiqclient-models-transaction-transaction">
+<h1>nimiqclient.models.transaction.Transaction<a class="headerlink" href="#nimiqclient-models-transaction-transaction" title="Permalink to this headline">¶</a></h1>
+<dl class="py class">
+<dt id="nimiqclient.models.transaction.Transaction">
+<em class="property">class </em><code class="sig-prename descclassname">nimiqclient.models.transaction.</code><code class="sig-name descname">Transaction</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nimiqclient/models/transaction.html#Transaction"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nimiqclient.models.transaction.Transaction" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="nimiqclient.models.transaction.TXBase.html#nimiqclient.models.transaction.TXBase" title="nimiqclient.models.transaction.TXBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">nimiqclient.models.transaction.TXBase</span></code></a></p>
+<p>Transaction returned by the server.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>hash</strong> (<em>str</em>) – Hex-encoded hash of the transaction.</p></li>
+<li><p><strong>blockHash</strong> (<em>str</em><em>, </em><em>optional</em>) – Hex-encoded hash of the block containing the transaction.</p></li>
+<li><p><strong>blockNumber</strong> (<em>int</em><em>, </em><em>optional</em>) – Height of the block containing the transaction.</p></li>
+<li><p><strong>timestamp</strong> (<em>int</em><em>, </em><em>optional</em>) – UNIX timestamp of the block containing the transaction.</p></li>
+<li><p><strong>confirmations</strong> (<em>int</em><em>, </em><em>optional</em>) – Number of confirmations of the block containing the transaction.</p></li>
+<li><p><strong>transactionIndex</strong> (<em>int</em><em>, </em><em>optional</em>) – Index of the transaction in the block.</p></li>
+<li><p><strong>from</strong> (<em>str</em>) – Hex-encoded address of the sending account.</p></li>
+<li><p><strong>fromAddress</strong> (<em>str</em>) – Nimiq user friendly address (NQ-address) of the sending account.</p></li>
+<li><p><strong>to</strong> (<em>str</em>) – Hex-encoded address of the recipient account.</p></li>
+<li><p><strong>toAddress</strong> (<em>str</em>) – Nimiq user friendly address (NQ-address) of the recipient account.</p></li>
+<li><p><strong>value</strong> (<em>int</em>) – Integer of the value (in smallest unit) sent with this transaction.</p></li>
+<li><p><strong>fee</strong> (<em>int</em>) – Integer of the fee (in smallest unit) for this transaction.</p></li>
+<li><p><strong>data</strong> (<em>str</em><em>, </em><em>optional</em>) – Hex-encoded contract parameters or a message.</p></li>
+<li><p><strong>flags</strong> (<em>int</em>) – Bit-encoded transaction flags.</p></li>
+<li><p><strong>valid</strong> (<em>bool</em><em>, </em><em>optional</em>) – Is valid transaction.</p></li>
+<li><p><strong>inMempool</strong> (<em>bool</em><em>, </em><em>optional</em>) – Transaction is in mempool.</p></li>
+</ul>
+</dd>
+</dl>
+<p class="rubric">Methods</p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="nimiqclient.models.transaction.TransactionReceipt.html" class="btn btn-neutral float-right" title="nimiqclient.models.transaction.TransactionReceipt" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="nimiqclient.models.transaction.TXBase.html" class="btn btn-neutral float-left" title="nimiqclient.models.transaction.TXBase" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        
+        &copy; Copyright 
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
