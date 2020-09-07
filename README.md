@@ -1,11 +1,10 @@
-Nimiq Python Client
-===================
+# Nimiq Python Client
 
 > Python implementation of the Nimiq RPC client specs.
 
 ## Usage
 
-Send requests to a Nimiq node with `NimiqClient` object.
+To get started sending requests to a Nimiq node, we create a `NimiqClient` object.
 
 ```python
 import nimiqclient
@@ -17,89 +16,84 @@ client = NimiqClient(
 	host = "127.0.0.1",
 	port = 8648
 )
-```
 
-Once the client have been set up, we can call the methods with the appropiate arguments to make requests to the Nimiq node.
-
-When no `config` object is passed in the initialization it will use the default values in the Nimiq node.
-
-```python
-client = NimiqClient()
-
-# make rpc call to get the block number
+# make rpc call to get current block number
 blockNumber = client.blockNumber()
-
-print(blockNumber) # displays the block number, for example 748883
+print(blockNumber)
 ```
+
+Note: When no `config` object is passed in the initialization it will use the default values in the Nimiq node.
 
 ## API
 
 The complete API documentation is available [here](https://rraallvv.github.io/python-client/).
 
-Check out the [Nimiq RPC specs](https://github.com/nimiq/core-js/wiki/JSON-RPC-API) for behind the scene RPC calls.
+Check out the original [Nimiq RPC specs](https://github.com/nimiq/core-js/wiki/JSON-RPC-API) for the behind-the-scenes RPC calls.
 
 ## Installation
 
-### From GitHub repository
-
-Clone the repository then intall the package.
+Using PIP
 
 ```sh
-$ git clone https://github.com/nimiq-community/python-client
-$ cd python-client
-$ python setup.py install
+pip install nimiqclient
 ```
 
-### From Python Package Index (PyPI)
+Or clone the repository and install the package from source
 
 ```sh
-$pip install nimiqclient
+git clone https://github.com/nimiq-community/python-client
+cd python-client
+python setup.py install
+```
+
+## Build
+
+Clone the repo and install it
+
+```sh
+git clone https://github.com/nimiq-community/python-client
+cd python-client
+python setup.py install
+```
+
+All done, happy coding!
+
+## Test
+
+You need a start a Testnet Nimiq node:
+
+```sh
+nodejs index.js --protocol=dumb --type=full --network=test --rpc
+```
+
+Tests are stored in the `/tests` folder and can be run from the command line like this:
+
+```sh
+python -m unittest discover -v
+```
+
+## Documentation
+
+The documentation is generated automatically with [Sphinx](https://www.sphinx-doc.org).
+
+From the repository root directory install the development dependency requirements:
+
+```sh
+pip install -r requirements.txt
+```
+
+Then from the `/docs` directory run Sphinx via the `make` command:
+
+```sh
+cd docs
+make html
 ```
 
 ## Contributions
 
 This implementation was originally contributed by [rraallvv](https://github.com/rraallvv/).
 
-Please send your contributions as pull requests.
-
-Refer to the [issue tracker](https://github.com/nimiq-community/python-client/issues) for ideas.
-
-### Develop
-
-After cloning the repository intall the package.
-
-```sh
-$ git clone https://github.com/nimiq-community/python-client
-$ cd python-client
-$ python setup.py install
-```
-
-All done, happy coding!
-
-### Testing
-
-Tests are stored in the `/tests` folder and can be run from the command line like this:
-
-```sh
-$ python -m unittest discover -v
-```
-
-### Documentation
-
-The documentation is generated automatically with [Sphinx](https://www.sphinx-doc.org).
-
-From the repository root directory install the development dependency requeriments:
-
-```sh
-$ pip install -r requirements.txt
-```
-
-Then from the `/docs` directory run Sphinx via de the command `make`:
-
-```sh
-$ cd docs
-$ make html
-```
+Bug reports and pull requests are welcome! Please refer to the [issue tracker](https://github.com/nimiq-community/python-client/issues) for ideas.
 
 ## License
 
