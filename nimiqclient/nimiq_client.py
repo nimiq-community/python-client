@@ -73,7 +73,7 @@ class NimiqClient:
         call_object = {
             "jsonrpc": "2.0",
             "method": method,
-            "params": (list(args),),
+            "params": list(args),
             "id": self.id,
         }
 
