@@ -13,7 +13,7 @@ setup(
     author="The Nimiq Foundation",
     author_email="info@nimiq.com",
     license="Apache 2.0",
-    packages=['nimiqclient', 'nimiqclient.models'],
+    packages=["nimiqclient", "nimiqclient.models"],
     zip_safe=True,
     install_requires=["requests", "enum34"],
     python_requires=">=2.4",
